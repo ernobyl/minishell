@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/22 11:50:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:56:34 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ int main(void)
 		if (ft_strcmp(input, "pwd") == 0)
 			pwd_builtin();
 		add_history(input);
+		if (parsing(input) == 0)
+		{
+			free(input);
+			return (1);
+		}
 		printf("%s\n", input);
 		free(input);
 	}
