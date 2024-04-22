@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/22 10:28:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:18:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h> // (remember to compile with -lreadline)
-#include <signal.h>
+#include "minishell.h"
 
 volatile sig_atomic_t	exit_flag = 0;
 
