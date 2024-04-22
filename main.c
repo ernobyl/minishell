@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/22 11:20:23 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,6 +19,13 @@
 #include <readline/history.h>
 #include <signal.h>
 #include <errno.h>
+=======
+/*   Updated: 2024/04/22 11:18:43 by kmatjuhi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+>>>>>>> 7d6adf31cdeec1d0570eb6a45b0d21b5456c14b7
 
 volatile sig_atomic_t	exit_flag = 0;
 
