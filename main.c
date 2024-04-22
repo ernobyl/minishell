@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
+/*   Updated: 2024/04/22 10:28:11 by emichels         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
-#include <string.h>  // For strlen - replace with libft later
+#include "libft/libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h> // (remember to compile with -lreadline)
@@ -26,11 +39,10 @@ int main(void)
 	while (!exit_flag)
 	{
 		input = readline("Input something to echo (or type 'exit' to quit): ");
-		if (input == NULL || strcmp(input, "exit") == 0)
+		if (input == NULL || ft_strcmp(input, "exit") == 0)
 			break ;
 		add_history(input);
-		write(1, input, strlen(input));
-		write(1, "\n", 1);
+		printf("%s\n", input);
 		free(input);
 	}
 	return (0);
