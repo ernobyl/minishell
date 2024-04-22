@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/22 11:20:22 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:41:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	parsing(char *input)
-{
-
-}
+// int	parsing(char *input)
+// {
+//     if (parsing)
+//         return (1);
+        
+// }

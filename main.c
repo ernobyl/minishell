@@ -3,95 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/22 11:56:34 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:58:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <errno.h>
+#include "minishell.h"
 
-volatile sig_atomic_t	exit_flag = 0;
+volatile sig_atomic_t	g_exit_flag = 0;
 
 void	handle_signal(int sig)
 {
 	if (sig == SIGQUIT || sig == SIGHUP || sig == SIGTERM)
-		exit_flag = 1;
+		g_exit_flag = 1;
 	else if (sig == SIGINT)
 		write(1, "\nhandle signal interrupt\n", 25);
 }
 
-void	double_buf_size(char *str, size_t buf_size)
+char	*skip_set(char *str, char *set)
 {
-	if (errno == ERANGE)
-	{
-		buf_size *= 2;
-		free(str);
-	}
-	else
-	{
-		perror("pwd: getcwd failed");
-		free(str);
-		return ;
-	}
-}
+	char	*skipped;
+	int		i;
+	int		k;
 
-void	pwd_builtin(void)
-{
-	size_t	buf_size;
-	char	*cwd;
-
-	buf_size = 256;
-	cwd = NULL;
-	cwd = malloc(buf_size);
-	if (cwd == NULL)
+	i = 0;
+	while (str[i])
 	{
-		perror("malloc failed");
-		return ;
+		if (str[i] == set[i])
+			i++;
+		else
+			break ;
 	}
-	if (getcwd(cwd, buf_size) != NULL)
-	{
-		printf("%s\n", cwd);
-		free(cwd);
-		return ;
-	}
-	else
-	{
-		double_buf_size(cwd, buf_size);
-		return ;
-	}
+	skipped = malloc(ft_strlen(str) - i + 1);
+	if (!skipped)
+		return (NULL);
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	k = 0;
+	while (str[i])
+		skipped[k++] = str[i++];
+	skipped[k] = '\0';
+	return (skipped);
 }
 
 int main(void)
 {
 	char	*input;
+	char	*path;
 
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
 	signal(SIGHUP, handle_signal);
 	signal(SIGTERM, handle_signal);
-	while (!exit_flag)
+	while (!g_exit_flag)
 	{
-		input = readline("Input something to echo (or type 'exit' to quit): ");
+		input = readline("minishell> ");
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
 			break ;
-		if (ft_strcmp(input, "pwd") == 0)
+		if (ft_strncmp(input, "pwd", 3) == 0)
 			pwd_builtin();
-		add_history(input);
-		if (parsing(input) == 0)
+		if (ft_strncmp(input, "cd", 2) == 0)
 		{
-			free(input);
-			return (1);
+			path = skip_set(input, "cd");
+			cd_builtin(path);
+			free (path);
 		}
-		printf("%s\n", input);
+		add_history(input);
+		// if (parsing(input) == 0)
+		// {
+		// 	free(input);
+		// 	return (1);
+		// }
 		free(input);
 	}
 	return (0);
