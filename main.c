@@ -74,7 +74,8 @@ int main(void)
 		if (ft_strncmp(input, "echo", 4) == 0)
 		{
 			param = skip_set(input, "echo");
-			char *file = "testfile.txt"; // this is here for testing
+			char *file = NULL;
+			//file = "testfile.txt"; // this is here for testing
 			echo_builtin(fd, file, param);
 			free(param);
 		}
