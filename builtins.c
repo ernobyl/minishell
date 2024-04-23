@@ -73,7 +73,20 @@ void    cd_builtin(const char *path)
         perror("cd");
 }
 
-// void    echo_builtin(char *input)
-// {
-//     return ;
-// }
+void    echo_builtin(int fd, char *file, char *input)
+{
+	char	*to_echo;
+
+	to_echo = NULL;
+	if (file)
+		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	if (strncmp(input, "-n", 2) == 0)
+	{
+		to_echo = skip_set(input, "-n");
+		ft_putstr_fd(to_echo, fd);
+		free(to_echo);
+	}
+	else
+		ft_putendl_fd(input, fd);
+    return ;
+}

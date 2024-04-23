@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <unistd.h>
+# include <fcntl.h>
 # include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,9 +25,11 @@
 
 //int		parsing(char *input);
 
+char    *skip_set(char *str, char *set);
+
 void	pwd_builtin(void);
 void	cd_builtin(const char *path);
-//void	echo_builtin(char *input);
+void	echo_builtin(int fd, char *file, char *input);
 
 
 

@@ -36,7 +36,7 @@ char	*skip_set(char *str, char *set)
 		else
 			break ;
 	}
-	skipped = malloc(ft_strlen(str) - i + 1);
+	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
 	if (!skipped)
 		return (NULL);
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
@@ -44,15 +44,16 @@ char	*skip_set(char *str, char *set)
 	k = 0;
 	while (str[i])
 		skipped[k++] = str[i++];
-	skipped[k] = '\0';
 	return (skipped);
 }
 
 int main(void)
 {
 	char	*input;
-	char	*path;
+	char	*param;
+	int		fd;
 
+	fd = 1;
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
 	signal(SIGHUP, handle_signal);
@@ -66,9 +67,16 @@ int main(void)
 			pwd_builtin();
 		if (ft_strncmp(input, "cd", 2) == 0)
 		{
-			path = skip_set(input, "cd");
-			cd_builtin(path);
-			free (path);
+			param = skip_set(input, "cd");
+			cd_builtin(param);
+			free (param);
+		}
+		if (ft_strncmp(input, "echo", 4) == 0)
+		{
+			param = skip_set(input, "echo");
+			char *file = "testfile.txt"; // this is here for testing
+			echo_builtin(fd, file, param);
+			free(param);
 		}
 		add_history(input);
 		// if (parsing(input) == 0)
