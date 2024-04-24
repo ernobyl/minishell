@@ -84,8 +84,8 @@ int main(void)
 		{
 			param = skip_set(input, "export");
 			export_builtin(&environ, param);
-			for (char **env = environ; *env != NULL; env++)
-        		printf("%s\n", *env);
+			// for (char **env = environ; *env != NULL; env++) // this is here to print the env list
+        	// 	printf("%s\n", *env);
 			free(param);
 		}
 		add_history(input);
