@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/24 08:48:27 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:06:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int	parsing(char *input)
 	t_struct *file;
 
 	i = 0;
-	arr = ft_split(input, ' ');
+	arr = split(input, ' ');
 	if (!arr)
 		return (0);
-	while (arr[i])
-	{
-		// if find < or > or << or >>
-		printf("%s\n", arr[i]);
-		i++;
-	}
+	// while (arr[i])
+	// {
+	// 	printf("%s\n", arr[i]);
+	// 	i++;
+	// }
 	return (1);
 }
