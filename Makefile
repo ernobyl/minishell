@@ -6,13 +6,13 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/04/22 11:19:33 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/04/23 13:06:28 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -Wextra -Wall -Werror
+# CFLAGS	:= -Wextra -Wall -Werror
 HEADERS	:= 
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \

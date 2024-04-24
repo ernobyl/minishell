@@ -6,18 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/22 11:56:34 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:50:38 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <errno.h>
+#include "minishell.h"
 
 volatile sig_atomic_t	exit_flag = 0;
 
@@ -70,7 +63,7 @@ void	pwd_builtin(void)
 	}
 }
 
-int main(void)
+int	main(void)
 {
 	char	*input;
 
@@ -91,7 +84,6 @@ int main(void)
 			free(input);
 			return (1);
 		}
-		printf("%s\n", input);
 		free(input);
 	}
 	return (0);
