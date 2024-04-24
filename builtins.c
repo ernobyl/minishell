@@ -73,10 +73,12 @@ void    cd_builtin(const char *path)
         perror("cd");
 }
 
-void    echo_builtin(int fd, char *file, char *input)
+void    echo_builtin(char *file, char *input)
 {
 	char	*to_echo;
+	int		fd;
 
+	fd = 1;
 	to_echo = NULL;
 	if (file)
 		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
@@ -109,7 +111,7 @@ void    export_builtin(char ***environ, char *new_var)
 	{
 		if (ft_strcmp((*environ)[i], new_var) == 0)
 		{
-			free((environ)[i]);
+			free((*environ)[i]);
 			(*environ)[i] = ft_strdup(new_var);
 			if ((*environ)[i] == NULL)
 			{
