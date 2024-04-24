@@ -90,3 +90,55 @@ void    echo_builtin(int fd, char *file, char *input)
 		ft_putendl_fd(input, fd);
     return ;
 }
+
+void    export_builtin(char ***environ, char *new_var)
+{
+	int		i;
+	int		found;
+	char	**add_env;
+
+	i = 0;
+	found = 0;
+	add_env = NULL;
+	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
+	{
+		ft_putendl_fd("Invalid environment variable format.", 2);
+		return ;
+	}
+	while ((*environ)[i])
+	{
+		if (ft_strcmp((*environ)[i], new_var) == 0)
+		{
+			free((environ)[i]);
+			(*environ)[i] = ft_strdup(new_var);
+			if ((*environ)[i] == NULL)
+			{
+				ft_putendl_fd("strdup failed", 2);
+				return ;
+			}
+			found = 1;
+			break ;
+		}
+		i++;
+	}
+	if (!found)
+	{
+		add_env = malloc((i + 2) * sizeof(char *));
+		if (add_env == NULL)
+		{
+			ft_putendl_fd("malloc failed", 2);
+			return ;
+		}
+		ft_memcpy(add_env, *environ, i * sizeof(char *));
+		add_env[i] = ft_strdup(new_var);
+		if (add_env[i] == NULL)
+		{
+			ft_putendl_fd("strdup failed", 2);
+			free(add_env);
+			return ;
+		}
+		add_env[i + 1] = NULL;
+		free (*environ);
+		*environ = add_env;
+	}
+}

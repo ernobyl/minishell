@@ -49,9 +49,10 @@ char	*skip_set(char *str, char *set)
 
 int main(void)
 {
-	char	*input;
-	char	*param;
-	int		fd;
+	char		*input;
+	char		*param;
+	int			fd;
+	extern char	**environ;
 
 	fd = 1;
 	signal(SIGQUIT, handle_signal);
@@ -77,6 +78,14 @@ int main(void)
 			char *file = NULL;
 			//file = "testfile.txt"; // this is here for testing
 			echo_builtin(fd, file, param);
+			free(param);
+		}
+		if (ft_strncmp(input, "export", 6) == 0)
+		{
+			param = skip_set(input, "export");
+			export_builtin(&environ, param);
+			for (char **env = environ; *env != NULL; env++)
+        		printf("%s\n", *env);
 			free(param);
 		}
 		add_history(input);

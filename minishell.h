@@ -30,6 +30,7 @@ char    *skip_set(char *str, char *set);
 void	pwd_builtin(void);
 void	cd_builtin(const char *path);
 void	echo_builtin(int fd, char *file, char *input);
+void    export_builtin(char ***environ, char *new_var);
 
 
 
