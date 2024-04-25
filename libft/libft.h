@@ -40,7 +40,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 
 size_t	ft_strlen(const char *s);
-int		ft_strlen_c(char *str, int c);
+size_t	ft_strlen_c(char *str, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);

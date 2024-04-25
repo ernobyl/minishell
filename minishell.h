@@ -27,10 +27,12 @@
 
 char    *skip_set(char *str, char *set);
 
-void	pwd_builtin(void);
-void	cd_builtin(const char *path);
-void	echo_builtin(char *file, char *input);
-void    export_builtin(char ***environ, char *new_var);
+int		pwd_builtin(void);
+int		cd_builtin(const char *path);
+int		echo_builtin(char *file, char *input);
+int		export_builtin(char ***environ, char *new_var);
+int		unset_builtin(char ***environ, char *to_unset);
+int		env_builtin(char **environ);
 
 
 

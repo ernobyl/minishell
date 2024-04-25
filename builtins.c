@@ -12,48 +12,60 @@
 
 #include "minishell.h"
 
-static void	double_buf_size(char *str, size_t buf_size)
+static int	double_buf_size(char **str, size_t *buf_size)
 {
 	if (errno == ERANGE)
 	{
-		buf_size *= 2;
-		free(str);
+		*buf_size *= 2;
+		free(*str);
+		*str = malloc(*buf_size);
+		if (*str == NULL)
+		{
+			perror("malloc failed");
+			return (EXIT_FAILURE);
+		}
+		return (EXIT_SUCCESS);
 	}
 	else
 	{
 		perror("pwd: getcwd failed");
-		free(str);
-		return ;
+		free(*str);
+		return (EXIT_FAILURE);
 	}
 }
 
-void	pwd_builtin(void)
+int	pwd_builtin(void)
 {
 	size_t	buf_size;
 	char	*cwd;
+	int		result;
 
 	buf_size = 256;
 	cwd = NULL;
-	cwd = malloc(buf_size);
-	if (cwd == NULL)
+	while (1)
 	{
-		perror("malloc failed");
-		return ;
-	}
-	if (getcwd(cwd, buf_size) != NULL)
-	{
-		printf("%s\n", cwd);
-		free(cwd);
-		return ;
-	}
-	else
-	{
-		double_buf_size(cwd, buf_size);
-		return ;
+		cwd = malloc(buf_size);
+		if (cwd == NULL)
+		{
+			perror("malloc failed");
+			return (EXIT_FAILURE);
+		}
+		if (getcwd(cwd, buf_size) != NULL)
+		{
+			printf("%s\n", cwd);
+			free(cwd);
+			return (EXIT_SUCCESS);
+		}
+		else
+		{
+			result = double_buf_size(&cwd, &buf_size);
+			if (result == EXIT_FAILURE)
+				return (result);
+		}
 	}
 }
 
-void    cd_builtin(const char *path)
+int    cd_builtin(const char *path)
 {
     const char  *home;
     
@@ -63,17 +75,20 @@ void    cd_builtin(const char *path)
         if (home == NULL)
         {
             printf("cd: HOME not set");
-            return ;
+            return (EXIT_FAILURE);
         }
         path = home;
     }
     if (chdir(path) == 0)
-        return ;
+        return (EXIT_SUCCESS);
     else
+	{
         perror("cd");
+		return (EXIT_FAILURE);
+	}
 }
 
-void    echo_builtin(char *file, char *input)
+int    echo_builtin(char *file, char *input)
 {
 	char	*to_echo;
 	int		fd;
@@ -90,10 +105,10 @@ void    echo_builtin(char *file, char *input)
 	}
 	else
 		ft_putendl_fd(input, fd);
-    return ;
+    return (EXIT_SUCCESS);
 }
 
-void    export_builtin(char ***environ, char *new_var)
+int    export_builtin(char ***environ, char *new_var)
 {
 	int		i;
 	int		found;
@@ -105,18 +120,18 @@ void    export_builtin(char ***environ, char *new_var)
 	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
 	{
 		ft_putendl_fd("Invalid environment variable format.", 2);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	while ((*environ)[i])
 	{
-		if (ft_strcmp((*environ)[i], new_var) == 0)
+		if (ft_strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
 		{
 			free((*environ)[i]);
 			(*environ)[i] = ft_strdup(new_var);
 			if ((*environ)[i] == NULL)
 			{
 				ft_putendl_fd("strdup failed", 2);
-				return ;
+				return (EXIT_FAILURE);
 			}
 			found = 1;
 			break ;
@@ -129,7 +144,7 @@ void    export_builtin(char ***environ, char *new_var)
 		if (add_env == NULL)
 		{
 			ft_putendl_fd("malloc failed", 2);
-			return ;
+			return (EXIT_FAILURE);
 		}
 		ft_memcpy(add_env, *environ, i * sizeof(char *));
 		add_env[i] = ft_strdup(new_var);
@@ -137,10 +152,56 @@ void    export_builtin(char ***environ, char *new_var)
 		{
 			ft_putendl_fd("strdup failed", 2);
 			free(add_env);
-			return ;
+			return (EXIT_FAILURE);
 		}
 		add_env[i + 1] = NULL;
 		free (*environ);
 		*environ = add_env;
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	unset_builtin(char ***environ, char *to_unset)
+{
+	int		i;
+	size_t	var_len;
+	size_t	unset_len;
+
+	i = 0;
+	var_len = 0;
+	unset_len = ft_strlen(to_unset);
+	while ((*environ)[i])
+	{
+		var_len = ft_strlen_c((*environ)[i], '=');
+		if (var_len == unset_len && ft_strncmp((*environ)[i], to_unset, var_len) == 0)
+		{
+			free((*environ)[i]);
+			while ((*environ)[i])
+			{
+				(*environ)[i] = (*environ)[i + 1];
+				i++;
+			}
+			return (EXIT_SUCCESS);
+		}
+		i++;
+	}
+	return (EXIT_FAILURE);
+}
+
+int	env_builtin(char **environ)
+{
+	int	i;
+
+	i = 0;
+	if (environ == NULL)
+	{
+		ft_putendl_fd("environment list not found", 2);
+		return (EXIT_FAILURE);
+	}
+	while (environ[i])
+	{
+		printf("%s\n", environ[i]);
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
