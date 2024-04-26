@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 09:53:00 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:16:37 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	count_letters(char const *s, int i, char c)
 	{
 		quote = s[i++];
 		count = ft_isquote(s, i, quote);
+		while (ft_isprint(s[count]))
+			count++;
 		count = count - i + 2;
 	}
 	else
