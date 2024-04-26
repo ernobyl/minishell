@@ -6,31 +6,33 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/25 08:44:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:05:28 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <unistd.h>
-#include "libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <errno.h>
+# include <unistd.h>
+# include "libft/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include <errno.h>
 
 typedef struct s_struct
 {
-	char *type;
-	char *value;
-	struct s_struct *prev;
-	struct s_struct *next;
-} t_struct;
+	char			*infile;
+	char			*outfile;
+	char			*type;
+	char			*value;
+	struct s_struct	*prev;
+	struct s_struct	*next;
+}					t_struct;
 
-int	parsing(char *input);
+int		parsing(char *input);
 char	**split(char const *s);
 
 #endif

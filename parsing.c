@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 09:43:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:45:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_syntax(char *input)
 {
 	int		i;
-	char	quote;
+	char	sign;
 
 	i = 0;
 	while (input[i])
@@ -24,12 +24,18 @@ int	check_syntax(char *input)
 			return (0);
 		if (input[i] == '"' || input[i] == '\'')
 		{
-			quote = input[i++];
-			while (input[i] && input[i] != quote)
+			sign = input[i++];
+			while (input[i] && input[i] != sign)
 				i++;
-			if (input[i] != quote)
+			if (input[i] != sign)
 				return (0);
 		}
+		if (input[i] == '<' && ((input[i + 1] == '<' && input[i + 2] == '<') \
+		|| input[i + 1] == '\0'))
+			return (0);
+		if (input[i] == '>' && ((input[i + 1] == '>' && input[i + 2] == '>') \
+		|| input[i + 1] == '\0'))
+			return (0);
 		i++;
 	}
 	return (1);
@@ -38,7 +44,6 @@ int	check_syntax(char *input)
 int	parsing(char *input)
 {
 	t_struct	*cmd;
-	t_struct	*file;
 	int			i;
 	char		**arr;
 
