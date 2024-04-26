@@ -6,76 +6,62 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/24 12:21:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:45:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	skip(char const *s, int i, char c)
+static int	ft_isquote(char const *str, int i, char quote)
 {
-	while (s[i] && s[i] != c)
-	{
-		printf("%c\n", s[i]);
+	while (str[i] != quote)
 		i++;
-	}
-	if (s[i] == '\0')
-		return (-1);
-	while (s[i] && s[i] == ' ')
-		i++;
-	return (i + 1);
+	return (i);
 }
 
-static int	count_words(char const *s, char c)
+static int	count_words(char const *s)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		rows;
+	char	quote;
 
 	i = 0;
-	j = 0;
-	while (s[i] == c && s[i])
-		i++;
-	if (s[i] == '\0')
-		return (0);
+	rows = 0;
 	while (s[i])
 	{
-		// if find "      i++ until finding" -> add a row to it . if no found closing. return false
-		if (s[i] == '"')
+		if (s[i] == '"' || s[i] == '\'')
 		{
-			printf("going into skip 1\n");
-			i = skip(s, i + 1, '"');
-			if (i == -1)
-				return (0);
-			j++;
+			quote = s[i++];
+			i = ft_isquote(s, i, quote);
 		}
-		if (s[i] == '\'')
-		{
-			printf("going into skip 2\n");
-			i = skip(s, i + 1, '\'');
-			if (i == -1)
-				return (0);
-			j++;
-		}
-		// else if '       i++ until finding ' -> add new row to it. if no found closing return false
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-		{
-			printf("nadding row\n");
-			j++;
-		}
-		i++;
+		while (ft_isprint(s[i]))
+			i++;
+		while (s[i] == ' ')
+			i++;
+		rows++;
 	}
-	return (j + 1);
+	return (rows);
 }
 
 static int	count_letters(char const *s, int i, char c)
 {
-	int	count;
+	int		count;
+	char	quote;
 
 	count = 0;
-	while (s[i] != c && s[i])
+	if (s[i] == '"' || s[i] == '\'')
 	{
-		count++;
-		i++;
+		quote = s[i++];
+		count = ft_isquote(s, i, quote);
+		count = count - i + 2;
+	}
+	else
+	{
+		while (s[i] != c && s[i])
+		{
+			count++;
+			i++;
+		}
 	}
 	return (count);
 }
@@ -114,18 +100,17 @@ static int	fill(char **dest, char const *s, char c, int rows)
 	return (1);
 }
 
-char	**split(char const *s, char c)
+char	**split(char const *s)
 {
 	char	**dest;
 	int		rows;
 
-	rows = count_words(s, c);
-	printf("\namount rows %d\n", rows);
+	rows = count_words(s);
 	dest = (char **)malloc((rows + 1) * sizeof(char *));
 	if (!dest)
 		return (NULL);
-	// if (fill(dest, s, c, rows) == 0)
-	// 	return (NULL);
-	// dest[rows] = NULL;
+	if (fill(dest, s, ' ', rows) == 0)
+		return (NULL);
+	dest[rows] = NULL;
 	return (dest);
 }

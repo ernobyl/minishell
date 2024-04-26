@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/24 12:04:54 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/25 08:44:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ typedef struct s_struct
 } t_struct;
 
 int	parsing(char *input);
-char	**split(char const *s, char c);
+char	**split(char const *s);
 
 #endif
