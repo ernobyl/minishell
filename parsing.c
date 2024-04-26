@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 10:59:31 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:57:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,62 @@ int	check_syntax(char *input)
 	return (1);
 }
 
+int	count_trim_letters(char *str)
+{
+	int		i;
+	int		j;
+	char	quote;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+			{
+				i++;
+				j++;
+			}
+			i++;
+		}
+		else
+		{
+			i++;
+			j++;
+		}
+	}
+	return (j);
+}
+char	*trim_quote(char *str)
+{
+	int		i;
+	int		j;
+	char	quote;
+	char	*new_str;
+
+	i = 0;
+	j = 0;
+	new_str = malloc(sizeof(char) * (count_trim_letters(str) + 1));
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+				new_str[j++] = str[i++];
+			i++;
+		}
+		else
+			new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
+	free(str);
+	return (new_str);
+}
+
 int	parsing(char *input)
 {
 	t_struct	*cmd;
@@ -59,9 +115,9 @@ int	parsing(char *input)
 		return (0);
 	while (arr[i])
 	{
-		printf("%s\n", arr[i]);
+		arr[i] = trim_quote(arr[i]);
+		printf("{%s}\n", arr[i]);
 		i++;
 	}
-	printf("%s", arr[i]);
 	return (1);
 }

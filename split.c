@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 11:16:37 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:58:07 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_isquote(char const *str, int i, char quote)
 {
 	while (str[i] != quote)
 		i++;
-	return (i);
+	return (i + 1);
 }
 
 static int	count_words(char const *s)
@@ -29,13 +29,16 @@ static int	count_words(char const *s)
 	rows = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'')
-		{
-			quote = s[i++];
-			i = ft_isquote(s, i, quote);
-		}
 		while (ft_isprint(s[i]))
-			i++;
+		{
+			if (s[i] == '"' || s[i] == '\'')
+			{
+				quote = s[i++];
+				i = ft_isquote(s, i, quote);
+			}
+			else
+				i++;
+		}
 		while (s[i] == ' ')
 			i++;
 		rows++;
@@ -48,23 +51,18 @@ static int	count_letters(char const *s, int i, char c)
 	int		count;
 	char	quote;
 
-	count = 0;
-	if (s[i] == '"' || s[i] == '\'')
+	count = i;
+	while (ft_isprint(s[i]))
 	{
-		quote = s[i++];
-		count = ft_isquote(s, i, quote);
-		while (ft_isprint(s[count]))
-			count++;
-		count = count - i + 2;
-	}
-	else
-	{
-		while (s[i] != c && s[i])
+		if (s[i] == '"' || s[i] == '\'')
 		{
-			count++;
-			i++;
+			quote = s[i++];
+			i = ft_isquote(s, i, quote);
 		}
+		else
+			i++;
 	}
+	count = i - count;
 	return (count);
 }
 
