@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 21:57:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/26 22:46:16 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,18 @@ int	parsing(char *input)
 	if (!check_syntax(input))
 	{
 		printf("Syntax error\n");
+		free(input);
 		return (0);
 	}
 	arr = split(input);
+	free(input);
 	if (!arr)
 		return (0);
 	while (arr[i])
 	{
 		arr[i] = trim_quote(arr[i]);
-		printf("{%s}\n", arr[i]);
 		i++;
 	}
+	ft_free(arr);
 	return (1);
 }
