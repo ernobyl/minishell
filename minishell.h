@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 14:17:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:42:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_struct
 	struct s_struct	*next;
 }					t_struct;
 
-int		parsing(char *input, sig_atomic_t flag);
+int		parsing(char *input);
 char	**split(char const *s);
 char	*skip_set(char *str, char *set);
 int		pwd_builtin(void);

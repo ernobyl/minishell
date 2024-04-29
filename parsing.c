@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 13:16:24 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:50:51 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,18 @@ char	*trim_quote(char *str)
 	return (new_str);
 }
 
-int	parsing(char *input, sig_atomic_t flag)
+int	parsing(char *input)
 {
 	t_struct	*cmd;
 	int			i;
+	int			j;
 	char		**arr;
+	char		**str;
 
 	i = 0;
+	j = 0;
+	str = malloc(sizeof(char) * 100);
+	*str = malloc(sizeof(char) * 100);
 	input = ft_strtrim(input, " ");
 	if (!check_syntax(input))
 	{
@@ -119,13 +124,14 @@ int	parsing(char *input, sig_atomic_t flag)
 	while (arr[i])
 	{
 		arr[i] = trim_quote(arr[i]);
-		// if (built_ins(arr[0], arr[1], flag) == 0)
-		// {
-		// 	printf("SUCCESS\n");
-		// 	break ;
-		// }
-		// else
-		printf("%s\n", arr[i]);
+		if (arr[i][0] != '|')
+		{
+			str[j] = ft_strjoin(str[j], " ");
+			str[j] = ft_strjoin(str[j], arr[i]);
+			printf("%s\n", str[j]);
+		}
+		else
+			j++;
 		i++;
 	}
 	ft_free(arr);

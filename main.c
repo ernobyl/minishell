@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 14:26:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:42:06 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		add_history(input);
-		ret_value = built_ins(input);
-		if (ret_value == 100)
-			g_exit_flag = 1;
-		// if (parsing(input, g_exit_flag) == 0)
-		// {
-		// 	free(input);
-		// 	return (1);
-		// }
-		free(input);
+		// ret_value = built_ins(input);
+		// if (ret_value == 100)
+		// 	g_exit_flag = 1;
+		if (parsing(input) == 0)
+		{
+			free(input);
+			return (1);
+		}
+		// free(input);
 	}
 	return (ret_value);
 }
