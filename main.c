@@ -3,88 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/23 11:50:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:11:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	exit_flag = 0;
+volatile sig_atomic_t	g_exit_flag = 0;
 
 void	handle_signal(int sig)
 {
 	if (sig == SIGQUIT || sig == SIGHUP || sig == SIGTERM)
-		exit_flag = 1;
+		g_exit_flag = 1;
 	else if (sig == SIGINT)
 		write(1, "\nhandle signal interrupt\n", 25);
 }
 
-void	double_buf_size(char *str, size_t buf_size)
+char	*skip_set(char *str, char *set)
 {
-	if (errno == ERANGE)
+	char	*skipped;
+	int		i;
+	int		k;
+
+	i = 0;
+	while (str[i])
 	{
-		buf_size *= 2;
-		free(str);
+		if (str[i] == set[i])
+			i++;
+		else
+			break ;
 	}
-	else
-	{
-		perror("pwd: getcwd failed");
-		free(str);
-		return ;
-	}
+	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
+	if (!skipped)
+		return (NULL);
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	k = 0;
+	while (str[i])
+		skipped[k++] = str[i++];
+	return (skipped);
 }
 
-void	pwd_builtin(void)
+int main(void)
 {
-	size_t	buf_size;
-	char	*cwd;
-
-	buf_size = 256;
-	cwd = NULL;
-	cwd = malloc(buf_size);
-	if (cwd == NULL)
-	{
-		perror("malloc failed");
-		return ;
-	}
-	if (getcwd(cwd, buf_size) != NULL)
-	{
-		printf("%s\n", cwd);
-		free(cwd);
-		return ;
-	}
-	else
-	{
-		double_buf_size(cwd, buf_size);
-		return ;
-	}
-}
-
-int	main(void)
-{
-	char	*input;
+	char		*input;
+	char		*param;
+	extern char	**environ;
+	int			ret_value;
 
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
 	signal(SIGHUP, handle_signal);
 	signal(SIGTERM, handle_signal);
-	while (!exit_flag)
+	ret_value = 0;
+	while (!g_exit_flag)
 	{
-		input = readline("Input something to echo (or type 'exit' to quit): ");
+		input = readline("minishell> ");
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
 			break ;
-		if (ft_strcmp(input, "pwd") == 0)
-			pwd_builtin();
-		add_history(input);
-		if (parsing(input) == 0)
+		if (ft_strncmp(input, "pwd", 3) == 0)
+			ret_value = pwd_builtin();
+		if (ft_strncmp(input, "cd", 2) == 0)
 		{
-			free(input);
-			return (1);
+			param = skip_set(input, "cd");
+			ret_value = cd_builtin(param);
+			free (param);
 		}
+		if (ft_strncmp(input, "echo", 4) == 0)
+		{
+			param = skip_set(input, "echo");
+			char *file = NULL;
+			//file = "testfile.txt"; // this is here for testing
+			ret_value = echo_builtin(file, param);
+			free(param);
+		}
+		if (ft_strncmp(input, "export", 6) == 0)
+		{
+			param = skip_set(input, "export");
+			ret_value = export_builtin(&environ, param);
+			free(param);
+		}
+		if (ft_strncmp(input, "unset", 5) == 0)
+		{
+			param = skip_set(input, "unset");
+			ret_value = unset_builtin(&environ, param);
+			free(param);
+		}
+		if (ft_strncmp(input, "env", 3) == 0)
+		{
+			ret_value = env_builtin(environ);
+		}
+		add_history(input);
+		// if (parsing(input) == 0)
+		// {
+		// 	free(input);
+		// 	return (1);
+		// }
 		free(input);
 	}
-	return (0);
+	return (ret_value);
 }

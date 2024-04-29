@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 22:46:16 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:18:22 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ char	*trim_quote(char *str)
 	return (new_str);
 }
 
+// int	parsing(char *input)
+// {
+//     if (parsing)
+//         return (1);
+        
+// }
 int	parsing(char *input)
 {
 	t_struct	*cmd;

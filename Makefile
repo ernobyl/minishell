@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/04/24 12:05:01 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/04/29 11:16:44 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME	:= minishell
 CC		:= cc
@@ -18,6 +19,7 @@ LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing.c \
 			split.c
+			builtins.c
 
 OBJS	:= ${SRCS:.c=.o}
 
