@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 13:25:01 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:17:11 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int		echo_builtin(char *file, char *input);
 int		export_builtin(char ***environ, char *new_var);
 int		unset_builtin(char ***environ, char *to_unset);
 int		env_builtin(char **environ);
-int		built_ins(char *input, sig_atomic_t flag);
+int		built_ins(char *input);
 
 #endif
