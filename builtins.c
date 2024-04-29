@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 12:06:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:32:18 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	export_builtin(char ***environ, char *new_var)
 	{
 		if (ft_strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
 		{
-			free((*environ)[i]);
+			free((*environ)[i]); // <-- this line complains about being freed without mallocing
 			(*environ)[i] = ft_strdup(new_var);
 			if ((*environ)[i] == NULL)
 			{

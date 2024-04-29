@@ -6,17 +6,16 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 14:25:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:19:53 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	built_ins(char *input)
+int	built_ins(char *input, char **environ)
 {
 	int			ret_value;
 	char		*param;
-	extern char	**environ;
 
 	ret_value = 0;
 	if (input == NULL || ft_strcmp(input, "exit") == 0)

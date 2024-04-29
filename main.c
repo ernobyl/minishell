@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 14:26:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:19:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*skip_set(char *str, char *set)
 
 int	main(void)
 {
+	extern char	**environ;
 	char		*input;
 	int			ret_value;
 
@@ -61,10 +62,10 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		add_history(input);
-		ret_value = built_ins(input);
+		ret_value = built_ins(input, environ);
 		if (ret_value == 100)
 			g_exit_flag = 1;
-		// if (parsing(input, g_exit_flag) == 0)
+		// if (parsing(input) == 0)
 		// {
 		// 	free(input);
 		// 	return (1);
