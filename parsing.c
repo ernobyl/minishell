@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 11:18:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:16:24 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	count_trim_letters(char *str)
 	}
 	return (j);
 }
+
 char	*trim_quote(char *str)
 {
 	int		i;
@@ -97,13 +98,7 @@ char	*trim_quote(char *str)
 	return (new_str);
 }
 
-// int	parsing(char *input)
-// {
-//     if (parsing)
-//         return (1);
-        
-// }
-int	parsing(char *input)
+int	parsing(char *input, sig_atomic_t flag)
 {
 	t_struct	*cmd;
 	int			i;
@@ -124,6 +119,13 @@ int	parsing(char *input)
 	while (arr[i])
 	{
 		arr[i] = trim_quote(arr[i]);
+		// if (built_ins(arr[0], arr[1], flag) == 0)
+		// {
+		// 	printf("SUCCESS\n");
+		// 	break ;
+		// }
+		// else
+		printf("%s\n", arr[i]);
 		i++;
 	}
 	ft_free(arr);

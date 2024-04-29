@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/22 15:42:02 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:06:38 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,30 @@ int	pwd_builtin(void)
 	}
 }
 
-int    cd_builtin(const char *path)
+int	cd_builtin(const char *path)
 {
-    const char  *home;
-    
-    if (path == NULL || ft_strcmp(path, "") == 0)
-    {
-        home = getenv("HOME");
-        if (home == NULL)
-        {
-            printf("cd: HOME not set");
-            return (EXIT_FAILURE);
-        }
-        path = home;
-    }
-    if (chdir(path) == 0)
-        return (EXIT_SUCCESS);
-    else
+	const char	*home;
+
+	if (path == NULL || ft_strcmp(path, "") == 0)
 	{
-        perror("cd");
+		home = getenv("HOME");
+		if (home == NULL)
+		{
+			printf("cd: HOME not set");
+			return (EXIT_FAILURE);
+		}
+		path = home;
+	}
+	if (chdir(path) == 0)
+		return (EXIT_SUCCESS);
+	else
+	{
+		perror("cd");
 		return (EXIT_FAILURE);
 	}
 }
 
-int    echo_builtin(char *file, char *input)
+int	echo_builtin(char *file, char *input)
 {
 	char	*to_echo;
 	int		fd;
@@ -97,7 +97,7 @@ int    echo_builtin(char *file, char *input)
 	to_echo = NULL;
 	if (file)
 		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	if (strncmp(input, "-n", 2) == 0)
+	if (ft_strncmp(input, "-n", 2) == 0)
 	{
 		to_echo = skip_set(input, "-n");
 		ft_putstr_fd(to_echo, fd);
@@ -105,10 +105,10 @@ int    echo_builtin(char *file, char *input)
 	}
 	else
 		ft_putendl_fd(input, fd);
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int    export_builtin(char ***environ, char *new_var)
+int	export_builtin(char ***environ, char *new_var)
 {
 	int		i;
 	int		found;

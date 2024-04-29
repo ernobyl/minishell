@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/04/29 11:16:44 by emichels         ###   ########.fr        #
+#    Updated: 2024/04/29 12:45:37 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ HEADERS	:=
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing.c \
-			split.c
-			builtins.c
+			split.c \
+			builtins.c \
+			built_in.c
 
 OBJS	:= ${SRCS:.c=.o}
 
