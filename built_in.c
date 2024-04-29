@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 12:51:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:23:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	built_ins(char *input, char *param, sig_atomic_t flag)
+int	built_ins(char *input, sig_atomic_t flag)
 {
 	int			ret_value;
-	// char		*param;
+	char		*param;
 	extern char	**environ;
 
 	ret_value = 0;

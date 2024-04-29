@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 12:51:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:25:01 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_struct
 	char			*infile;
 	char			*outfile;
 	char			*cmd;
-	char			*option;
-	char			*arg;
 	struct s_struct	*prev;
 	struct s_struct	*next;
 }					t_struct;
@@ -43,6 +41,6 @@ int		echo_builtin(char *file, char *input);
 int		export_builtin(char ***environ, char *new_var);
 int		unset_builtin(char ***environ, char *to_unset);
 int		env_builtin(char **environ);
-int		built_ins(char *input, char *param, sig_atomic_t flag);
+int		built_ins(char *input, sig_atomic_t flag);
 
 #endif
