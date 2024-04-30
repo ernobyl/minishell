@@ -124,7 +124,8 @@ int	export_builtin(char ***environ, char *new_var)
 	}
 	while ((*environ)[i])
 	{
-		if (ft_strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
+		//if (ft_strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
+		if (strncmp((*environ)[i], new_var, strchr((*environ)[i], '=') - (*environ)[i]) == 0)
 		{
 			free((*environ)[i]); // <-- this line complains about being freed without mallocing
 			(*environ)[i] = ft_strdup(new_var);

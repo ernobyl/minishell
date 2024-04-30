@@ -12,10 +12,11 @@
 
 #include "minishell.h"
 
-int	built_ins(char *input, char **environ)
+int	built_ins(char *input)
 {
 	int			ret_value;
 	char		*param;
+	extern char	**environ;
 
 	ret_value = 0;
 	if (input == NULL || ft_strcmp(input, "exit") == 0)

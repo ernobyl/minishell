@@ -30,10 +30,10 @@
 // 			if (input[i] != sign)
 // 				return (0);
 // 		}
-// 		if (input[i] == '<' && ((input[i + 1] == '<' && input[i + 2] == '<') \
+// 		if (input[i] == '<' && ((input[i + 1] == '<' && input[i + 2] == '<') 
 // 		|| input[i + 1] == '\0'))
 // 			return (0);
-// 		if (input[i] == '>' && ((input[i + 1] == '>' && input[i + 2] == '>') \
+// 		if (input[i] == '>' && ((input[i + 1] == '>' && input[i + 2] == '>') 
 // 		|| input[i + 1] == '\0'))
 // 			return (0);
 // 		i++;

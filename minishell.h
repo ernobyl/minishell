@@ -41,6 +41,6 @@ int		echo_builtin(char *file, char *input);
 int		export_builtin(char ***environ, char *new_var);
 int		unset_builtin(char ***environ, char *to_unset);
 int		env_builtin(char **environ);
-int		built_ins(char *input, char **environ);
+int		built_ins(char *input);
 
 #endif

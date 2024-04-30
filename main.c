@@ -49,7 +49,6 @@ char	*skip_set(char *str, char *set)
 
 int	main(void)
 {
-	extern char	**environ;
 	char		*input;
 	int			ret_value;
 
@@ -62,7 +61,7 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		add_history(input);
-		ret_value = built_ins(input, environ);
+		ret_value = built_ins(input);
 		if (ret_value == 100)
 			g_exit_flag = 1;
 		// if (parsing(input) == 0)
