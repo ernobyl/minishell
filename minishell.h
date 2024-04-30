@@ -34,13 +34,21 @@ typedef struct s_struct
 
 //int		parsing(char *input);
 //char	**split(char const *s);
+
+int		error_msg(char *msg);
+
+int		replace_variable(char **env_var, char *new_var);
+int		add_variable(char ***environ, char *new_var, int size);
+
+
 char	*skip_set(char *str, char *set);
+int		double_buf_size(char **str, size_t *buf_size);
 int		pwd_builtin(void);
 int		cd_builtin(const char *path);
 int		echo_builtin(char *file, char *input);
 int		export_builtin(char ***environ, char *new_var);
 int		unset_builtin(char ***environ, char *to_unset);
 int		env_builtin(char **environ);
-int		built_ins(char *input);
+int		run_builtin(char *input);
 
 #endif

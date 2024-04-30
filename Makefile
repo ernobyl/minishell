@@ -20,7 +20,9 @@ SRCS	:=	main.c \
 			parsing.c \
 			split.c \
 			builtins.c \
-			built_in.c
+			builtins2.c \
+			run_builtin.c \
+			builtin_utils.c
 
 OBJS	:= ${SRCS:.c=.o}
 

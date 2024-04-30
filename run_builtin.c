@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_in.c                                         :+:      :+:    :+:   */
+/*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,26 @@
 
 #include "minishell.h"
 
-int	built_ins(char *input)
+static void	init_builtin_arr(char **builtin_arr)
+{
+	builtin_arr[0] = "exit";
+	builtin_arr[1] = "pwd";
+	builtin_arr[2] = "cd";
+	builtin_arr[3] = "echo";
+	builtin_arr[4] = "export";
+	builtin_arr[5] = "unset";
+	builtin_arr[6] = "env";
+}
+
+int	run_builtin(char *input)
 {
 	int			ret_value;
 	char		*param;
 	extern char	**environ;
+	char		*builtin_arr[7];
 
 	ret_value = 0;
+	init_builtin_arr(builtin_arr);
 	if (input == NULL || ft_strcmp(input, "exit") == 0)
 		return (100);
 	if (ft_strncmp(input, "pwd", 3) == 0)

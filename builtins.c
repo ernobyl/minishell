@@ -12,82 +12,6 @@
 
 #include "minishell.h"
 
-static int	double_buf_size(char **str, size_t *buf_size)
-{
-	if (errno == ERANGE)
-	{
-		*buf_size *= 2;
-		free(*str);
-		*str = malloc(*buf_size);
-		if (*str == NULL)
-		{
-			perror("malloc failed");
-			return (EXIT_FAILURE);
-		}
-		return (EXIT_SUCCESS);
-	}
-	else
-	{
-		perror("pwd: getcwd failed");
-		free(*str);
-		return (EXIT_FAILURE);
-	}
-}
-
-int	pwd_builtin(void)
-{
-	size_t	buf_size;
-	char	*cwd;
-	int		result;
-
-	buf_size = 256;
-	cwd = NULL;
-	while (1)
-	{
-		cwd = malloc(buf_size);
-		if (cwd == NULL)
-		{
-			perror("malloc failed");
-			return (EXIT_FAILURE);
-		}
-		if (getcwd(cwd, buf_size) != NULL)
-		{
-			printf("%s\n", cwd);
-			free(cwd);
-			return (EXIT_SUCCESS);
-		}
-		else
-		{
-			result = double_buf_size(&cwd, &buf_size);
-			if (result == EXIT_FAILURE)
-				return (result);
-		}
-	}
-}
-
-int	cd_builtin(const char *path)
-{
-	const char	*home;
-
-	if (path == NULL || ft_strcmp(path, "") == 0)
-	{
-		home = getenv("HOME");
-		if (home == NULL)
-		{
-			printf("cd: HOME not set");
-			return (EXIT_FAILURE);
-		}
-		path = home;
-	}
-	if (chdir(path) == 0)
-		return (EXIT_SUCCESS);
-	else
-	{
-		perror("cd");
-		return (EXIT_FAILURE);
-	}
-}
-
 int	echo_builtin(char *file, char *input)
 {
 	char	*to_echo;
@@ -112,54 +36,26 @@ int	export_builtin(char ***environ, char *new_var)
 {
 	int		i;
 	int		found;
-	char	**add_env;
+	int		ret_value;
 
 	i = 0;
 	found = 0;
-	add_env = NULL;
+	ret_value = 0;
 	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
-	{
-		ft_putendl_fd("Invalid environment variable format.", 2);
-		return (EXIT_FAILURE);
-	}
+		return (error_msg("Invalid environment variable format."));
 	while ((*environ)[i])
 	{
-		//if (ft_strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
-		if (strncmp((*environ)[i], new_var, strchr((*environ)[i], '=') - (*environ)[i]) == 0)
+		if (strncmp((*environ)[i], new_var, ft_strlen_c((*environ)[i], '=') + 1) == 0)
 		{
-			free((*environ)[i]); // <-- this line complains about being freed without mallocing
-			(*environ)[i] = ft_strdup(new_var);
-			if ((*environ)[i] == NULL)
-			{
-				ft_putendl_fd("strdup failed", 2);
-				return (EXIT_FAILURE);
-			}
+			ret_value = replace_variable(&(*environ)[i], new_var);
 			found = 1;
 			break ;
 		}
 		i++;
 	}
 	if (!found)
-	{
-		add_env = malloc((i + 2) * sizeof(char *));
-		if (add_env == NULL)
-		{
-			ft_putendl_fd("malloc failed", 2);
-			return (EXIT_FAILURE);
-		}
-		ft_memcpy(add_env, *environ, i * sizeof(char *));
-		add_env[i] = ft_strdup(new_var);
-		if (add_env[i] == NULL)
-		{
-			ft_putendl_fd("strdup failed", 2);
-			free(add_env);
-			return (EXIT_FAILURE);
-		}
-		add_env[i + 1] = NULL;
-		free (*environ);
-		*environ = add_env;
-	}
-	return (EXIT_SUCCESS);
+		ret_value = add_variable(environ, new_var, i);
+	return (ret_value);
 }
 
 int	unset_builtin(char ***environ, char *to_unset)

@@ -61,7 +61,7 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		add_history(input);
-		ret_value = built_ins(input);
+		ret_value = run_builtin(input);
 		if (ret_value == 100)
 			g_exit_flag = 1;
 		// if (parsing(input) == 0)
