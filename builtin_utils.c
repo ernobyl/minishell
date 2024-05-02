@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 15:32:18 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:56:06 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	replace_variable(char **env_var, char *new_var)
 	return (EXIT_SUCCESS);
 }
 
-int	add_variable(char ***environ, char *new_var, int size)
+int	add_variable(char ***env, char *new_var, int size)
 {
 	char	**add_env;
 
 	add_env = malloc((size + 2) * sizeof(char *));
 	if (add_env == NULL)
 		return (error_msg("malloc failed"));
-	ft_memcpy(add_env, *environ, size * sizeof(char *));
+	ft_memcpy(add_env, *env, size * sizeof(char *));
 	add_env[size] = ft_strdup(new_var);
 	if (add_env[size] == NULL)
 	{
@@ -60,7 +60,7 @@ int	add_variable(char ***environ, char *new_var, int size)
 		return (error_msg("strdup failed"));
 	}
 	add_env[size + 1] = NULL;
-	free (*environ);
-	*environ = add_env;
+	free (*env);
+	*env = add_env;
 	return (EXIT_SUCCESS);
 }

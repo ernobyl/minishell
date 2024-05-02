@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 15:19:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:21:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int	main(void)
 		input = readline("minishell> ");
 		add_history(input);
 		ret_value = run_builtin(input);
-		if (ret_value == 100)
+		if (ret_value == EXIT_SIGNAL)
 			g_exit_flag = 1;
+		if (ret_value == NO_SIGNAL)
+			printf("");
 		// if (parsing(input) == 0)
 		// {
 		// 	free(input);
