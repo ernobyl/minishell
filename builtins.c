@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/02 15:53:01 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:06:12 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	echo_builtin(char *file, char *input)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(char ***env, char *new_var)
+int	export_builtin(char **env, char *new_var)
 {
 	int		i;
 	int		found;
@@ -43,11 +43,11 @@ int	export_builtin(char ***env, char *new_var)
 	ret_value = 0;
 	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
 		return (error_msg("Invalid environment variable format."));
-	while ((*env)[i])
+	while (env[i])
 	{
-		if (ft_strncmp((*env)[i], new_var, ft_strlen_c((*env)[i], '=') + 1) == 0)
+		if (ft_strncmp(env[i], new_var, ft_strlen_c(env[i], '=') + 1) == 0)
 		{
-			ret_value = replace_variable(&(*env)[i], new_var);
+			ret_value = replace_variable(&env[i], new_var);
 			found = 1;
 			break ;
 		}
@@ -58,7 +58,7 @@ int	export_builtin(char ***env, char *new_var)
 	return (ret_value);
 }
 
-int	unset_builtin(char ***env, char *to_unset)
+int	unset_builtin(char **env, char *to_unset)
 {
 	int		i;
 	size_t	var_len;
@@ -67,18 +67,18 @@ int	unset_builtin(char ***env, char *to_unset)
 	i = 0;
 	var_len = 0;
 	unset_len = ft_strlen(to_unset);
-	while ((*env)[i])
+	while (env[i])
 	{
-		var_len = ft_strlen_c((*env)[i], '=');
-		if (var_len == unset_len && ft_strncmp((*env)[i], to_unset, var_len) == 0)
+		var_len = ft_strlen_c(env[i], '=');
+		if (var_len == unset_len && ft_strncmp(env[i], to_unset, var_len) == 0)
 		{
-			//free((*env)[i]); // not sure if this is necessary or not
-			while ((*env)[i])
+			free(env[i]);
+			while (env[i])
 			{
-				(*env)[i] = (*env)[i + 1];
+				env[i] = env[i + 1];
 				i++;
 			}
-			(*env)[i] = NULL;
+			env[i] = NULL;
 			return (EXIT_SUCCESS);
 		}
 		i++;
@@ -98,7 +98,7 @@ int	env_builtin(char **env)
 	}
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		printf("%s\n", (env)[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
