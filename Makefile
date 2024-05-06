@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/04/29 12:45:37 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/05/06 13:33:38 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,11 @@ CC		:= cc
 HEADERS	:= 
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
-			parsing.c \
-			split.c \
+			parsing/parsing.c \
+			parsing/split.c \
+			parsing/trim_quote.c \
+			parsing/tokenize.c \
+			parsing/validate_syntax.c \
 			builtins.c \
 			built_in.c
 

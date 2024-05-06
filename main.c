@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/29 14:42:06 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:16:35 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ int	main(void)
 		// if (ret_value == 100)
 		// 	g_exit_flag = 1;
 		if (parsing(input) == 0)
-		{
-			free(input);
 			return (1);
-		}
-		// free(input);
 	}
 	return (ret_value);
 }

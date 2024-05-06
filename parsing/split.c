@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 22:18:31 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:06:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 static int	ft_isquote(char const *str, int i, char quote)
 {
@@ -83,11 +83,11 @@ static int	fill(char **dest, char const *s, char c, int rows)
 		if (dest[i] == NULL)
 		{
 			ft_free(dest);
-			return (0);
+			return (FALSE);
 		}
 		start = end + start;
 	}
-	return (1);
+	return (TRUE);
 }
 
 char	**split(char const *s)

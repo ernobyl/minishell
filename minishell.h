@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/29 14:42:19 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:57:54 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <errno.h>
+# include "parsing/parsing.h"
 
 typedef struct s_struct
 {
-	char			*infile;
-	char			*outfile;
-	char			*cmd;
+	char			*token;
+	char			*value;
 	struct s_struct	*prev;
 	struct s_struct	*next;
 }					t_struct;
 
-int		parsing(char *input);
-char	**split(char const *s);
 char	*skip_set(char *str, char *set);
 int		pwd_builtin(void);
 int		cd_builtin(const char *path);
