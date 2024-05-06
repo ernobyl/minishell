@@ -6,11 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/03 13:51:12 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:01:52 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 static int	get_builtin_num(char *input)
 {
@@ -48,7 +48,7 @@ static void	init_builtin_arr(char **arr)
 static int	match_function(int num, int ret_value, char *param, char **env)
 {
 	if (num == EXIT)
-		ret_value = (EXIT_SIGNAL);
+		ret_value = (100);
 	if (num == PWD)
 		ret_value = pwd_builtin();
 	if (num == CD)
@@ -75,7 +75,7 @@ int	run_builtin(char *input, char **env)
 	ret_value = 0;
 	num = get_builtin_num(input);
 	if (num == NOT_BUILTIN)
-		return (NO_SIGNAL);
+		return (101);
 	printf("num = %i\n", num);
 	init_builtin_arr(arr);
 	printf("input = %s\n", input);

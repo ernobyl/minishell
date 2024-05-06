@@ -6,11 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/03 15:47:05 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:03:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	error_msg(char *msg)
 {
@@ -48,19 +48,19 @@ int	replace_variable(char **env_var, char *new_var)
 int	add_variable(char **env, char *new_var, int size)
 {
 	char	**add_env;
+	int		i;
 
 	add_env = malloc((size + 2) * sizeof(char *));
 	if (add_env == NULL)
 		return (error_msg("malloc failed"));
-	ft_memcpy(add_env, env, size * sizeof(char *));
-	add_env[size] = ft_strdup(new_var);
-	if (add_env[size] == NULL)
+	i = 0;
+	while (i < size)
 	{
-		free(add_env);
-		return (error_msg("strdup failed"));
+		add_env[i] = ft_strdup(env[i]);
+		i++;
 	}
-	add_env[size + 1] = NULL;
-	free (*env);
+	add_env[i] = ft_strdup(new_var);
+	add_env[i + 1] = NULL;
 	env = add_env;
 	return (EXIT_SUCCESS);
 }

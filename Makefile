@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/03 13:43:20 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/06 15:06:33 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing.c \
 			split.c \
-			builtins.c \
-			builtins2.c \
-			run_builtin.c \
-			builtin_utils.c \
-			environment.c
+			builtins/builtins.c \
+			builtins/builtins2.c \
+			builtins/run_builtin.c \
+			builtins/builtin_utils.c \
+			builtins/environment.c
 
 OBJS	:= ${SRCS:.c=.o}
 
