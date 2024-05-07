@@ -6,10 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/06 15:01:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:58:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 #include "builtins.h"
 
 static int	get_builtin_num(char *input)
@@ -45,7 +46,7 @@ static void	init_builtin_arr(char **arr)
 	arr[NOT_BUILTIN] = NULL;
 }
 
-static int	match_function(int num, int ret_value, char *param, char **env)
+static int	match_function(int num, int ret_value, char *param, t_struct *shell)
 {
 	if (num == EXIT)
 		ret_value = (100);
@@ -56,16 +57,16 @@ static int	match_function(int num, int ret_value, char *param, char **env)
 	if (num == ECHO)
 		ret_value = echo_builtin(NULL, param);
 	if (num == EXPORT)
-		ret_value = export_builtin(env, param);
+		ret_value = export_builtin(shell, param);
 	if (num == UNSET)
-		ret_value = unset_builtin(env, param);
+		ret_value = unset_builtin(shell, param);
 	if (num == ENV)
-		ret_value = env_builtin(env);
+		ret_value = env_builtin(shell);
 	free(param);
 	return (ret_value);
 }
 
-int	run_builtin(char *input, char **env)
+int	run_builtin(char *input, t_struct *shell)
 {
 	int		num;
 	int		ret_value;
@@ -81,6 +82,6 @@ int	run_builtin(char *input, char **env)
 	printf("input = %s\n", input);
 	param = skip_set(input, arr[num]);
 	printf("param = %s\n", param);
-	ret_value = match_function(num, ret_value, param, env);
+	ret_value = match_function(num, ret_value, param, shell);
 	return (ret_value);
 }

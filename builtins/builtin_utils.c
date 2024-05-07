@@ -6,10 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/06 15:03:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:53:10 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 #include "builtins.h"
 
 int	error_msg(char *msg)
@@ -45,7 +46,7 @@ int	replace_variable(char **env_var, char *new_var)
 	return (EXIT_SUCCESS);
 }
 
-int	add_variable(char **env, char *new_var, int size)
+int	add_variable(t_struct *shell, char *new_var, int size)
 {
 	char	**add_env;
 	int		i;
@@ -56,11 +57,11 @@ int	add_variable(char **env, char *new_var, int size)
 	i = 0;
 	while (i < size)
 	{
-		add_env[i] = ft_strdup(env[i]);
+		add_env[i] = ft_strdup(shell->env[i]);
 		i++;
 	}
 	add_env[i] = ft_strdup(new_var);
 	add_env[i + 1] = NULL;
-	env = add_env;
+	shell->env = add_env;
 	return (EXIT_SUCCESS);
 }

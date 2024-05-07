@@ -6,11 +6,12 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/03 13:54:01 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:55:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins/builtins.h"
 
 volatile sig_atomic_t	g_exit_flag = 0;
 
@@ -50,10 +51,10 @@ char	*skip_set(char *str, char *set)
 int	main(void)
 {
 	char		*input;
-	char		**env;
+	t_struct	shell;
 	int			ret_value;
 
-	env = init_env_list();
+	shell.env = init_env_list();
 	ret_value = 0;
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
@@ -63,7 +64,7 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		add_history(input);
-		ret_value = run_builtin(input, env);
+		ret_value = run_builtin(input, &shell);
 		if (ret_value == EXIT_SIGNAL)
 			g_exit_flag = 1;
 		if (ret_value == NO_SIGNAL)

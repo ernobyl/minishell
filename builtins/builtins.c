@@ -6,10 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/06 14:59:44 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:54:12 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 #include "builtins.h"
 
 int	echo_builtin(char *file, char *input)
@@ -32,7 +33,7 @@ int	echo_builtin(char *file, char *input)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(char **env, char *new_var)
+int	export_builtin(t_struct *shell, char *new_var)
 {
 	int		i;
 	int		found;
@@ -43,22 +44,22 @@ int	export_builtin(char **env, char *new_var)
 	ret_value = 0;
 	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
 		return (error_msg("Invalid environment variable format."));
-	while (env[i])
+	while (shell->env[i])
 	{
-		if (ft_strncmp(env[i], new_var, ft_strlen_c(env[i], '=') + 1) == 0)
+		if (ft_strncmp(shell->env[i], new_var, ft_strlen_c(shell->env[i], '=') + 1) == 0)
 		{
-			ret_value = replace_variable(&env[i], new_var);
+			ret_value = replace_variable(&shell->env[i], new_var);
 			found = 1;
 			break ;
 		}
 		i++;
 	}
 	if (!found)
-		ret_value = add_variable(env, new_var, i);
+		ret_value = add_variable(shell, new_var, i);
 	return (ret_value);
 }
 
-int	unset_builtin(char **env, char *to_unset)
+int	unset_builtin(t_struct *shell, char *to_unset)
 {
 	int		i;
 	size_t	var_len;
@@ -67,18 +68,18 @@ int	unset_builtin(char **env, char *to_unset)
 	i = 0;
 	var_len = 0;
 	unset_len = ft_strlen(to_unset);
-	while (env[i])
+	while (shell->env[i])
 	{
-		var_len = ft_strlen_c(env[i], '=');
-		if (var_len == unset_len && ft_strncmp(env[i], to_unset, var_len) == 0)
+		var_len = ft_strlen_c(shell->env[i], '=');
+		if (var_len == unset_len && ft_strncmp(shell->env[i], to_unset, var_len) == 0)
 		{
-			free(env[i]);
-			while (env[i])
+			free(shell->env[i]);
+			while (shell->env[i])
 			{
-				env[i] = env[i + 1];
+				shell->env[i] = shell->env[i + 1];
 				i++;
 			}
-			env[i] = NULL;
+			shell->env[i] = NULL;
 			return (EXIT_SUCCESS);
 		}
 		i++;
@@ -86,19 +87,19 @@ int	unset_builtin(char **env, char *to_unset)
 	return (EXIT_FAILURE);
 }
 
-int	env_builtin(char **env)
+int	env_builtin(t_struct *shell)
 {
 	int	i;
 
 	i = 0;
-	if (env == NULL)
+	if (shell->env == NULL)
 	{
 		ft_putendl_fd("environment list not found", 2);
 		return (EXIT_FAILURE);
 	}
-	while (env[i])
+	while (shell->env[i])
 	{
-		printf("%s\n", (env)[i]);
+		printf("%s\n", (shell->env)[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

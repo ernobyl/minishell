@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/06 15:06:33 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/07 09:44:27 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	:= minishell
 CC		:= cc
 CFLAGS	:= -Wextra -Wall -Werror -g
-HEADERS	:= 
+HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing.c \

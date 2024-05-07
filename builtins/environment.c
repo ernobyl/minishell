@@ -6,10 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:13:02 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/06 15:00:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:52:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 #include "builtins.h"
 
 char	**init_env_list(void)
