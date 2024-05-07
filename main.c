@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 09:55:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:10:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ volatile sig_atomic_t	g_exit_flag = 0;
 
 void	handle_signal(int sig)
 {
-	if (sig == SIGQUIT || sig == SIGHUP || sig == SIGTERM)
+	if (sig == SIGQUIT)
 		g_exit_flag = 1;
 	else if (sig == SIGINT)
-		write(1, "\nhandle signal interrupt\n", 25);
+		printf("\nhandle signal interrupt\n");
 }
 
 char	*skip_set(char *str, char *set)
@@ -58,15 +58,19 @@ int	main(void)
 	ret_value = 0;
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
-	signal(SIGHUP, handle_signal);
-	signal(SIGTERM, handle_signal);
 	while (!g_exit_flag)
 	{
 		input = readline("minishell> ");
-		add_history(input);
-		ret_value = run_builtin(input, &shell);
-		if (ret_value == EXIT_SIGNAL)
-			g_exit_flag = 1;
+		if (input != NULL)
+		{
+			add_history(input);
+			ret_value = run_builtin(input, &shell);
+		}
+		if (input == NULL || ret_value == EXIT_SIGNAL)
+		{
+			ret_value = 0;
+			break ;
+		}
 		if (ret_value == NO_SIGNAL)
 			printf("");
 		// if (parsing(input) == 0)
@@ -76,5 +80,6 @@ int	main(void)
 		// }
 		free(input);
 	}
+	ft_free(shell.env);
 	return (ret_value);
 }

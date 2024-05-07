@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 09:54:12 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:47:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	export_builtin(t_struct *shell, char *new_var)
 	i = 0;
 	found = 0;
 	ret_value = 0;
-	if (new_var == NULL || ft_strchr(new_var, '=') == NULL)
-		return (error_msg("Invalid environment variable format."));
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], new_var, ft_strlen_c(shell->env[i], '=') + 1) == 0)
@@ -54,6 +52,10 @@ int	export_builtin(t_struct *shell, char *new_var)
 		}
 		i++;
 	}
+	if (ft_strcmp (new_var, "") == 0)
+		return (print_list_alpha(shell->env, i - 1));
+	else if (ft_strchr(new_var, '=') == NULL)
+		return (error_msg("Invalid environment variable format."));
 	if (!found)
 		ret_value = add_variable(shell, new_var, i);
 	return (ret_value);

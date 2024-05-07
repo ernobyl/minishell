@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/07 09:44:27 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/07 16:58:56 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS	:=	main.c \
 			builtins/builtins2.c \
 			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
-			builtins/environment.c
+			builtins/environment.c \
+			builtins/error_handling.c
 
 OBJS	:= ${SRCS:.c=.o}
 

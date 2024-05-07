@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 09:50:13 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:34:17 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		error_msg(char *msg);
 
 char	**init_env_list(void);
 
+int		print_list_alpha(char **list, int size);
 int		replace_variable(char **env_var, char *new_var);
 int		add_variable(t_struct *shell, char *new_var, int size);
 

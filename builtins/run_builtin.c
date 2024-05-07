@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/07 09:58:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:13:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,8 @@ int	run_builtin(char *input, t_struct *shell)
 	num = get_builtin_num(input);
 	if (num == NOT_BUILTIN)
 		return (101);
-	printf("num = %i\n", num);
 	init_builtin_arr(arr);
-	printf("input = %s\n", input);
 	param = skip_set(input, arr[num]);
-	printf("param = %s\n", param);
 	ret_value = match_function(num, ret_value, param, shell);
 	return (ret_value);
 }
