@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 17:16:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:54:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,43 @@ int	add_variable(t_struct *shell, char *new_var, int size)
 	return (EXIT_SUCCESS);
 }
 
+static void	init_sort_struct(int size, t_alpha *sort)
+{
+	int	i;
+
+	i = 0;
+	sort->min_index = -1;
+	sort->min_value = NULL;
+	sort->printed = (int *)malloc(size * sizeof(int));
+	while (i++ < size)
+		sort->printed[i] = 0;
+}
+
 int	print_list_alpha(char **list, int size)
 {
 	int		i;
 	int		k;
-	int		*printed;
-	int		min_index;
-	char	*min_value;
+	t_alpha	sort;
 
-	i = 0;
-	printed = (int *)malloc(size * sizeof(int));
-	while (i++ < size)
-		printed[i] = 0;
+	init_sort_struct(size, &sort);
 	i = 0;
 	while (i++ < size)
 	{
-		min_index = -1;
-		min_value = NULL;
+		sort.min_index = -1;
+		sort.min_value = NULL;
 		k = 0;
 		while (k++ < size)
 		{
-			if (!printed[k] && (min_index == -1 || ft_strcmp(list[k], min_value) < 0))
+			if (!sort.printed[k] && (sort.min_index == -1
+					|| ft_strcmp(list[k], sort.min_value) < 0))
 			{
-				min_index = k;
-				min_value = list[k];
+				sort.min_index = k;
+				sort.min_value = list[k];
 			}
 		}
-		printf("%s\n", list[min_index]);
-		printed[min_index] = 1;
+		printf("%s\n", list[sort.min_index]);
+		sort.printed[sort.min_index] = 1;
 	}
-	free(printed);
+	free(sort.printed);
 	return (EXIT_SUCCESS);
 }

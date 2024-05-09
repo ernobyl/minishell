@@ -6,12 +6,18 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:13:02 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 09:52:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:53:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builtins.h"
+
+static char	**free_return(char **env)
+{
+	ft_free(env);
+	return (NULL);
+}
 
 char	**init_env_list(void)
 {
@@ -19,7 +25,7 @@ char	**init_env_list(void)
 	int		len;
 	int		i;
 	int		var_len;
-	
+
 	len = 0;
 	while (environ[len])
 		len++;
@@ -32,10 +38,7 @@ char	**init_env_list(void)
 		var_len = ft_strlen(environ[i]) + 1;
 		env[i] = malloc(var_len);
 		if (env[i] == NULL)
-		{
-			ft_free(env);
-			return (NULL);
-		}
+			return (free_return(env));
 		ft_memcpy(env[i], environ[i], var_len);
 		i++;
 	}

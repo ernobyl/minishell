@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/07 13:13:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:51:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_builtin_num(char *input)
 	else if (ft_strncmp("cd", input, 2) == 0)
 		return (CD);
 	else if (ft_strncmp("echo", input, 4) == 0
-			|| ft_strncmp("echo -n", input, 7) == 0)
+		|| ft_strncmp("echo -n", input, 7) == 0)
 		return (ECHO);
 	else if (ft_strncmp("export", input, 6) == 0)
 		return (EXPORT);

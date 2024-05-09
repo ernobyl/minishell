@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 16:47:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:46:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	export_builtin(t_struct *shell, char *new_var)
 	ret_value = 0;
 	while (shell->env[i])
 	{
-		if (ft_strncmp(shell->env[i], new_var, ft_strlen_c(shell->env[i], '=') + 1) == 0)
+		if (ft_strncmp(shell->env[i], new_var,
+				ft_strlen_c(shell->env[i], '=') + 1) == 0)
 		{
 			ret_value = replace_variable(&shell->env[i], new_var);
 			found = 1;
@@ -73,7 +74,8 @@ int	unset_builtin(t_struct *shell, char *to_unset)
 	while (shell->env[i])
 	{
 		var_len = ft_strlen_c(shell->env[i], '=');
-		if (var_len == unset_len && ft_strncmp(shell->env[i], to_unset, var_len) == 0)
+		if (var_len == unset_len
+			&& ft_strncmp(shell->env[i], to_unset, var_len) == 0)
 		{
 			free(shell->env[i]);
 			while (shell->env[i])

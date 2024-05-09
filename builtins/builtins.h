@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 16:34:17 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:27:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef enum e_builtin_n
 	ENV,
 	NOT_BUILTIN
 }	t_bnum;
+
+typedef struct s_alphasort
+{
+	char	*min_value;
+	int		*printed;
+	int		min_index;
+}			t_alpha;
 
 int		error_msg(char *msg);
 
