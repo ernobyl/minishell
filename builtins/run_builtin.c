@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/09 10:51:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:18:21 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 
 static int	get_builtin_num(char *input)
 {
-	if (ft_strncmp("exit", input, 4) == 0)
+	// MODIFY THIS FUNCTION TO WORK WITH PARSING
+	if (ft_strcmp("exit", input) == 0)
 		return (EXIT);
-	else if (ft_strncmp("pwd", input, 3) == 0)
+	else if (ft_strcmp("pwd", input) == 0)
 		return (PWD);
-	else if (ft_strncmp("cd", input, 2) == 0)
+	else if (ft_strncmp("cd ", input, 3) == 0
+		|| ft_strcmp("cd", input) == 0)
 		return (CD);
-	else if (ft_strncmp("echo", input, 4) == 0
-		|| ft_strncmp("echo -n", input, 7) == 0)
+	else if (ft_strncmp("echo ", input, 5) == 0
+		|| ft_strncmp("echo -n ", input, 8) == 0)
 		return (ECHO);
-	else if (ft_strncmp("export", input, 6) == 0)
+	else if (ft_strcmp("export", input) == 0
+		|| ft_strncmp("export ", input, 7) == 0)
 		return (EXPORT);
-	else if (ft_strncmp("unset", input, 5) == 0)
+	else if (ft_strncmp("unset ", input, 6) == 0)
 		return (UNSET);
-	else if (ft_strncmp("env", input, 3) == 0)
+	else if (ft_strcmp("env", input) == 0)
 		return (ENV);
 	else
 		return (NOT_BUILTIN);
