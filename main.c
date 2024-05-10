@@ -48,6 +48,28 @@ char	*skip_set(char *str, char *set)
 	return (skipped);
 }
 
+void	heredoc(const char *delimiter)
+{
+	char	*line;
+	char	buffer[1024];
+
+	ft_bzero(buffer, 1024);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+			break ;
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		ft_strlcat(buffer, line, ft_strlen(line));
+		ft_strlcat(buffer, "\n", 1);
+		free(line);
+	}
+}
+
 int	main(void)
 {
 	char		*input;
@@ -64,6 +86,9 @@ int	main(void)
 		if (input != NULL)
 		{
 			add_history(input);
+			// if (ft_strncmp(input, "<< ", 3) == 0)
+			// 	heredoc(skip_set(input, "<<"));
+			// else
 			ret_value = run_builtin(input, &shell);
 		}
 		if (input == NULL || ret_value == EXIT_SIGNAL)
@@ -72,7 +97,7 @@ int	main(void)
 			break ;
 		}
 		if (ret_value == NO_SIGNAL)
-			printf("");
+			printf("no signal\n");
 		// if (parsing(input) == 0)
 		// {
 		// 	free(input);
