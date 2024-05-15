@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/15 11:03:10 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:27:32 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static char	*find_variable(char *str)
 	i = ft_strlen(var);
 	var[i] = '=';
 	var[i + 1] = '\0';
-	printf("{%s}\n", var);
 	return (var);
 }
 
 static char	*expand_str(char *str)
 {
 	char		*var;
+	char		*dest;
 	int			i;
 	extern char	**environ;
 
@@ -58,10 +58,14 @@ static char	*expand_str(char *str)
 	while (environ[i])
 	{
 		if (ft_strncmp(environ[i], var, ft_strlen(var)) == 0)
-			return (ft_strchr_next(environ[i], '='));
+		{
+			dest = find_and_replace(str, ft_strchr_next(environ[i], '='), ft_strlen(var) - 1);
+			return (dest);
+		}
 		i++;
 	}
-	return ("\0");
+	dest = find_and_replace(str, "\0", 0);
+	return (dest);
 }
 
 char	**expand_env(char **arr)
@@ -75,10 +79,7 @@ char	**expand_env(char **arr)
 		if (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
 		{
 			if (validate_expand(arr[i]))
-			{
-				str = expand_str(arr[i]);
-				arr[i] = find_and_replace(arr[i], str);
-			}
+				arr[i] = expand_str(arr[i]);
 		}
 		arr[i] = trim_quote(arr[i]);
 		i++;
