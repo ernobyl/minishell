@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/14 10:30:32 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2023/10/30 09:41:32 by emichels          #+#    #+#             */
+/*   Updated: 2024/05/13 10:18:53 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-
-t_struct *tokenize(t_struct *token, char **arr)
+char	*ft_strchr_next(const char *s, int c)
 {
-	int i;
-	
-	i = 0;
-	while (arr[i])
-		printf("%s\n", arr[i++]);
-		
-	printf("done printing");
+	while (*s && (char)c != *s)
+		s++;
+	if ((char)c == *s)
+		return ((char *)s + 1);
+	return (0);
 }

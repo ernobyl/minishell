@@ -6,21 +6,22 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/04/26 10:35:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:07:00 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_struct	*add_new(long data)
+t_struct	*add_new(char *token, char *value, int i)
 {
 	t_struct	*new;
 
 	new = malloc(sizeof(t_struct));
 	if (!new)
 		return (NULL);
-	new->infile = data;
-	new->outfile = -1;
+	new->nr = i;
+	new->token = token;
+	new->value = value;
 	new->next = new;
 	new->prev = new;
 	return (new);

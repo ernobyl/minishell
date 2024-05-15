@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/06 13:32:27 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:33:56 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	parsing(char *input)
 {
-	t_struct	*cmd;
 	int			i;
 	char		**arr;
-	t_stack		*token;
+	t_struct	token;
 
 	i = 0;
 	input = ft_strtrim(input, " ");
@@ -29,7 +28,7 @@ int	parsing(char *input)
 	arr = split(input);
 	if (!arr)
 		return (FALSE);
-	tokenize(arr, &token);
-	ft_free(arr);
+	arr = expand_env(arr);
+	tokenize(&token, arr);
 	return (TRUE);
 }

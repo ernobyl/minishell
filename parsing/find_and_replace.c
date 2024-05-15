@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   find_and_replace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/14 10:30:32 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/05/15 11:02:48 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/05/15 11:07:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_struct *tokenize(t_struct *token, char **arr)
+char	*find_and_replace(char *str, char *replace)
 {
-	int i;
-	
+	int		i;
+	int		j;
+	char	*dest;
+
 	i = 0;
-	while (arr[i])
-		printf("%s\n", arr[i++]);
-		
-	printf("done printing");
+	j = 0;
+	// fixa skitet
+	printf("{%s}\n", str);
+	// while (str[i] && str[i] != '$')
+	// 	dest[j++] = str[i++];
+	// while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
+	// 	i++;
+	// while (str[i])
+	// 	dest[j++] = str[i++];
+	// dest[j] = '\0';
+	// printf("%s\n", dest);
+	return ("HELLO");
 }
