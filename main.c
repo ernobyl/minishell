@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 13:10:31 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:14:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int	main(void)
 		if (input != NULL)
 		{
 			add_history(input);
-			// if (ft_strncmp(input, "<< ", 3) == 0)
-			// 	heredoc(skip_set(input, "<<"));
-			// else
-			ret_value = run_builtin(input, &shell);
+			if (ft_strncmp(input, "<< ", 3) == 0)
+				heredoc(skip_set(input, "<<"));
+			else
+				ret_value = run_builtin(input, &shell);
 		}
 		if (input == NULL || ret_value == EXIT_SIGNAL)
 		{

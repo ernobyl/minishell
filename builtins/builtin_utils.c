@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/09 10:54:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:26:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	print_list_alpha(char **list, int size)
 				sort.min_value = list[k];
 			}
 		}
-		printf("%s\n", list[sort.min_index]);
+		printf("declare -x %s\n", list[sort.min_index]);
 		sort.printed[sort.min_index] = 1;
 	}
 	free(sort.printed);
