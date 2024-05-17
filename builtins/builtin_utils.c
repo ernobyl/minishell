@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/15 14:26:08 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:54:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,37 +66,41 @@ static void	init_sort_struct(int size, t_alpha *sort)
 	int	i;
 
 	i = 0;
+	sort->i = 0;
+	sort->k = 0;
 	sort->min_index = -1;
 	sort->min_value = NULL;
 	sort->printed = (int *)malloc(size * sizeof(int));
-	while (i++ < size)
+	while (i < size)
+	{
 		sort->printed[i] = 0;
+		i++;
+	}
 }
 
 int	print_list_alpha(char **list, int size)
 {
-	int		i;
-	int		k;
 	t_alpha	sort;
 
 	init_sort_struct(size, &sort);
-	i = 0;
-	while (i++ < size)
+	while (sort.i < size)
 	{
 		sort.min_index = -1;
 		sort.min_value = NULL;
-		k = 0;
-		while (k++ < size)
+		sort.k = 0;
+		while (sort.k < size)
 		{
-			if (!sort.printed[k] && (sort.min_index == -1
-					|| ft_strcmp(list[k], sort.min_value) < 0))
+			if (!sort.printed[sort.k] && (sort.min_index == -1
+					|| ft_strcmp(list[sort.k], sort.min_value) < 0))
 			{
-				sort.min_index = k;
-				sort.min_value = list[k];
+				sort.min_index = sort.k;
+				sort.min_value = list[sort.k];
 			}
+			sort.k++;
 		}
 		printf("declare -x %s\n", list[sort.min_index]);
 		sort.printed[sort.min_index] = 1;
+		sort.i++;
 	}
 	free(sort.printed);
 	return (EXIT_SUCCESS);

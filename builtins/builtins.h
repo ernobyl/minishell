@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/09 10:27:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:16:05 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef enum e_builtin_n
 
 typedef struct s_alphasort
 {
+	int		i;
+	int		k;
 	char	*min_value;
 	int		*printed;
 	int		min_index;
