@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/09 10:46:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:32:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	export_builtin(t_struct *shell, char *new_var)
 		i++;
 	}
 	if (ft_strcmp (new_var, "") == 0)
-		return (print_list_alpha(shell->env, i - 1));
+		return (print_list_alpha(shell->env, i));
 	else if (ft_strchr(new_var, '=') == NULL)
 		return (error_msg("Invalid environment variable format."));
 	if (!found)

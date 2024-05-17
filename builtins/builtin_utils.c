@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/17 10:54:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:16:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ static void	init_sort_struct(int size, t_alpha *sort)
 	int	i;
 
 	i = 0;
-	sort->i = 0;
-	sort->k = 0;
 	sort->min_index = -1;
 	sort->min_value = NULL;
 	sort->printed = (int *)malloc(size * sizeof(int));
-	while (i < size)
+	while (i <= size)
 	{
 		sort->printed[i] = 0;
 		i++;
@@ -83,6 +81,7 @@ int	print_list_alpha(char **list, int size)
 	t_alpha	sort;
 
 	init_sort_struct(size, &sort);
+	sort.i = 0;
 	while (sort.i < size)
 	{
 		sort.min_index = -1;
