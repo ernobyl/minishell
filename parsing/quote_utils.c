@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:40:42 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/05/19 08:36:24 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/05/19 08:36:57 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-bool	parsing(char *input)
+int	skip_quotes(char *str, int i, char quote)
 {
-	char		**arr;
-	char	*str;
-	t_struct	token;
+	while (str[i] && (str[i] != quote))
+		i++;
+	return (i + 1);
+}
 
-	str = validate_syntax(input);
-	if (!str)
-	{
-		printf("Invalid syntax\n");
+bool	matching_quote(char *str, int i, char quote)
+{
+	while (str[i] && (str[i] != quote))
+		i++;
+	if (str[i]!= quote)
 		return (false);
-	}
-	str = mod_str(ft_strtrim(str, " "));
-	arr = split(str);
-	if (!arr)
-		return (false);
-	arr = expand_env(arr);
-	tokenize(&token, arr);
 	return (true);
+}
+
+bool	ft_isquote(char c)
+{
+	if (c == '"' || c == '\'')
+		return (true);
+	return (false);
 }

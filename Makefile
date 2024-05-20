@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/15 11:04:35 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/05/20 13:16:55 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,17 @@ HEADERS	:=
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing/parsing.c \
+			parsing/validate_syntax.c \
+			parsing/quote_utils.c \
+			parsing/mod_str.c \
+			builtins.c \
+			built_in.c \
 			parsing/split.c \
+			parsing/expand_str.c \
+			parsing/ft_strchr_next.c \
 			parsing/trim_quote.c \
 			parsing/tokenize.c \
-			parsing/validate_syntax.c \
-			parsing/ft_strchr_next.c \
-			parsing/expand_str.c \
 			parsing/find_and_replace.c \
-			builtins.c \
-			built_in.c
 
 OBJS	:= ${SRCS:.c=.o}
 

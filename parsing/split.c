@@ -6,20 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/06 13:06:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:43:23 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static int	ft_isquote(char const *str, int i, char quote)
-{
-	while (str[i] != quote)
-		i++;
-	return (i + 1);
-}
-
-static int	count_words(char const *s)
+static int	count_words(char *s)
 {
 	int		i;
 	int		rows;
@@ -31,22 +24,20 @@ static int	count_words(char const *s)
 	{
 		while (ft_isprint(s[i]))
 		{
-			if (s[i] == '"' || s[i] == '\'')
-			{
-				quote = s[i++];
-				i = ft_isquote(s, i, quote);
-			}
+			if (ft_isquote(s[i]))
+				i = skip_quotes(s, i + 1, s[i]);
 			else
 				i++;
 		}
-		while (s[i] == ' ')
+		while (ft_iswhitespace(s[i]))
 			i++;
 		rows++;
 	}
+	printf("row lenght: {%d}\n", rows);
 	return (rows);
 }
 
-static int	count_letters(char const *s, int i, char c)
+static int	count_letters(char *s, int i, char c)
 {
 	int		count;
 	char	quote;
@@ -54,11 +45,8 @@ static int	count_letters(char const *s, int i, char c)
 	count = i;
 	while (ft_isprint(s[i]))
 	{
-		if (s[i] == '"' || s[i] == '\'')
-		{
-			quote = s[i++];
-			i = ft_isquote(s, i, quote);
-		}
+		if (ft_isquote(s[i]))
+			i = skip_quotes(s, i + 1, s[i]);
 		else
 			i++;
 	}
@@ -66,7 +54,7 @@ static int	count_letters(char const *s, int i, char c)
 	return (count);
 }
 
-static int	fill(char **dest, char const *s, char c, int rows)
+static bool	fill(char **dest, char *s, char c, int rows)
 {
 	int			i;
 	size_t		start;
@@ -83,14 +71,14 @@ static int	fill(char **dest, char const *s, char c, int rows)
 		if (dest[i] == NULL)
 		{
 			ft_free(dest);
-			return (FALSE);
+			return (false);
 		}
 		start = end + start;
 	}
-	return (TRUE);
+	return (true);
 }
 
-char	**split(char const *s)
+char	**split(char *s)
 {
 	char	**dest;
 	int		rows;

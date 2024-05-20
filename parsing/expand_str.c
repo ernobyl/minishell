@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/15 13:27:32 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:22:38 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static int	validate_expand(char *str)
 
 	i = 0;
 	if (str[0] == '$')
-		return (TRUE);
+		return (true);
 	while (str[i] != '$')
 		i++;
 	if (str[i - 1] != ' ' && str[i - 1] != '"')
-		return (FALSE);
-	return (TRUE);
+		return (false);
+	return (true);
 }
 
 static char	*find_variable(char *str)

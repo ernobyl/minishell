@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/15 12:16:07 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:25:51 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define PARSING_H
 
 # include "../minishell.h"
-
-# define TRUE 1
-# define FALSE 0
+# include <stdbool.h>
 
 typedef struct s_struct
 {
@@ -27,13 +25,19 @@ typedef struct s_struct
 	struct s_struct	*next;
 }					t_struct;
 
-int			parsing(char *input);
-char		**split(char const *s);
+bool		parsing(char *input);
+char		*validate_syntax(char *str);
+bool		ft_isquote(char c);
+bool		matching_quote(char *str, int i, char quote);
+int			skip_quotes(char *str, int i, char quote);
+bool 		ft_isspecialchar(char c);
+bool 		ft_iswhitespace(char c);
+char		**split(char *s);
 t_struct	*tokenize(t_struct *token,char **arr);
 char		*trim_quote(char *str);
-int			validate_syntax(char *input);
 char		*ft_strchr_next(const char *s, int c);
 char		*find_and_replace(char *str, char *replace, int len);
 char		**expand_env(char **arr);
+char		*mod_str(char *str);
 
 #endif
