@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/07 09:55:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/20 10:24:18 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_struct
 	struct s_struct	*next;
 	char			**env;
 }					t_struct;
+
+void	heredoc(const char *delimiter);
 
 //int		parsing(char *input);
 //char	**split(char const *s);

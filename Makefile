@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/17 10:27:17 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/20 10:18:49 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			parsing.c \
 			split.c \
+			heredoc.c \
 			builtins/builtins.c \
 			builtins/builtins2.c \
 			builtins/run_builtin.c \
