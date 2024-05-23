@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:13:02 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/09 10:53:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:53:44 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "../includes/builtins.h"
 
 static char	**free_return(char **env)
 {

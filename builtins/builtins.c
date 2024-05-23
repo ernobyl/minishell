@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/17 13:27:53 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:53:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "../includes/builtins.h"
 
 int	echo_builtin(char *file, char *input)
 {
@@ -33,7 +32,7 @@ int	echo_builtin(char *file, char *input)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(t_struct *shell, char *new_var)
+int	export_builtin(t_env *shell, char *new_var)
 {
 	int		i;
 	int		found;
@@ -62,7 +61,7 @@ int	export_builtin(t_struct *shell, char *new_var)
 	return (ret_value);
 }
 
-int	unset_builtin(t_struct *shell, char *to_unset)
+int	unset_builtin(t_env *shell, char *to_unset)
 {
 	int		i;
 	size_t	var_len;
@@ -91,7 +90,7 @@ int	unset_builtin(t_struct *shell, char *to_unset)
 	return (EXIT_FAILURE);
 }
 
-int	env_builtin(t_struct *shell)
+int	env_builtin(t_env *shell)
 {
 	int	i;
 

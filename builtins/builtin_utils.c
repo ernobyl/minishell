@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/17 12:16:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:06:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "../includes/builtins.h"
 
 int	double_buf_size(char **str, size_t *buf_size)
 {
@@ -40,7 +39,7 @@ int	replace_variable(char **env_var, char *new_var)
 	return (EXIT_SUCCESS);
 }
 
-int	add_variable(t_struct *shell, char *new_var, int size)
+int	add_variable(t_env *shell, char *new_var, int size)
 {
 	char	**add_env;
 	int		i;

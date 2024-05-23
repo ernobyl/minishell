@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 22:05:17 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:34:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
+# include "builtins.h"
 # include "minishell.h"
 
 typedef struct s_struct

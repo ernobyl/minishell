@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 09:53:24 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:53:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "../includes/builtins.h"
 
 int	pwd_builtin(void)
 {

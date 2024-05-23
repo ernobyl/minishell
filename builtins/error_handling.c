@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:57:17 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/07 17:06:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:55:12 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "../includes/builtins.h"
 
 int	error_msg(char *msg)
 {

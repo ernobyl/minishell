@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/20 10:19:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:05:57 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "builtins/builtins.h"
+#include "includes/minishell.h"
 
 void	heredoc(const char *delimiter)
 {

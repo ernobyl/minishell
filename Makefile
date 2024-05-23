@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/23 10:39:32 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/05/23 11:08:41 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,13 @@ CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
-			parsing.c \
-			split.c \
 			heredoc.c \
 			builtins/builtins.c \
 			builtins/builtins2.c \
 			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
 			builtins/environment.c \
-			builtins/error_handling.c
+			builtins/error_handling.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \

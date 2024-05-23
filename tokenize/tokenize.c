@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 10:22:39 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:38:22 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,15 @@ t_struct *token(char **arr)
 t_struct	*tokenize(char **arr)
 {
 	t_struct *t;
+	int		ret_value;
 	
 	t = token(arr);
 	print_nodes(t);
+	ret_value = run_builtin(input, &shell);
+	if (ret_value != 0)
+	{
+		printf("FAILURE");
+		exit(1);
+	}
 	return (t);
 }

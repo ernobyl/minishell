@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 10:38:28 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:32:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "builtins/builtins.h"
+#include "includes/builtins.h"
 
 volatile sig_atomic_t	g_exit_flag = 0;
 
@@ -50,9 +49,9 @@ char	*skip_set(char *str, char *set)
 
 int	main(void)
 {
-	char		*input;
-	t_struct	shell;
-	int			ret_value;
+	char	*input;
+	t_env	shell;
+	int		ret_value;
 
 	shell.env = init_env_list();
 	ret_value = 0;
@@ -64,10 +63,15 @@ int	main(void)
 		if (input != NULL)
 		{
 			add_history(input);
-			if (ft_strncmp(input, "<< ", 3) == 0)
-				heredoc(skip_set(input, "<<"));
-			else
-				ret_value = run_builtin(input, &shell);
+			if (parsing(input) == 0)
+			{
+				free(input);
+				return (1);
+			}
+			// if (ft_strncmp(input, "<< ", 3) == 0)
+			// 	heredoc(skip_set(input, "<<"));
+			// else
+			// 	ret_value = run_builtin(input, &shell);
 		}
 		if (input == NULL || ret_value == EXIT_SIGNAL)
 		{
@@ -76,11 +80,6 @@ int	main(void)
 		}
 		if (ret_value == NO_SIGNAL)
 			printf("no signal\n");
-		// if (parsing(input) == 0)
-		// {
-		// 	free(input);
-		// 	return (1);
-		// }
 		free(input);
 	}
 	ft_free(shell.env);
