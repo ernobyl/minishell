@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 11:47:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:52:32 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,19 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 	return (ret_value);
 }
 
-int	run_builtin(char *input, t_env *shell)
+int	run_builtin(char *cmd, char *param, t_env *shell)
 {
 	int		num;
 	int		ret_value;
-	char	*param;
 	char	*arr[8];
 
 	ret_value = 0;
-	num = get_builtin_num(input);
+	num = get_builtin_num(cmd);
 	if (num == NOT_BUILTIN)
 		return (101);
 	init_builtin_arr(arr);
-	param = skip_set(input, arr[num]);
+	// param = skip_set(input, arr[num]);
+	printf("cmd %s and param %s\n", cmd, param);
 	ret_value = match_function(num, ret_value, param, shell);
 	return (ret_value);
 }

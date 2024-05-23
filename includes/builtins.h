@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 10:59:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:40:00 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		echo_builtin(char *file, char *input);
 int		export_builtin(t_env *shell, char *new_var);
 int		unset_builtin(t_env *shell, char *to_unset);
 int		env_builtin(t_env *shell);
-int		run_builtin(char *input, t_env *shell);
+int		run_builtin(char *cmd, char *param, t_env *shell);
 
 #endif

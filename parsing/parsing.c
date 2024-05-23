@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/21 09:05:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:09:37 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-bool	parsing(char *input)
+bool	parsing(char *input, t_env *shell)
 {
 	char		**arr;
 	char		*str;
@@ -29,6 +29,6 @@ bool	parsing(char *input)
 	if (!arr)
 		return (false);
 	arr = expand_env(arr);
-	tokenize(arr);
+	tokenize(arr, shell);
 	return (true);
 }

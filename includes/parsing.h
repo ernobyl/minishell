@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 21:59:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:10:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "tokenize.h"
 # include <stdbool.h>
 
-bool	parsing(char *input);
+bool	parsing(char *input, t_env *shell);
 bool	ft_isquote(char c);
 bool	matching_quote(char *str, int i, char quote);
 bool	ft_isspecialchar(char c);

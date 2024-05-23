@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 11:32:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:29:46 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
+# include "includes/parsing.h"
 
 volatile sig_atomic_t	g_exit_flag = 0;
 
@@ -63,7 +64,7 @@ int	main(void)
 		if (input != NULL)
 		{
 			add_history(input);
-			if (parsing(input) == 0)
+			if (parsing(input, &shell) == 0)
 			{
 				free(input);
 				return (1);
