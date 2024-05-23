@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/20 10:18:49 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/23 10:39:32 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 
 NAME	:= minishell
@@ -26,6 +27,17 @@ SRCS	:=	main.c \
 			builtins/builtin_utils.c \
 			builtins/environment.c \
 			builtins/error_handling.c
+			parsing/parsing.c \
+			parsing/validate_syntax.c \
+			parsing/quote_utils.c \
+			parsing/mod_str.c \
+			parsing/split.c \
+			parsing/expand_str.c \
+			parsing/ft_strchr_next.c \
+			parsing/trim_quote.c \
+			parsing/find_and_replace.c \
+			tokenize/tokenize.c \
+			tokenize/list_utils.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
