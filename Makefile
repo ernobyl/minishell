@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/23 12:30:56 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/05/23 13:23:19 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= cc
-# CFLAGS	:= -Wextra -Wall -Werror -g
+CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \

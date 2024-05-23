@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 12:51:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:29:24 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char *find_param(t_struct *stack)
 {
 	t_struct *temp;
 
+	temp = stack;
 	if (stack->token != LIT)
 		temp = temp->next;
 	while (temp != stack && temp->token != LIT)
