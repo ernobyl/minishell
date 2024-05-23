@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 12:10:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:07:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strchr_next(const char *s, int c);
 char	*find_and_replace(char *str, char *replace, int len);
 char	*mod_str(char *str);
 char	**split(char *s);
-char	**expand_env(char **arr);
+char	**expand_env(char **arr, t_env *shell);
 int		skip_quotes(char *str, int i, char quote);
 
 #endif

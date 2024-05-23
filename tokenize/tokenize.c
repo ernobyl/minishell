@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 13:29:24 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:59:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ t_struct	*tokenize(char **arr, t_env *shell)
 	t_struct	*t;
 	char *cmd;
 	char *param;
-	int ret_value;
+	int	ret_value;
 
 	t = token(arr);
 	print_nodes(t);
 	cmd = find_cmd(t);
+	// strjoin the rest of the param;
 	param = find_param(t);
 	ret_value = run_builtin(cmd, param, shell);
 	if (ret_value != 0)
