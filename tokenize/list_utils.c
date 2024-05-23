@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/08 10:07:00 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:19:28 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/tokenize.h"
 
 t_struct	*add_new(char *token, char *value, int i)
 {
@@ -96,4 +96,18 @@ int	count_nodes(t_struct *stack)
 		stack = stack->next;
 	}
 	return (count);
+}
+
+void	print_nodes(t_struct *stack)
+{
+	t_struct	*temp;
+
+	temp = stack;
+	printf("nr {%d}, type {%s}, value {%s}\n", stack->nr, stack->token, stack->value);
+	stack = stack->next;
+	while (temp != stack)
+	{
+		printf("nr {%d}, type {%s}, value {%s}\n", stack->nr, stack->token, stack->value);
+		stack = stack->next;
+	}
 }

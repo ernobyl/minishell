@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 12:31:57 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:03:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 bool	ft_iswhitespace(char c)
 {
@@ -80,8 +80,8 @@ char	*validate_syntax(char *str)
 			if (i == -1 || str[i + 1] == '\0')
 				return (NULL);
 		}
-		i++;
+		else
+			i++;
 	}
-	printf("%s", str);
 	return (str);
 }

@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:02:00 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/15 14:21:32 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:33:34 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 static int	count_trim_letters(char *str)
 {

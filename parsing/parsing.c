@@ -6,17 +6,16 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:40:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:05:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 bool	parsing(char *input)
 {
 	char		**arr;
-	char	*str;
-	t_struct	token;
+	char		*str;
 
 	str = validate_syntax(input);
 	if (!str)
@@ -26,9 +25,10 @@ bool	parsing(char *input)
 	}
 	str = mod_str(ft_strtrim(str, " "));
 	arr = split(str);
+	free(str);
 	if (!arr)
 		return (false);
 	arr = expand_env(arr);
-	tokenize(&token, arr);
+	tokenize(arr);
 	return (true);
 }

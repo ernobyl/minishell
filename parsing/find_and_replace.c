@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:02:48 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/15 13:21:57 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:32:52 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 char	*find_and_replace(char *str, char *replace, int len)
 {

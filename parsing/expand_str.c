@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:22:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:32:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 static int	validate_expand(char *str)
 {
@@ -71,7 +71,6 @@ static char	*expand_str(char *str)
 char	**expand_env(char **arr)
 {
 	int		i;
-	char	*str;
 
 	i = 0;
 	while (arr[i])

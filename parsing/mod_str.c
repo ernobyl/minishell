@@ -6,17 +6,16 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:11:35 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:06:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 static int	count_extra_space(char *str)
 {
 	int		i;
 	int		count;
-	char	quote;
 
 	i = 0;
 	count = 0;
@@ -28,7 +27,7 @@ static int	count_extra_space(char *str)
 			i = skip_quotes(str, i + 1, str[i]);
 		if (ft_isspecialchar(str[i]))
 		{
-			if (str[i] == '|' && str[i - 1] != ' ')
+			if (str[i - 1] != ' ')
 				count++;
 			if (str[i + 1] != ' ' && str[i + 1] != str[i])
 				count++;
@@ -48,6 +47,8 @@ static char	*add_extra_space(char *str, int count)
 	i = 0;
 	j = 0;
 	dest = malloc(sizeof(char) * (ft_strlen(str) + count));
+	if (!dest)
+		return (NULL);
 	while (str[i])
 	{
 		if (ft_isquote(str[i]))
@@ -61,24 +62,24 @@ static char	*add_extra_space(char *str, int count)
 		if (ft_isspecialchar(str[i]))
 		{
 			sign = str[i];
-			if (str[i] == '|' && str[i - 1] != ' ')
+			if (str[i - 1] != ' ')
 				dest[j++] = ' ';
 			while (str[i] == sign)
 				dest[j++] = str[i++];
 			if (str[i] != ' ')
 				dest[j++] = ' ';
 		}
-		dest[j++] = str[i++];
+		else
+			dest[j++] = str[i++];
 	}
 	dest[j] = '\0';
 	free(str);
 	return (dest);
 }
-
+// echo|thiscmd $PATH >>in|ls wvae342 <dawda |<file checking "dwdwa"
 char	*mod_str(char *str)
 {
 	char	*dest;
-	char	quote;
 	int		count;
 
 	count = count_extra_space(str);

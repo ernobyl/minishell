@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:43:27 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/05/20 14:30:17 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/05/20 14:34:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#ifndef BUILT_IN_H
+# define BUILT_IN_H
 
-t_struct *tokenize(t_struct *token, char **arr)
-{
-	int i;
+# include "minishell.h"
 
-	i = 0;
-	while (arr[i])
-		printf("%s\n", arr[i++]);
-	printf("done printing\n");
-}
+char	*skip_set(char *str, char *set);
+int		pwd_builtin(void);
+int		cd_builtin(const char *path);
+int		echo_builtin(char *file, char *input);
+int		export_builtin(char ***environ, char *new_var);
+int		unset_builtin(char ***environ, char *to_unset);
+int		env_builtin(char **environ);
+int		built_ins(char *input);
+
+#endif

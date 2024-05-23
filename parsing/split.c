@@ -6,17 +6,16 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:43:23 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:33:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../includes/parsing.h"
 
 static int	count_words(char *s)
 {
 	int		i;
 	int		rows;
-	char	quote;
 
 	i = 0;
 	rows = 0;
@@ -33,14 +32,12 @@ static int	count_words(char *s)
 			i++;
 		rows++;
 	}
-	printf("row lenght: {%d}\n", rows);
 	return (rows);
 }
 
-static int	count_letters(char *s, int i, char c)
+static int	count_letters(char *s, int i)
 {
 	int		count;
-	char	quote;
 
 	count = i;
 	while (ft_isprint(s[i]))
@@ -66,7 +63,7 @@ static bool	fill(char **dest, char *s, char c, int rows)
 	{
 		while (s[start] == c)
 			start++;
-		end = count_letters(s, start, c);
+		end = count_letters(s, start);
 		dest[i] = ft_substr(s, start, end);
 		if (dest[i] == NULL)
 		{
