@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/24 18:53:57 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:58:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "builtins.h"
 # include "minishell.h"
 
-# define CMD 40
-# define OPTION 41
 # define HEREDOC 42
 # define INFILE 43
 # define OUTFILE 44
