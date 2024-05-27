@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:39:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 15:54:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:37:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,22 @@ static void	create_child(char *argv, char **envp)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	int	i;
-	int	filein;
-	int	fileout;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	int	i;
+// 	int	filein;
+// 	int	fileout;
 
-	if (argc >= 5)
-	{
-		i = 2;
-		fileout = open_file(argv[argc - 1], 1);
-		filein = open_file(argv[1], 2);
-		dup2(filein, STDIN_FILENO);
-		while (i < argc - 2)
-			create_child(argv[i++], envp);
-		dup2(fileout, STDOUT_FILENO);
-		execute(argv[argc - 2], envp);
-	}
-	input_error();
-}
+// 	if (argc >= 5)
+// 	{
+// 		i = 2;
+// 		fileout = open_file(token->value, 1);
+// 		filein = open_file(token->value, 2);
+// 		dup2(filein, STDIN_FILENO);
+// 		while (i < argc - 2)
+// 			create_child(argv[i++], envp);
+// 		dup2(fileout, STDOUT_FILENO);
+// 		execute(argv[argc - 2], envp);
+// 	}
+// 	input_error();
+// }

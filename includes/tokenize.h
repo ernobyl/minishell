@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/27 10:58:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:39:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ typedef struct s_struct
 
 t_struct	*tokenize(char **arr);
 t_struct	*add_new(int token, char *value);
-void		add_front(t_struct **lst, t_struct *new);
 void		add_back(t_struct **lst, t_struct *new);
 void		free_stack(t_struct **stack);
 void		print_nodes(t_struct *stack);
-int			count_nodes(t_struct *stack);
+void		push(t_struct **src, t_struct **dest);
+void	rotate(t_struct **stack);
 
 #endif

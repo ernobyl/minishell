@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/24 18:40:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:36:50 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,12 @@ t_struct	*add_new(int token, char *value)
 		return (NULL);
 	new->token = token;
 	new->value = value;
-	new->next = new;
-	new->prev = new;
+	new->next = NULL;
 	return (new);
-}
-
-void	add_front(t_struct **lst, t_struct *new)
-{
-	t_struct	*head;
-	t_struct	*tail;
-
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	head = *lst;
-	tail = (*lst)->prev;
-	new->next = head;
-	new->prev = tail;
-	tail->next = new;
-	head->prev = new;
-	*lst = new;
 }
 
 void	add_back(t_struct **lst, t_struct *new)
 {
-	t_struct	*head;
 	t_struct	*tail;
 
 	if (!*lst)
@@ -55,12 +34,17 @@ void	add_back(t_struct **lst, t_struct *new)
 		*lst = new;
 		return ;
 	}
-	head = *lst;
-	tail = (*lst)->prev;
-	new->next = head;
-	new->prev = tail;
+	tail = *lst;
+	while (tail->next != NULL)
+		tail = tail->next;
 	tail->next = new;
-	head->prev = new;
+}
+
+void	add_front(t_list **lst, t_list *new)
+{
+	if (lst)
+		new->next = *lst;
+	*lst = new;
 }
 
 void	free_stack(t_struct **stack)
@@ -81,32 +65,41 @@ void	free_stack(t_struct **stack)
 	}
 }
 
-int	count_nodes(t_struct *stack)
-{
-	t_struct	*temp;
-	int			count;
-
-	count = 1;
-	temp = stack;
-	stack = stack->next;
-	while (temp != stack)
-	{
-		count++;
-		stack = stack->next;
-	}
-	return (count);
-}
-
 void	print_nodes(t_struct *stack)
 {
 	t_struct	*temp;
 
 	temp = stack;
-	while (1)
+	while (temp)
 	{
 		printf("type {%d}, value {%s}\n", temp->token, temp->value);
 		temp = temp->next;
-		if (temp == stack)
-			return ;
 	}
+}
+
+void    push(t_struct **from, t_struct **to)
+{
+    t_struct    *tmp;
+
+    if (!from || !*from)
+        return ;
+    tmp = *from;
+    *from = (*from)->next;
+    tmp->next = *to;
+    *to = tmp;
+}
+void	rotate(t_struct **stack)
+{
+	t_struct	*first_node;
+	t_struct	*last_node;
+
+	if (!stack || !(*stack) || !(*stack)->next)
+		return ;
+	first_node = *stack;
+	*stack = (*stack)->next;
+	last_node = (*stack);
+	while (last_node->next)
+        last_node = last_node->next;
+    last_node->next = first_node;
+    first_node->next = NULL;
 }
