@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 10:53:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:06:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	echo_builtin(char *file, char *input)
 
 int	export_builtin(t_env *shell, char *new_var)
 {
-	int		i;
-	int		found;
-	int		ret_value;
+	int	i;
+	int	found;
+	int	ret_value;
 
 	i = 0;
 	found = 0;

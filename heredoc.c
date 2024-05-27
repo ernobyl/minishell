@@ -6,30 +6,43 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 11:05:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:13:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	heredoc(const char *delimiter)
+static void	parent_wait(int *fd)
 {
-	char	*line;
-	char	buffer[1024];
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	wait(NULL);
+}
 
-	ft_bzero(buffer, 1024);
-	while (1)
+void	heredoc(char *limiter)
+{
+	pid_t	reader;
+	int		fd[2];
+	char	*line;
+
+	if (pipe(fd) == -1)
+		error_msg("pipe failed");
+	reader = fork();
+	if (reader == 0)
 	{
-		line = readline("> ");
-		if (line == NULL)
-			break ;
-		if (ft_strcmp(line, delimiter) == 0)
+		close(fd[0]);
+		while ((line = readline(NULL)) != NULL)
 		{
+			if (strncmp(line, limiter, ft_strlen(limiter)) == 0)
+			{
+				free(line);
+				break ;
+			}
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 1);
 			free(line);
-			break ;
 		}
-		ft_strlcat(buffer, line, ft_strlen(line));
-		ft_strlcat(buffer, "\n", 1);
-		free(line);
 	}
+	else
+		parent_wait(fd);
 }

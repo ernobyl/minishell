@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 11:05:06 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:40:50 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct s_env
 	char	**env;
 }			t_env;
 
-void	heredoc(const char *delimiter);
+void	heredoc(char *limiter);
 
 #endif
