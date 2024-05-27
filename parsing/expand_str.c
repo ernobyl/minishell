@@ -6,31 +6,17 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:21 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:19:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-static int	validate_expand(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[0] == '$')
-		return (true);
-	while (str[i] != '$')
-		i++;
-	if (str[i - 1] != ' ' && str[i - 1] != '"')
-		return (false);
-	return (true);
-}
-
 static char	*find_variable(char *str)
 {
 	char	*var;
-	int		start;
 	int		i;
+	int		start;
 
 	i = 0;
 	while (str[i] && str[i] != '$')
@@ -48,19 +34,19 @@ static char	*find_variable(char *str)
 
 static char	*expand_str(char *str, t_env *shell)
 {
-	char		*var;
 	char		*dest;
+	char		*var;
 	int			i;
-
-	// find all $signs and change it, can be several in 1 string;
+	int			len;
 
 	i = 0;
 	var = find_variable(str);
+	len = ft_strlen(var) - 1;
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], var, ft_strlen(var)) == 0)
 		{
-			dest = find_and_replace(str, ft_strchr_next(shell->env[i], '='), ft_strlen(var) - 1);
+			dest = find_and_replace(str, ft_strchr_next(shell->env[i], '='), len);
 			return (dest);
 		}
 		i++;
@@ -76,11 +62,8 @@ char	**expand_env(char **arr, t_env *shell)
 	i = 0;
 	while (arr[i])
 	{
-		if (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
-		{
-			if (validate_expand(arr[i]))
-				arr[i] = expand_str(arr[i], shell);
-		}
+		while (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
+			arr[i] = expand_str(arr[i], shell);
 		arr[i] = trim_quote(arr[i]);
 		i++;
 	}

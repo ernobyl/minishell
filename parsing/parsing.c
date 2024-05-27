@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 14:10:46 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/25 00:43:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	parsing(char *input, t_env *shell)
 {
+	t_struct	*token;
 	char		**arr;
 	char		*str;
 
@@ -29,6 +30,8 @@ bool	parsing(char *input, t_env *shell)
 	if (!arr)
 		return (false);
 	arr = expand_env(arr, shell);
-	tokenize(arr, shell);
+	token = tokenize(arr);
+	print_nodes(token);
+	exec(token, shell);
 	return (true);
 }

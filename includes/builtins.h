@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:00 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:07:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ typedef struct s_alphasort
 }			t_alpha;
 
 int		error_msg(char *msg);
-
 char	**init_env_list(void);
-
 int		print_list_alpha(char **list, int size);
 int		replace_variable(char **env_var, char *new_var);
 int		add_variable(t_env *shell, char *new_var, int size);
-
 char	*skip_set(char *str, char *set);
 int		double_buf_size(char **str, size_t *buf_size);
 int		pwd_builtin(void);

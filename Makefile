@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/23 13:23:19 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/25 00:40:49 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -Wextra -Wall -Werror -g
+# CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -25,6 +25,7 @@ SRCS	:=	main.c \
 			builtins/builtin_utils.c \
 			builtins/environment.c \
 			builtins/error_handling.c \
+			exec/exec.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \

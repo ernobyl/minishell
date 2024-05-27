@@ -6,116 +6,54 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 13:59:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:20:36 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenize.h"
 
-static int find_tokentype(char *str)
+static int	match_tokentype(char *str)
 {
-	if (ft_strncmp("<<", str, 2) == 0)
+	if (ft_strcmp("<<", str) == 0)
 		return (HEREDOC);
-	if (ft_strncmp("<", str, 1) == 0)
+	else if (ft_strcmp("<", str) == 0)
 		return (INFILE);
-	if (ft_strncmp(">>", str, 2) == 0)
+	else if (ft_strcmp(">>", str) == 0)
 		return (D_OUTFILE);
-	if (ft_strncmp(">", str, 1) == 0)
+	else if (ft_strcmp(">", str) == 0)
 		return (OUTFILE);
-	return (0);
+	else if (ft_strcmp("|", str) == 0)
+		return (PIPE);
+	return (LITERAL);
 }
 
-t_struct *token(char **arr)
+t_struct	*tokenize(char **arr)
 {
 	t_struct	*head;
 	t_struct	*new;
 	int			i;
-	int			pipe;
-	int			cmd;
 	int			token;
 
 	head = NULL;
 	i = 0;
-	cmd = 0;
-	pipe = 0;
 	while (arr[i])
 	{
-		token = find_tokentype(arr[i]);
-		if (token)
-		{
-			new = add_new(token, arr[i + 1], pipe);
-			i++;
-		}
-		else if (arr[i][0] == '|')
-		{
-			pipe++;
-			cmd = 0;
-		}
+		token = match_tokentype(arr[i]);
+		if (token == PIPE || token == LITERAL)
+			new = add_new(token, arr[i]);
 		else
 		{
-			if (cmd == 0)
-			{
-				new = add_new(CMD, arr[i], pipe);
-				cmd = 1;
-			}
-			else
-			{
-				if (arr[i][0] == '-')
-					new = add_new(OPTION, arr[i], pipe);
-				else
-					new = add_new(LIT, arr[i], pipe);
-			}
+			new = add_new(token, arr[i + 1]);
+			i++;
 		}
 		i++;
 		add_back(&head, new);
 	}
 	return (head);
 }
-char *find_cmd(t_struct *stack)
-{
-	t_struct *temp;
 
-	temp = stack;
-	if (stack->token != CMD)
-		temp = temp->next;
-	while (temp != stack && temp->token != CMD)
-		temp = temp->next;
-	if (temp->token != CMD)
-		return (NULL);
-	return (temp->value);
-}
-
-char *find_param(t_struct *stack)
-{
-	t_struct *temp;
-
-	temp = stack;
-	if (stack->token != LIT)
-		temp = temp->next;
-	while (temp != stack && temp->token != LIT)
-		temp = temp->next;
-	if (temp->token != LIT)
-		return (NULL);
-	return (temp->value);
-}
-
-t_struct	*tokenize(char **arr, t_env *shell)
-{
-	t_struct	*t;
-	char *cmd;
-	char *param;
-	int	ret_value;
-
-	t = token(arr);
-	print_nodes(t);
-	cmd = find_cmd(t);
-	// strjoin the rest of the param;
-	param = find_param(t);
-	ret_value = run_builtin(cmd, param, shell);
-	if (ret_value != 0)
-	{
-		printf("FAILURE");
-		exit(1);
-	}
-	return (t);
-}
+	// ret_value = run_builtin(cmd, param, shell);
+	// if (ret_value != 0)
+	// {
+	// 	printf("FAILURE");
+	// 	exit(1);

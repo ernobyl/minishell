@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 14:07:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:26:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@
 # include "minishell.h"
 # include "tokenize.h"
 # include <stdbool.h>
+# include "exec.h"
 
-bool	parsing(char *input, t_env *shell);
 bool	ft_isquote(char c);
-bool	matching_quote(char *str, int i, char quote);
 bool	ft_isspecialchar(char c);
 bool	ft_iswhitespace(char c);
-char	*validate_syntax(char *str);
-char	*trim_quote(char *str);
-char	*ft_strchr_next(const char *s, int c);
+bool	matching_quote(char *str, int i, char quote);
+bool	parsing(char *input, t_env *shell);
+char	**expand_env(char **arr, t_env *shell);
 char	*find_and_replace(char *str, char *replace, int len);
+char	*ft_strchr_next(const char *s, int c);
 char	*mod_str(char *str);
 char	**split(char *s);
-char	**expand_env(char **arr, t_env *shell);
+char	*trim_quote(char *str);
+char	*validate_syntax(char *str);
 int		skip_quotes(char *str, int i, char quote);
 
 #endif
