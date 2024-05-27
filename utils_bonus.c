@@ -6,17 +6,17 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:40:18 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/27 11:13:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:50:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "includes/pipex.h"
 
-void	handle_error(int exitcode, const char *errormsg)
-{
-	perror(errormsg);
-	exit(exitcode);
-}
+// void	handle_error(int exitcode, const char *errormsg)
+// {
+// 	perror(errormsg);
+// 	exit(exitcode);
+// }
 
 void	input_error(void)
 {

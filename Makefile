@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/25 00:40:49 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/05/27 14:50:14 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRCS	:=	main.c \
 			parsing/find_and_replace.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
+			pipex_utils.c \
+			utils_bonus.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

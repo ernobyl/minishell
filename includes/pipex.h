@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:31:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/27 10:25:55 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:47:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,19 @@
 # include "minishell.h"
 # include <sys/wait.h>
 
-char	**parsing_path(char **envp, char *str, int *fd);
-void	error_msg(char *str, int *fd, int code);
-void	custom_msg(char *cmd, char *str, int *fd, int code);
-char	**parsing_args(char *str, int *fd);
-char	*ft_sstrjoin(char *s1, char *s2);
+typedef struct s_pipex
+{
+	pid_t	pid1;
+	pid_t	pid2;
+	int		status1;
+	int		status2;
+}	t_pipex;
+
+void	handle_error(int exitcode, const char *errormsg);
+void	execute(char *argv, char **envp);
+char	*env_path(char *cmd, char **envp);
+
+void	input_error(void);
+int		open_file(char *argv, int i);
 
 #endif
