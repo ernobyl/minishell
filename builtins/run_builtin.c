@@ -59,7 +59,11 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 	if (num == ECHO)
 		ret_value = echo_builtin(NULL, param);
 	if (num == EXPORT)
+	{
+		// int	i = 0;
+		// while (there are variables in 'param', run this)
 		ret_value = export_builtin(shell, param);
+	}
 	if (num == UNSET)
 		ret_value = unset_builtin(shell, param);
 	if (num == ENV)

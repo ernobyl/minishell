@@ -72,7 +72,7 @@ int	main(void)
 			// if (ft_strncmp(input, "<< ", 3) == 0)
 			// 	heredoc(skip_set(input, "<<"));
 			// else
-			// 	ret_value = run_builtin(input, &shell);
+			// ret_value = run_builtin(input, &shell);
 		}
 		if (input == NULL || ret_value == EXIT_SIGNAL)
 		{
