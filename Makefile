@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/27 14:50:14 by emichels         ###   ########.fr        #
+#    Updated: 2024/05/29 10:57:37 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRCS	:=	main.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
 			pipex_utils.c \
-			utils_bonus.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

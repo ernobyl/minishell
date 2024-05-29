@@ -6,39 +6,39 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:06:33 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/27 10:26:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:56:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/exec.h"
 
-static void	infile_open(int *fd, char *file)
+void	infile_open(int *fd, char *file)
 {
 	int	file1;
 
 	file1 = open(file, O_RDONLY);
 	if (file1 == -1)
-		error_msg(file, fd, 126);
+		error_msg_kim(file, fd, 126);
 	dup2(file1, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(file1);
 }
 
-static void	outfile_open(int *fd, char *file)
+void	outfile_open(int *fd, char *file)
 {
 	int	file2;
 
 	file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	if (file2 == -1)
-		error_msg(file, fd, 2);
+		error_msg_kim(file, fd, 2);
 	dup2(file2, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
 	close(file2);
 }
 
-static void	xcute_cmd(char *cmd, char **envp, int *fd)
+void	xcute_cmd(char *cmd, char **envp, int *fd)
 {
 	char	**args;
 	char	**path;

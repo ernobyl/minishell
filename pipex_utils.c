@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/27 14:48:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:40:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,3 @@ char	*env_path(char *cmd, char **envp)
 	}
 	return (freereturn(path_array, 0));
 }
-
-void	execute(char *argv, char **envp)
-{
-	char	**cmd;
-	char	*path;
-	int		i;
-
-	cmd = ft_split(argv, ' ');
-	path = env_path(cmd[0], envp);
-	if (!path)
-	{
-		i = -1;
-		while (cmd[++i])
-			free(cmd[i]);
-		free(cmd);
-		handle_error(127, "command not found");
-	}
-	if (execve(path, cmd, envp) == -1)
-		handle_error(127, "command not found");
-}
-

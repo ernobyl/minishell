@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 08:23:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/02/28 13:36:10 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:56:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**parsing_args(char *str, int *fd)
 	return (args);
 }
 
-void	error_msg(char *str, int *fd, int code)
+void	error_msg_kim(char *str, int *fd, int code)
 {
 	close(fd[0]);
 	close(fd[1]);

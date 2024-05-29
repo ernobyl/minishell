@@ -1,0 +1,22 @@
+total 3296
+drwxr-xr-x@ 21 kale  staff      672 May 29 10:56 .
+drwx------@ 27 kale  staff      864 May 29 10:56 ..
+drwxr-xr-x@ 15 kale  staff      480 May 29 09:08 .git
+-rw-r--r--   1 kale  staff     1972 May 29 10:57 Makefile
+drwxr-xr-x@ 14 kale  staff      448 May 29 11:16 builtins
+-rw-r--r--@  1 kale  staff  1589696 May 23 10:30 en.subject.pdf
+drwxr-xr-x@  7 kale  staff      224 May 29 11:23 exec
+-rw-r--r--   1 kale  staff       19 May 29 09:24 hello.txt
+-rw-r--r--   1 kale  staff     1463 May 29 09:13 heredoc.c
+-rw-r--r--   1 kale  staff     1688 May 29 11:16 heredoc.o
+drwxr-xr-x@  8 kale  staff      256 May 28 17:57 includes
+drwxr-xr-x@ 99 kale  staff     3168 May 15 12:26 libft
+-rw-r--r--   1 kale  staff     2226 May 24 19:22 main.c
+-rw-r--r--   1 kale  staff     2176 May 29 11:16 main.o
+-rwxr-xr-x   1 kale  staff    54488 May 29 11:23 minishell
+-rwxr-xr-x   1 kale  staff        0 May 29 11:23 outfile
+-rwxr-xr-x   1 kale  staff       30 May 29 11:03 outfile.ea
+drwxr-xr-x@ 20 kale  staff      640 May 28 17:57 parsing
+-rw-r--r--   1 kale  staff     1720 May 29 10:38 pipex_utils.c
+-rw-r--r--   1 kale  staff     1736 May 29 11:16 pipex_utils.o
+drwxr-xr-x@  6 kale  staff      192 May 29 11:16 tokenize
