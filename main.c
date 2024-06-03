@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/03 13:28:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:53:42 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@ void	handle_signal(int sig)
 
 int	readline_loop(char *input, t_env *shell, int ret_value)
 {
-	if (input != NULL)
+	while (!g_exit_flag)
 	{
-		add_history(input);
-		if (parsing(input, shell) == 0)
+		input = readline("minishell> ");
+		printf("1\n");
+		if (input != NULL)
 		{
-			free(input);
-			return (1);
+			add_history(input);
+			if (parsing(input, shell) == 1)
+			{
+				free(input);
+			}
 		}
+		printf("2\n");
 	}
-	if (input == NULL)
-		return (EXIT);
-	return (0);
+	return (EXIT_MAIN);
 }
 
 int	main(void)
@@ -49,13 +52,9 @@ int	main(void)
 	ret_value = 0;
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
-	while (!g_exit_flag)
-	{
-		input = readline("minishell> ");
-		ret_value = readline_loop(input, &shell, ret_value);
-		if (ret_value == 1)
-			break ;
-	}
+
+	ret_value = readline_loop(input, &shell, ret_value);
+
 	ft_free(shell.env);
 	return (ret_value);
 }
