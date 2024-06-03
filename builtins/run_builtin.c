@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 12:52:32 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:25:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int	run_builtin(char *cmd, char *param, t_env *shell)
 	if (num == NOT_BUILTIN)
 		return (101);
 	init_builtin_arr(arr);
-	// param = skip_set(input, arr[num]);
-	printf("cmd %s and param %s\n", cmd, param);
 	ret_value = match_function(num, ret_value, param, shell);
 	return (ret_value);
 }

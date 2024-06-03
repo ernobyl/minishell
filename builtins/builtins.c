@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/27 13:06:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:42:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
+
+static char	*skip_set(char *str, char *set)
+{
+	char	*skipped;
+	int		i;
+	int		k;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == set[i])
+			i++;
+		else
+			break ;
+	}
+	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
+	if (!skipped)
+		return (NULL);
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	k = 0;
+	while (str[i])
+		skipped[k++] = str[i++];
+	return (skipped);
+}
 
 int	echo_builtin(char *file, char *input)
 {

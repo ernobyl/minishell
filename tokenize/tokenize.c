@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/24 19:20:36 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:04:10 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,23 @@ t_struct	*tokenize(char **arr)
 {
 	t_struct	*head;
 	t_struct	*new;
+	int			index;
 	int			i;
 	int			token;
 
 	head = NULL;
 	i = 0;
+	index = 0;
 	while (arr[i])
 	{
 		token = match_tokentype(arr[i]);
+		if (token == PIPE)
+			index++;
 		if (token == PIPE || token == LITERAL)
-			new = add_new(token, arr[i]);
+			new = add_new(token, arr[i], index);
 		else
 		{
-			new = add_new(token, arr[i + 1]);
+			new = add_new(token, arr[i + 1], index);
 			i++;
 		}
 		i++;
@@ -51,9 +55,3 @@ t_struct	*tokenize(char **arr)
 	}
 	return (head);
 }
-
-	// ret_value = run_builtin(cmd, param, shell);
-	// if (ret_value != 0)
-	// {
-	// 	printf("FAILURE");
-	// 	exit(1);

@@ -6,19 +6,20 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/27 13:36:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:05:09 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenize.h"
 
-t_struct	*add_new(int token, char *value)
+t_struct	*add_new(int token, char *value, int index)
 {
 	t_struct	*new;
 
 	new = malloc(sizeof(t_struct));
 	if (!new)
 		return (NULL);
+	new->index = index;
 	new->token = token;
 	new->value = value;
 	new->next = NULL;
@@ -72,34 +73,34 @@ void	print_nodes(t_struct *stack)
 	temp = stack;
 	while (temp)
 	{
-		printf("type {%d}, value {%s}\n", temp->token, temp->value);
+		printf("index {%d}, type {%d}, value {%s}\n", temp->index, temp->token, temp->value);
 		temp = temp->next;
 	}
 }
 
-void    push(t_struct **from, t_struct **to)
-{
-    t_struct    *tmp;
+// void    push(t_struct **from, t_struct **to)
+// {
+//     t_struct    *tmp;
 
-    if (!from || !*from)
-        return ;
-    tmp = *from;
-    *from = (*from)->next;
-    tmp->next = *to;
-    *to = tmp;
-}
-void	rotate(t_struct **stack)
-{
-	t_struct	*first_node;
-	t_struct	*last_node;
+//     if (!from || !*from)
+//         return ;
+//     tmp = *from;
+//     *from = (*from)->next;
+//     tmp->next = *to;
+//     *to = tmp;
+// }
+// void	rotate(t_struct **stack)
+// {
+// 	t_struct	*first_node;
+// 	t_struct	*last_node;
 
-	if (!stack || !(*stack) || !(*stack)->next)
-		return ;
-	first_node = *stack;
-	*stack = (*stack)->next;
-	last_node = (*stack);
-	while (last_node->next)
-        last_node = last_node->next;
-    last_node->next = first_node;
-    first_node->next = NULL;
-}
+// 	if (!stack || !(*stack) || !(*stack)->next)
+// 		return ;
+// 	first_node = *stack;
+// 	*stack = (*stack)->next;
+// 	last_node = (*stack);
+// 	while (last_node->next)
+//         last_node = last_node->next;
+//     last_node->next = first_node;
+//     first_node->next = NULL;
+// }
