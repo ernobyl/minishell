@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/27 14:38:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:10:53 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,16 @@ char	**parse_literals(t_struct *token)
 
 	i = 0;
 	temp = token;
-	while (temp && temp->token != PIPE)
+	while (temp && temp->index == token->index)
+	{
+		if (temp->token == LITERAL)
+			i++;
+		temp = temp->next;
+	}
+	args = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	temp = token;
+	while (temp && temp->index == token->index)
 	{
 		if (temp->token == LITERAL)
 			args[i++] = ft_strdup(temp->value);
@@ -30,10 +39,9 @@ char	**parse_literals(t_struct *token)
 	return (args);
 }
 
-static void	create_child(char *argv, char **envp)
+static void	create_child(char *argv, char **envp, int *fd)
 {
 	pid_t	pid;
-	int		fd[2];
 
 	if (pipe(fd) == -1)
 		handle_error(1, "pipe error");
@@ -54,38 +62,20 @@ static void	create_child(char *argv, char **envp)
 	}
 }
 
-void	open_files(t_struct *token)
-{
-	int	filein;
-	int fileout;
-
-	filein = 0;
-	fileout = 0;
-	while (token && token->token != PIPE)
-	{
-		if (token->token == INFILE)
-			filein = open_file(token->value, 2);
-		else if (token->token == OUTFILE)
-			fileout = open_file(token->value, 1);
-		else if (token->token == D_OUTFILE)
-			fileout = open_file(token->value, 0);
-	}
-	if (filein)
-		dup2(filein, STDIN_FILENO);
-	if (fileout)
-		dup2(fileout, STDOUT_FILENO);
-	printf("%s", token->value);
-}
-
 void	exec(t_struct *token, t_env *shell)
 {
 	char	**args;
-	int i;
-	int outfile;
+	int 	fd[2];
+
+	// print_nodes(token);
 	while (token)
 	{
 		args = parse_literals(token);
-		open_files(token);
-		create_child(args, shell->env);
+		open_files(token, fd);
+		create_child(args[0], shell->env, fd);
+		while (token && token->token != PIPE)
+			token = token->next;
+		if (token && token->token == PIPE)
+			token = token->next;
 	}
 }

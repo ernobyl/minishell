@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/24 19:22:31 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:28:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,27 @@ void	handle_signal(int sig)
 		printf("\nhandle signal interrupt\n");
 }
 
-char	*skip_set(char *str, char *set)
+int	readline_loop(char *input, t_env *shell, int ret_value)
 {
-	char	*skipped;
-	int		i;
-	int		k;
-
-	i = 0;
-	while (str[i])
+	if (input != NULL)
 	{
-		if (str[i] == set[i])
-			i++;
-		else
-			break ;
+		add_history(input);
+		if (parsing(input, shell) == 0)
+		{
+			free(input);
+			return (1);
+		}
 	}
-	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
-	if (!skipped)
-		return (NULL);
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-		i++;
-	k = 0;
-	while (str[i])
-		skipped[k++] = str[i++];
-	return (skipped);
+	if (input == NULL)
+		return (EXIT);
+	return (0);
 }
 
 int	main(void)
 {
 	char	*input;
-	t_env	shell;
 	int		ret_value;
+	t_env	shell;
 
 	shell.env = init_env_list();
 	ret_value = 0;
@@ -61,27 +52,9 @@ int	main(void)
 	while (!g_exit_flag)
 	{
 		input = readline("minishell> ");
-		if (input != NULL)
-		{
-			add_history(input);
-			if (parsing(input, &shell) == 0)
-			{
-				free(input);
-				return (1);
-			}
-			// if (ft_strncmp(input, "<< ", 3) == 0)
-			// 	heredoc(skip_set(input, "<<"));
-			// else
-			// ret_value = run_builtin(input, &shell);
-		}
-		if (input == NULL || ret_value == EXIT_SIGNAL)
-		{
-			ret_value = 0;
+		ret_value = readline_loop(input, &shell, ret_value);
+		if (ret_value == 1)
 			break ;
-		}
-		if (ret_value == NO_SIGNAL)
-			printf("no signal\n");
-		// free(input);
 	}
 	ft_free(shell.env);
 	return (ret_value);
