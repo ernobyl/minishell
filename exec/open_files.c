@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/03 13:14:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:03:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	outfile_open(int *fd, char *file, int token)
 
 void	open_files(t_struct *token, int *fd)
 {
-	int index;
+	//int		index;
 	t_struct *temp;
 	
 	temp = token;

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/03 13:53:42 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:06:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,27 @@ void	handle_signal(int sig)
 		printf("\nhandle signal interrupt\n");
 }
 
-int	readline_loop(char *input, t_env *shell, int ret_value)
+int	readline_loop(t_env *shell, int ret_value)
 {
+	char	*input;
+	
+	input = readline("minishell> ");
 	while (!g_exit_flag)
 	{
-		input = readline("minishell> ");
-		printf("1\n");
 		if (input != NULL)
 		{
 			add_history(input);
 			if (parsing(input, shell) == 1)
 			{
-				free(input);
+				//free(input);
 			}
 		}
-		printf("2\n");
 	}
-	return (EXIT_MAIN);
+	return (ret_value);
 }
 
 int	main(void)
 {
-	char	*input;
 	int		ret_value;
 	t_env	shell;
 
@@ -53,7 +52,7 @@ int	main(void)
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
 
-	ret_value = readline_loop(input, &shell, ret_value);
+	ret_value = readline_loop(&shell, ret_value);
 
 	ft_free(shell.env);
 	return (ret_value);
