@@ -31,10 +31,9 @@ int	readline_loop(t_env *shell, int ret_value)
 	{
 		input = readline("minishell> ");
 		if (input == NULL)
-		{
 			break ;
-		}
-		add_history(input);
+		if (input != NULL)
+			add_history(input);
 		ret_value = run_builtin(input, NULL, shell);
 		// if (parsing(input, shell) == 1)
 		// {
