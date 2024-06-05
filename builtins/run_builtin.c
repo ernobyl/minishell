@@ -19,14 +19,14 @@ static int	get_builtin_num(char *input)
 		return (EXIT);
 	else if (ft_strcmp("pwd", input) == 0)
 		return (PWD);
-	else if (ft_strncmp("cd", input, 3) == 0
+	else if (ft_strncmp("cd ", input, 3) == 0
 		|| ft_strcmp("cd", input) == 0)
 		return (CD);
-	else if (ft_strncmp("echo", input, 5) == 0
-		|| ft_strncmp("echo -n", input, 8) == 0)
+	else if (ft_strncmp("echo ", input, 5) == 0
+		|| ft_strncmp("echo -n", input, 7) == 0)
 		return (ECHO);
 	else if (ft_strcmp("export", input) == 0
-		|| ft_strncmp("export", input, 7)  == 0)
+		|| ft_strncmp("export ", input, 7)  == 0)
 		return (EXPORT);
 	else if (ft_strncmp("unset ", input, 6) == 0)
 		return (UNSET);
@@ -50,6 +50,8 @@ static void	init_builtin_arr(char **arr)
 
 static int	match_function(int num, int ret_value, char *param, t_env *shell)
 {
+	char	**array;
+
 	if (num == EXIT)
 		exit_builtin(param, shell);
 	if (num == PWD)
@@ -60,9 +62,12 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 		ret_value = echo_builtin(NULL, param);
 	if (num == EXPORT)
 	{
-		// int	i = 0;
-		// while (there are variables in 'param', run this)
-		ret_value = export_builtin(shell, param);
+		array = ft_split(param, ' ');
+		if (!array || array[1] == NULL)
+			ret_value = export_builtin(ret_value, shell, param);
+		else
+			ret_value = export_array(ret_value, shell, array); // <-- this is segfaulting, have to fix, @builtins2.c
+		ft_free(array);
 	}
 	if (num == UNSET)
 		ret_value = unset_builtin(shell, param);

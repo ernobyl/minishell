@@ -64,3 +64,33 @@ void	exit_builtin(char *param, t_env *shell)
 	printf("exit\n");
 	exit(0);
 }
+
+int	export_array(int ret_value, t_env *shell, char **array)
+{
+	int	i;
+	int	found;
+
+	i = 0;
+	found = 0;
+	while (*array++)
+	{
+		while (shell->env[i])
+		{
+			if (ft_strncmp(shell->env[i], *array,
+					ft_strlen_c(shell->env[i], '=') + 1) == 0)
+			{
+				ret_value = replace_variable(&shell->env[i], *array);
+				found = 1;
+				break ;
+			}
+			i++;
+		}
+		if (ft_strcmp (*array, "") == 0)
+			return (print_list_alpha(shell->env, i));
+		else if (ft_strchr(*array, '=') == NULL)
+			return (error_msg("Invalid environment variable format."));
+		if (!found)
+			ret_value = add_variable(shell, *array, i);
+	}
+	return (ret_value);
+}

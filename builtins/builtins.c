@@ -12,7 +12,7 @@
 
 #include "../includes/builtins.h"
 
-static char	*skip_set(char *str, char *set)
+char	*skip_set(char *str, char *set)
 {
 	char	*skipped;
 	int		i;
@@ -25,12 +25,14 @@ static char	*skip_set(char *str, char *set)
 			i++;
 		else
 			break ;
+		if (str[i] == ' ' || str[i] == '\t')
+			break ;
 	}
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
 	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
 	if (!skipped)
 		return (NULL);
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-		i++;
 	k = 0;
 	while (str[i])
 		skipped[k++] = str[i++];
@@ -57,15 +59,13 @@ int	echo_builtin(char *file, char *input)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(t_env *shell, char *new_var)
+int	export_builtin(int ret_value, t_env *shell, char *new_var)
 {
 	int	i;
 	int	found;
-	int	ret_value;
 
 	i = 0;
 	found = 0;
-	ret_value = 0;
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], new_var,

@@ -27,6 +27,7 @@ void	handle_signal(int sig)
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
+	char	*param;
 	
 	while (!g_exit_flag)
 	{
@@ -35,12 +36,13 @@ int	readline_loop(t_env *shell, int ret_value)
 			break ;
 		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);
-		ret_value = run_builtin(input, NULL, shell);
+		param = skip_set(input, input);
+		ret_value = run_builtin(input, param, shell);
 		// if (parsing(input, shell) == 1)
 		// {
 		// 	//free(input);
 		// }
-		free(input);
+		//free(input);
 	}
 	return (ret_value);
 }
