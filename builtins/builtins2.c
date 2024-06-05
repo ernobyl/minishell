@@ -56,3 +56,11 @@ int	cd_builtin(const char *path)
 	else
 		return (error_msg("cd failed"));
 }
+
+void	exit_builtin(char *param, t_env *shell)
+{
+	ft_free(shell->env);
+	free(param);
+	printf("exit\n");
+	exit(0);
+}

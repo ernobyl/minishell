@@ -51,7 +51,7 @@ static void	init_builtin_arr(char **arr)
 static int	match_function(int num, int ret_value, char *param, t_env *shell)
 {
 	if (num == EXIT)
-		ret_value = (100);
+		exit_builtin(param, shell);
 	if (num == PWD)
 		ret_value = pwd_builtin();
 	if (num == CD)

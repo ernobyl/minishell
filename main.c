@@ -27,17 +27,19 @@ int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
 	
-	input = readline("minishell> ");
 	while (!g_exit_flag)
 	{
-		if (input != NULL)
+		input = readline("minishell> ");
+		if (input == NULL)
 		{
-			add_history(input);
-			if (parsing(input, shell) == 1)
-			{
-				//free(input);
-			}
+			break ;
 		}
+		add_history(input);
+		ret_value = run_builtin(input, NULL, shell);
+		// if (parsing(input, shell) == 1)
+		// {
+		// 	//free(input);
+		// }
 	}
 	return (ret_value);
 }
