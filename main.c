@@ -23,6 +23,7 @@ void	handle_signal(int sig)
 		printf("\nhandle signal interrupt\n");
 }
 
+
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
@@ -32,13 +33,14 @@ int	readline_loop(t_env *shell, int ret_value)
 		input = readline("minishell> ");
 		if (input == NULL)
 			break ;
-		if (input != NULL)
+		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);
 		ret_value = run_builtin(input, NULL, shell);
 		// if (parsing(input, shell) == 1)
 		// {
 		// 	//free(input);
 		// }
+		free(input);
 	}
 	return (ret_value);
 }
