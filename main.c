@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/04 14:06:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:42:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	readline_loop(t_env *shell, int ret_value)
 	while (!g_exit_flag)
 	{
 		input = readline("minishell> ");
-		if (input == NULL)
+		if (input == NULL) // if readline returns NULL, it means the end of input, which should exit minishell
 			break ;
 		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);

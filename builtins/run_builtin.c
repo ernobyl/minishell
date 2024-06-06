@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 12:29:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:37:17 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 	if (num == EXPORT)
 	{
 		array = ft_split(param, ' ');
-		if (!array || array[1] == NULL)
+		if (array[0] == NULL || array[1] == NULL)
 			ret_value = export_builtin(ret_value, shell, param);
 		else
-			ret_value = export_array(ret_value, shell, array); // <-- no longer segfaults, but doesn't perform multiple exports either @builtins2.c
+			ret_value = export_array(ret_value, shell, array);
 		ft_free(array);
 	}
 	if (num == UNSET)

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/06 12:26:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:34:34 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,29 @@ void	exit_builtin(char *param, t_env *shell)
 
 int	export_array(int ret_value, t_env *shell, char **array)
 {
-	int	i;
-	int	k;
 	int	found;
 
-	found = 0;
-	k = 0;
-	while (array[k])
+	shell->k = 0;
+	while (array[shell->k])
 	{
-		i = 0;
-		while (shell->env[i])
+		found = 0;
+		shell->i = 0;
+		while (shell->env[shell->i])
 		{
-			if (ft_strncmp(shell->env[i], *array,
-					ft_strlen_c(shell->env[i], '=') + 1) == 0)
+			if (ft_strncmp(shell->env[shell->i], array[shell->k],
+					ft_strlen_c(shell->env[shell->i], '=') + 1) == 0)
 			{
-				ret_value = replace_variable(&shell->env[i], *array);
+				ret_value = replace_variable(&shell->env[shell->i], array[shell->k]);
 				found = 1;
 				break ;
 			}
-			i++;
+			shell->i++;
 		}
-		if (ft_strchr(*array, '=') == NULL)
+		if (ft_strchr(array[shell->k], '=') == NULL)
 			return (error_msg("Invalid environment variable format."));
 		if (!found)
-			ret_value = add_variable(shell, *array, i);
-		k++;
+			ret_value = add_variable(shell, array[shell->k], shell->i);
+		shell->k++;
 	}
 	return (ret_value);
 }
