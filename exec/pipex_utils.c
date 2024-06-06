@@ -5,81 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 08:23:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/29 10:56:11 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
+/*   Updated: 2024/06/06 12:34:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/exec.h"
 
-char	**parsing_path(char **envp, char *str, int *fd)
+void	handle_error(int exitcode, const char *errormsg)
 {
-	char	**path_to_env;
+	perror(errormsg);
+	exit(exitcode);
+}
+
+char	*freereturn(char **tofree, char *toreturn)
+{
+	int	i;
+
+	i = -1;
+	while (tofree[++i])
+		free(tofree[i]);
+	free(tofree);
+	return (toreturn);
+}
+
+char	*env_path(char *cmd, char **envp)
+{
+	char	**path_array;
+	char	*path;
+	int		i;
+	char	*subdir_path;
+
+	i = 0;
+	if (access(cmd, F_OK) == 0)
+		return (ft_strdup(cmd));
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	path_array = ft_split(envp[i] + 5, ':');
+	i = -1;
+	while (path_array && path_array[++i])
+	{
+		subdir_path = ft_strjoin(path_array[i], "/");
+		path = ft_strjoin(subdir_path, cmd);
+		free(subdir_path);
+		if (access(path, F_OK | X_OK) == 0)
+			return (freereturn(path_array, path));
+		free(path);
+	}
+	return (freereturn(path_array, 0));
+}
+
+void	execute(char *argv, char **envp)
+{
+	char	**cmd;
 	char	*path;
 	int		i;
 
-	i = 0;
-	path = NULL;
-	while (envp[i] != NULL)
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			path = ft_substr(envp[i], 5, ft_strlen(envp[i]));
-		i++;
-	}
+	cmd = ft_split(argv, ' ');
+	path = env_path(cmd[0], envp);
 	if (!path)
-		custom_msg(str, ": No such file or directory\n", fd, 1);
-	path_to_env = ft_split(path, ':');
-	free(path);
-	i = 0;
-	if (ft_strrchr(str, '/'))
-		str = ft_strrchr(str, '/');
-	while (path_to_env[i])
 	{
-		path_to_env[i] = ft_sstrjoin(path_to_env[i], str);
-		i++;
+		i = -1;
+		while (cmd[++i])
+			free(cmd[i]);
+		free(cmd);
+		handle_error(127, "command not found");
 	}
-	return (path_to_env);
+	if (execve(path, cmd, envp) == -1)
+		handle_error(127, "command not found");
 }
 
-char	**parsing_args(char *str, int *fd)
-{
-	char	**args;
-	int		len;
-
-	if (str[0] == '\0')
-		custom_msg(str, "Permission denied\n", fd, 1);
-	args = ft_split(str, ' ');
-	len = ft_strlen(str);
-	if (ft_strchr(str, '"') != NULL && str[len - 1] == '"')
-	{
-		args[1] = ft_trimstr(str, '"');
-		args[2] = NULL;
-	}
-	if (ft_strchr(str, '\'') != NULL && str[len - 1] == '\'')
-	{
-		args[1] = ft_trimstr(str, '\'');
-		args[2] = NULL;
-	}
-	return (args);
-}
-
-void	error_msg_kim(char *str, int *fd, int code)
-{
-	close(fd[0]);
-	close(fd[1]);
-	ft_putstr_fd("pipex: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	perror("");
-	exit(code);
-}
-
-void	custom_msg(char *cmd, char *str, int *fd, int code)
-{
-	close(fd[0]);
-	close(fd[1]);
-	ft_putstr_fd("pipex: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(str, 2);
-	exit(code);
-}

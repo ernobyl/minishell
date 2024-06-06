@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/29 13:40:14 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:36:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,4 @@ char	*env_path(char *cmd, char **envp)
 	}
 	return (freereturn(path_array, 0));
 }
+

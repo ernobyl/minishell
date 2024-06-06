@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/05/29 10:57:37 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/06/06 12:36:38 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS	:=	main.c \
 			builtins/environment.c \
 			builtins/error_handling.c \
 			exec/exec.c \
+			exec/pipex_utils.c \
+			exec/open_files.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \
@@ -37,7 +39,6 @@ SRCS	:=	main.c \
 			parsing/find_and_replace.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
-			pipex_utils.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
