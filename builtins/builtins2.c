@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 10:53:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:26:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,14 @@ void	exit_builtin(char *param, t_env *shell)
 int	export_array(int ret_value, t_env *shell, char **array)
 {
 	int	i;
+	int	k;
 	int	found;
 
-	i = 0;
 	found = 0;
-	while (*array++)
+	k = 0;
+	while (array[k])
 	{
+		i = 0;
 		while (shell->env[i])
 		{
 			if (ft_strncmp(shell->env[i], *array,
@@ -85,12 +87,11 @@ int	export_array(int ret_value, t_env *shell, char **array)
 			}
 			i++;
 		}
-		if (ft_strcmp (*array, "") == 0)
-			return (print_list_alpha(shell->env, i));
-		else if (ft_strchr(*array, '=') == NULL)
+		if (ft_strchr(*array, '=') == NULL)
 			return (error_msg("Invalid environment variable format."));
 		if (!found)
 			ret_value = add_variable(shell, *array, i);
+		k++;
 	}
 	return (ret_value);
 }

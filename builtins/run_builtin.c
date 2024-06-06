@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/03 11:25:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:29:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 		if (!array || array[1] == NULL)
 			ret_value = export_builtin(ret_value, shell, param);
 		else
-			ret_value = export_array(ret_value, shell, array); // <-- this is segfaulting, have to fix, @builtins2.c
+			ret_value = export_array(ret_value, shell, array); // <-- no longer segfaults, but doesn't perform multiple exports either @builtins2.c
 		ft_free(array);
 	}
 	if (num == UNSET)
