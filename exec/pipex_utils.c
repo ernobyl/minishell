@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/06 21:49:07 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:51:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ void	execute(char *cmd, char **args, char **envp)
 	if (execve(path, args, envp) == -1)
 		handle_error(127, "command not found");
 }
-

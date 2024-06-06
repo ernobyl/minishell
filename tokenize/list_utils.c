@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/03 12:05:09 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 22:15:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,3 @@ void	print_nodes(t_struct *stack)
 		temp = temp->next;
 	}
 }
-
-// void    push(t_struct **from, t_struct **to)
-// {
-//     t_struct    *tmp;
-
-//     if (!from || !*from)
-//         return ;
-//     tmp = *from;
-//     *from = (*from)->next;
-//     tmp->next = *to;
-//     *to = tmp;
-// }
-// void	rotate(t_struct **stack)
-// {
-// 	t_struct	*first_node;
-// 	t_struct	*last_node;
-
-// 	if (!stack || !(*stack) || !(*stack)->next)
-// 		return ;
-// 	first_node = *stack;
-// 	*stack = (*stack)->next;
-// 	last_node = (*stack);
-// 	while (last_node->next)
-//         last_node = last_node->next;
-//     last_node->next = first_node;
-//     first_node->next = NULL;
-// }

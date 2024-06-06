@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/06/06 12:36:38 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/06/06 22:16:22 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,11 @@
 
 NAME	:= minishell
 CC		:= cc
-# CFLAGS	:= -Wextra -Wall -Werror -g
+CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			heredoc.c \
-			builtins/builtins.c \
-			builtins/builtins2.c \
-			builtins/run_builtin.c \
-			builtins/builtin_utils.c \
-			builtins/environment.c \
-			builtins/error_handling.c \
 			exec/exec.c \
 			exec/pipex_utils.c \
 			exec/open_files.c \
@@ -39,6 +33,12 @@ SRCS	:=	main.c \
 			parsing/find_and_replace.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
+			builtins/environment.c \
+			# builtins/builtins.c \
+			# builtins/builtins2.c \
+			# builtins/run_builtin.c \
+			# builtins/builtin_utils.c \
+			# builtins/error_handling.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

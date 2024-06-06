@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/21 09:03:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:57:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*validate_syntax(char *str)
 		else if (ft_isspecialchar(str[i]))
 		{
 			i = validate_specialchar(str, i, str[i]);
-			if (i == -1 || str[i + 1] == '\0')
+			if (i == -1 || str[i] == '\0')
 				return (NULL);
 		}
 		else

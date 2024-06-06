@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/03 11:25:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 22:07:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ static void	init_builtin_arr(char **arr)
 	arr[NOT_BUILTIN] = NULL;
 }
 
-static int	match_function(int num, int ret_value, char *param, t_env *shell)
+static int	match_function(int num, int ret_value, char **param, t_env *shell)
 {
 	if (num == EXIT)
 		ret_value = (100);
 	if (num == PWD)
 		ret_value = pwd_builtin();
 	if (num == CD)
-		ret_value = cd_builtin(param);
+		ret_value = cd_builtin(param[1]);
 	if (num == ECHO)
 		ret_value = echo_builtin(NULL, param);
 	if (num == EXPORT)
@@ -68,7 +68,7 @@ static int	match_function(int num, int ret_value, char *param, t_env *shell)
 	return (ret_value);
 }
 
-int	run_builtin(char *cmd, char *param, t_env *shell)
+int	run_builtin(char *cmd, char **param, t_env *shell)
 {
 	int		num;
 	int		ret_value;
