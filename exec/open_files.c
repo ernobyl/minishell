@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/03 13:14:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:18:51 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	infile_open(int *fd, char *file)
 	if (file1 == -1)
 		error_msg_kim(file, fd, 126);
 	dup2(file1, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[0]);
 	close(file1);
 }
 
@@ -40,7 +38,6 @@ void	outfile_open(int *fd, char *file, int token)
 {
 	int	file2;
 
-	printf("opening file %s\n", file);
 	if (token == OUTFILE)
 		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	else 
@@ -48,30 +45,25 @@ void	outfile_open(int *fd, char *file, int token)
 	if (file2 == -1)
 		error_msg_kim(file, fd, 2);
 	dup2(file2, STDOUT_FILENO);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
 	close(file2);
 }
 
 void	open_files(t_struct *token, int *fd)
 {
-	int index;
+	int		index;
 	t_struct *temp;
-	
+
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		printf("token {%d}, %s\n", temp->index, temp->value);
 		if (temp->token == INFILE)
 			infile_open(fd, temp->value);
 		else if (temp->token == OUTFILE)
 		{
 			outfile_open(fd, temp->value, OUTFILE);
-			printf("outfile done\n");
 		}
 		else if (temp->token == D_OUTFILE)
 			outfile_open(fd, temp->value, D_OUTFILE);
 		temp = temp->next;
 	}
-	printf("exiting open file\n");
 }

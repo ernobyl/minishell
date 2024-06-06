@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/06 12:34:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:49:07 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,21 @@ char	*env_path(char *cmd, char **envp)
 	return (freereturn(path_array, 0));
 }
 
-void	execute(char *argv, char **envp)
+void	execute(char *cmd, char **args, char **envp)
 {
-	char	**cmd;
 	char	*path;
 	int		i;
 
-	cmd = ft_split(argv, ' ');
-	path = env_path(cmd[0], envp);
+	path = env_path(cmd, envp);
 	if (!path)
 	{
 		i = -1;
-		while (cmd[++i])
-			free(cmd[i]);
-		free(cmd);
+		while (args[++i])
+			free(args[i]);
+		free(args);
 		handle_error(127, "command not found");
 	}
-	if (execve(path, cmd, envp) == -1)
+	if (execve(path, args, envp) == -1)
 		handle_error(127, "command not found");
 }
 

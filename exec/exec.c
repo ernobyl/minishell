@@ -6,80 +6,32 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 12:34:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:44:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-void	error_msg_kim(char *str, int *fd, int code)
+static void save_fds(int *fd)
 {
-	close(fd[0]);
-	close(fd[1]);
-	ft_putstr_fd("pipex: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	perror("");
-	exit(code);
+	fd[0] = dup(STDIN_FILENO);
+	fd[1] = dup(STDOUT_FILENO);
 }
 
-void	infile_open(int *fd, char *file)
+static void restore_fds(int *fd)
 {
-	int	file1;
-
-	file1 = open(file, O_RDONLY);
-	if (file1 == -1)
-		error_msg_kim(file, fd, 126);
-	dup2(file1, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	// close(fd[0]);
-	close(file1);
-}
-
-void	outfile_open(int *fd, char *file, int token)
-{
-	int	file2;
-
-	printf("opening file %s\n", file);
-	if (token == OUTFILE)
-		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	else 
-		file2 = open(file, O_WRONLY | O_CREAT | O_APPEND, 0664);
-	if (file2 == -1)
-		error_msg_kim(file, fd, 2);
-	dup2(file2, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
-	// close(fd[1]);
-	close(file2);
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
 }
-
-void	execute(char **argv, char **envp, int *fd)
-{
-	char	*path;
-	int		i;
-
-	path = env_path(argv[0], envp);
-	if (!path)
-	{
-		i = -1;
-		while (argv[++i])
-			free(argv[i]);
-		free(argv);
-		handle_error(127, "command not found");
-	}
-	if (execve(path, argv, envp) == -1)
-		handle_error(127, "command not found");
-}
-
 char	**parse_literals(t_struct *token)
 {
 	t_struct	*temp;
 	char		**args;
 	int			i;
-	int count;
 
 	i = 0;
-	count = 0;
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
@@ -100,43 +52,57 @@ char	**parse_literals(t_struct *token)
 	return (args);
 }
 
-static void	create_child(char *argv, char **envp, int *fd)
+static void	create_pipe(int token_index, int pipe_index, int *old_pipe_in)
+{
+	int	new_pipe[2];
+
+	dup2(*old_pipe_in, STDIN_FILENO);
+	if (*old_pipe_in != 0)
+		close(*old_pipe_in);
+	if (token_index == pipe_index)
+		return ;
+	pipe(new_pipe);
+	dup2(new_pipe[1], STDOUT_FILENO);
+	close(new_pipe[1]);
+	*old_pipe_in = dup(new_pipe[0]);
+	close(new_pipe[0]);
+}
+
+static void	create_child(char **args, char **envp)
 {
 	pid_t	pid;
+	int		status;
 
-	if (pipe(fd) == -1)
-		handle_error(1, "pipe error");
 	pid = fork();
 	if (pid == -1)
 		handle_error(1, "pid failed");
 	if (pid == 0)
-	{
-		// close(fd[0]);
-		dup2(fd[1], STDIN_FILENO);
-		execute(argv, envp, fd);
-	}
-	else
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		waitpid(pid, NULL, 0);
-	}
+		execute(args[0], args, envp);
+	waitpid(pid, &status, 0);
 }
 
 void	exec(t_struct *token, t_env *shell)
 {
 	char	**args;
 	int 	fd[2];
+	int		old_pipe_in;
 
-	// print_nodes(token);
+	old_pipe_in = 0;
 	while (token)
 	{
+		save_fds(fd);
+		create_pipe(token->index, shell->pipe, &old_pipe_in);
 		args = parse_literals(token);
 		open_files(token, fd);
-		create_child(args[0], shell->env, fd);
+		create_child(&args[0], shell->env);
 		while (token && token->token != PIPE)
 			token = token->next;
 		if (token && token->token == PIPE)
 			token = token->next;
+		restore_fds(fd);
 	}
+	if (old_pipe_in != 0)
+		close(old_pipe_in);
+	close(fd[0]);
+	close(fd[1]);
 }

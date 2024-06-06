@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/03 13:09:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:23:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,11 @@ void	handle_signal(int sig)
 		printf("\nhandle signal interrupt\n");
 }
 
-int	readline_loop(char *input, t_env *shell, int ret_value)
-{
-	if (input != NULL)
-	{
-		add_history(input);
-		if (parsing(input, shell) == 0)
-		{
-			free(input);
-			return (1);
-		}
-	}
-	if (input == NULL)
-		return (EXIT);
-	return (0);
-}
-
 int	main(void)
 {
 	char	*input;
-	int		ret_value;
 	t_env	shell;
+	int		ret_value;
 
 	shell.env = init_env_list();
 	ret_value = 0;
@@ -52,9 +36,27 @@ int	main(void)
 	while (!g_exit_flag)
 	{
 		input = readline("minishell> ");
-		ret_value = readline_loop(input, &shell, ret_value);
-		if (ret_value == 1)
+		if (input != NULL)
+		{
+			add_history(input);
+			if (parsing(input, &shell) == 0)
+			{
+				free(input);
+				return (1);
+			}
+			// if (ft_strncmp(input, "<< ", 3) == 0)
+			// 	heredoc(skip_set(input, "<<"));
+			// else
+			// 	ret_value = run_builtin(input, &shell);
+		}
+		if (input == NULL || ret_value == EXIT_SIGNAL)
+		{
+			ret_value = 0;
 			break ;
+		}
+		if (ret_value == NO_SIGNAL)
+			printf("no signal\n");
+		// free(input);
 	}
 	ft_free(shell.env);
 	return (ret_value);

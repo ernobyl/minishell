@@ -6,11 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/29 09:50:58 by kmatjuhi         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/03 12:04:10 by kmatjuhi         ###   ########.fr       */
->>>>>>> 2c01816ec056bcfa8f40265a1dd94ce19b3367ff
+/*   Updated: 2024/06/06 15:41:45 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +27,7 @@ static int	match_tokentype(char *str)
 	return (LITERAL);
 }
 
-t_struct	*tokenize(char **arr)
+t_struct	*tokenize(char **arr, t_env *shell)
 {
 	t_struct	*head;
 	t_struct	*new;
@@ -57,5 +53,6 @@ t_struct	*tokenize(char **arr)
 		i++;
 		add_back(&head, new);
 	}
+	shell->pipe = index;
 	return (head);
 }
