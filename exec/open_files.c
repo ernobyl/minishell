@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 11:21:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:32:38 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,19 @@ static void	infile_open(char *file)
 
 	file1 = open(file, O_RDONLY);
 	if (file1 == -1)
+	{
+		printf("WRONG\n");
 		error_msg(file);
+	}
 	dup2(file1, STDIN_FILENO);
 	close(file1);
 }
 
-static void	outfile_open(char *file, int token)
+static void	outfile_open(char *file, int type)
 {
 	int	file2;
 
-	if (token == OUTFILE)
+	if (type == OUTFILE)
 		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	else 
 		file2 = open(file, O_WRONLY | O_CREAT | O_APPEND, 0664);
@@ -62,13 +65,11 @@ void	open_files(t_struct *token)
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		if (temp->token == INFILE)
+		if (temp->type == INFILE)
 			infile_open(temp->value);
-		else if (temp->token == OUTFILE)
-		{
+		else if (temp->type == OUTFILE)
 			outfile_open(temp->value, OUTFILE);
-		}
-		else if (temp->token == D_OUTFILE)
+		else if (temp->type == D_OUTFILE)
 			outfile_open(temp->value, D_OUTFILE);
 		// else if (temp->token == HEREDOC)
 		// 	heredoc(skip_set(input, "<<"));

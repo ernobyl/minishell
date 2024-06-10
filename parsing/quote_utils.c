@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 08:36:24 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 11:27:10 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:34:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	matching_quote(char *str, int i, char quote)
 {
 	while (str[i] && (str[i] != quote))
 		i++;
-	if (str[i]!= quote)
+	if (str[i] != quote)
 		return (false);
 	return (true);
 }

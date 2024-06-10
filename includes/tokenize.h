@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 15:41:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:24:31 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef struct s_struct
 {
 	int				index;
-	int				token;
+	int				type;
 	char			*value;
 	struct s_struct	*prev;
 	struct s_struct	*next;

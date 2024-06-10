@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 11:25:55 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:13:32 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ static int	count_extra_space(char *str)
 	return (count);
 }
 
+static void	handle_quotes(char *str, char *dest, int *i, int *j)
+{
+	char	sign;
+
+	sign = str[*i];
+	dest[(*j)++] = str[(*i)++];
+	while (str[*i] && str[*i] != sign)
+		dest[(*j)++] = str[(*i)++];
+	dest[(*j)++] = str[(*i)++];
+}
+
+static void	handle_special_chars(char *str, char *dest, int *i, int *j)
+{
+	char	sign;
+
+	sign = str[*i];
+	if (str[*i - 1] != ' ')
+		dest[(*j)++] = ' ';
+	while (str[*i] == sign)
+		dest[(*j)++] = str[(*i)++];
+	if (str[*i] != ' ')
+		dest[(*j)++] = ' ';
+}
+
 static char	*add_extra_space(char *str, int count)
 {
 	char	*dest;
@@ -52,23 +76,9 @@ static char	*add_extra_space(char *str, int count)
 	while (str[i])
 	{
 		if (ft_isquote(str[i]))
-		{
-			sign = str[i];
-			dest[j++] = str[i++];
-			while (str[i] && str[i] != sign)
-				dest[j++] = str[i++];
-			dest[j++] = str[i++];
-		}
+			handle_quotes(str, dest, &i, &j);
 		if (ft_isspecialchar(str[i]))
-		{
-			sign = str[i];
-			if (str[i - 1] != ' ')
-				dest[j++] = ' ';
-			while (str[i] == sign)
-				dest[j++] = str[i++];
-			if (str[i] != ' ')
-				dest[j++] = ' ';
-		}
+			handle_special_chars(str, dest, &i, &j);
 		else
 			dest[j++] = str[i++];
 	}

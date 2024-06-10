@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 11:25:09 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:50:01 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**parse_literals(t_struct *token)
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		if (temp->token == LITERAL)
+		if (temp->type == LITERAL)
 			i++;
 		temp = temp->next;
 	}
@@ -31,7 +31,7 @@ char	**parse_literals(t_struct *token)
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		if (temp->token == LITERAL)
+		if (temp->type == LITERAL)
 			args[i++] = ft_strdup(temp->value);
 		temp = temp->next;
 	}
@@ -70,9 +70,9 @@ static void	create_child(char **args, char **envp)
 
 void	exec(t_struct *token, t_env *shell)
 {
-	char	**args;
-	int		fd[2];
-	int		old_pipe_in;
+	char		**args;
+	int			fd[2];
+	int			old_pipe_in;
 
 	old_pipe_in = 0;
 	while (token)
@@ -82,14 +82,12 @@ void	exec(t_struct *token, t_env *shell)
 		args = parse_literals(token);
 		open_files(token);
 		create_child(&args[0], shell->env);
-		while (token && token->token != PIPE)
+		ft_free(args);
+		while (token && token->type != PIPE)
 			token = token->next;
-		if (token && token->token == PIPE)
+		if (token && token->type == PIPE)
 			token = token->next;
 		restore_fds(fd);
 	}
-	if (old_pipe_in != 0)
-		close(old_pipe_in);
-	close(fd[0]);
-	close(fd[1]);
+	close_fds(fd, old_pipe_in);
 }

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 21:39:09 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:49:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ char	**expand_env(char **arr, t_env *shell)
 				return (NULL);
 			}
 		}
-		// arr[i] = trim_quote(arr[i]);
+		arr[i] = trim_quote(arr[i]);
+		if (!arr[i])
+		{
+			ft_free(arr);
+			return (NULL);
+		}
 		i++;
 	}
 	return (arr);

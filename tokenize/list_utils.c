@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 22:15:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:27:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenize.h"
 
-t_struct	*add_new(int token, char *value, int index)
+t_struct	*add_new(int type, char *value, int index)
 {
 	t_struct	*new;
 
@@ -20,7 +20,7 @@ t_struct	*add_new(int token, char *value, int index)
 	if (!new)
 		return (NULL);
 	new->index = index;
-	new->token = token;
+	new->type = type;
 	new->value = value;
 	new->next = NULL;
 	return (new);
@@ -73,7 +73,7 @@ void	print_nodes(t_struct *stack)
 	temp = stack;
 	while (temp)
 	{
-		printf("index {%d}, type {%d}, value {%s}\n", temp->index, temp->token, temp->value);
+		printf("index {%d}, type {%d}, value {%s}\n", temp->index, temp->type, temp->value);
 		temp = temp->next;
 	}
 }

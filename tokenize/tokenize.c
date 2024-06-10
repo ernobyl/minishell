@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 15:41:45 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:38:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,26 @@ static int	match_tokentype(char *str)
 t_struct	*tokenize(char **arr, t_env *shell)
 {
 	t_struct	*head;
-	t_struct	*new;
 	int			index;
 	int			i;
-	int			token;
+	int			type;
 
 	head = NULL;
 	i = 0;
 	index = 0;
 	while (arr[i])
 	{
-		token = match_tokentype(arr[i]);
-		if (token == PIPE)
+		type = match_tokentype(arr[i]);
+		if (type == PIPE)
 			index++;
-		if (token == PIPE || token == LITERAL)
-			new = add_new(token, arr[i], index);
+		if (type == PIPE || type == LITERAL)
+			add_back(&head, add_new(type, arr[i], index));
 		else
 		{
-			new = add_new(token, arr[i + 1], index);
+			add_back(&head, add_new(type, arr[i + 1], index));
 			i++;
 		}
 		i++;
-		add_back(&head, new);
 	}
 	shell->pipe = index;
 	return (head);

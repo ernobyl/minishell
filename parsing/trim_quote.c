@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:02:00 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 11:26:16 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:34:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ char	*trim_quote(char *str)
 	i = 0;
 	j = 0;
 	new_str = malloc(sizeof(char) * (count_trim_letters(str) + 1));
-	i = 0;
+	if (!new_str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')
@@ -64,6 +65,7 @@ char	*trim_quote(char *str)
 		else
 			new_str[j++] = str[i++];
 	}
+	free(str);
 	new_str[j] = '\0';
 	return (new_str);
 }
