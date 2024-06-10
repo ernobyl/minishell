@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:02:48 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/24 19:17:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:18:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*find_and_replace(char *str, char *replace, int len)
 	k = 0;
 	n = (ft_strlen(str) + ft_strlen(replace) - len);
 	dest = malloc(sizeof(char) * (n + 1));
+	if (!dest)
+		return (NULL);
 	while (str[i] && str[i] != '$')
 		dest[j++] = str[i++];
 	while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')

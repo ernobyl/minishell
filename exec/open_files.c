@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 23:23:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:21:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	open_files(t_struct *token)
 		}
 		else if (temp->token == D_OUTFILE)
 			outfile_open(temp->value, D_OUTFILE);
+		// else if (temp->token == HEREDOC)
+		// 	heredoc(skip_set(input, "<<"));
 		temp = temp->next;
 	}
 }

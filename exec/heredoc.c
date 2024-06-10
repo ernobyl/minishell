@@ -6,11 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/06 12:35:32 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:21:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+// #include "includes/minishell.h"
 
 // static void	parent_wait(int *fd)
 // {

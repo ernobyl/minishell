@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   save_restore_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 13:32:07 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/10 11:41:13 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/06/10 11:12:41 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/06/10 11:14:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/exec.h"
 
-char	*ft_strtrim(char *s1, char const *set)
+void	save_fds(int *fd)
 {
-	size_t	start;
-	size_t	end;
-	char	*result;
+	fd[0] = dup(STDIN_FILENO);
+	fd[1] = dup(STDOUT_FILENO);
+}
 
-	if (!*s1)
-		return (ft_strdup(""));
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	end = ft_strlen(s1);
-	while (end > start && ft_strchr(set, s1[end - 1]))
-		end--;
-	result = ft_substr(s1, start, end - start);
-	free(s1);
-	return (result);
+void	restore_fds(int *fd)
+{
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
 }

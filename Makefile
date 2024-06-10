@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/06/06 22:16:22 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/06/10 20:22:51 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,15 @@
 
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -Wextra -Wall -Werror -g
+# CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
-			heredoc.c \
+			exec/heredoc.c \
 			exec/exec.c \
 			exec/pipex_utils.c \
 			exec/open_files.c \
+			exec/save_restore_fds.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \

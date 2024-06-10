@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 23:23:46 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:16:16 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	exec(t_struct *token, t_env *shell);
 void	handle_error(int exitcode, const char *errormsg);
 void	execute(char *cmd, char **args, char **envp);
 void	open_files(t_struct *token);
+void	save_fds(int *fd);
+void	restore_fds(int *fd);
 
 #endif

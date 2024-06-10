@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/23 20:58:40 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:25:55 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*add_extra_space(char *str, int count)
 	free(str);
 	return (dest);
 }
-// echo|thiscmd $PATH >>in|ls wvae342 <dawda |<file checking "dwdwa"
+
 char	*mod_str(char *str)
 {
 	char	*dest;
