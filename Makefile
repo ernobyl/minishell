@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/06/10 22:46:36 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/06/11 18:12:53 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,11 @@ SRCS	:=	main.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
 			builtins/environment.c \
-			# builtins/builtins.c \
-			# builtins/builtins2.c \
-			# builtins/run_builtin.c \
-			# builtins/builtin_utils.c \
-			# builtins/error_handling.c \
+			builtins/builtins.c \
+			builtins/builtins2.c \
+			builtins/run_builtin.c \
+			builtins/builtin_utils.c \
+			builtins/error_handling.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

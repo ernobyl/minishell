@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:50:01 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:42:04 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	exec(t_struct *token, t_env *shell)
 		create_pipe(token->index, shell->pipe, &old_pipe_in);
 		args = parse_literals(token);
 		open_files(token);
-		create_child(&args[0], shell->env);
+		if (run_builtin(args[0], args, shell) == 101)
+			create_child(&args[0], shell->env);
 		ft_free(args);
 		while (token && token->type != PIPE)
 			token = token->next;

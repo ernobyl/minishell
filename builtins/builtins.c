@@ -6,54 +6,30 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/03 11:42:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:17:50 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-static char	*skip_set(char *str, char *set)
+int	echo_builtin(char *file, char **param)
 {
-	char	*skipped;
-	int		i;
-	int		k;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == set[i])
-			i++;
-		else
-			break ;
-	}
-	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
-	if (!skipped)
-		return (NULL);
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-		i++;
-	k = 0;
-	while (str[i])
-		skipped[k++] = str[i++];
-	return (skipped);
-}
-
-int	echo_builtin(char *file, char *input)
-{
-	char	*to_echo;
 	int		fd;
+	int		i;
 
 	fd = 1;
-	to_echo = NULL;
+	i = 1;
 	if (file)
 		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	if (ft_strncmp(input, "-n", 2) == 0)
+	if (param[i] && ft_strncmp(param[i], "-n", 2) == 0)
+		i++;
+	while (param && param[i])
 	{
-		to_echo = skip_set(input, "-n");
-		ft_putstr_fd(to_echo, fd);
-		free(to_echo);
+		ft_putstr_fd(param[i], fd);
+		ft_putstr_fd(" ", fd);
+		i++;
 	}
-	else
-		ft_putendl_fd(input, fd);
+	ft_putstr_fd("\n", fd);
 	return (EXIT_SUCCESS);
 }
 

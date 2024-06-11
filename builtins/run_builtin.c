@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 22:07:19 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:21:52 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,12 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 		ret_value = cd_builtin(param[1]);
 	if (num == ECHO)
 		ret_value = echo_builtin(NULL, param);
-	if (num == EXPORT)
-		ret_value = export_builtin(shell, param);
-	if (num == UNSET)
-		ret_value = unset_builtin(shell, param);
+	// if (num == EXPORT)
+	// 	ret_value = export_builtin(shell, param);
+	// if (num == UNSET)
+	// 	ret_value = unset_builtin(shell, param);
 	if (num == ENV)
 		ret_value = env_builtin(shell);
-	free(param);
 	return (ret_value);
 }
 

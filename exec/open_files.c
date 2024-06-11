@@ -6,29 +6,20 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:32:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:02:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static void	error_msg(char *str)
+static void	error_msg_fd(char *str, int code)
 {
-	ft_putstr_fd("minishell: ", 12);
-	perror(str);
-	exit(EXIT_FAILURE);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	perror("");
+	exit(code);
 }
-
-// static void	error_msg_kim(char *str, int *fd, int code)
-// {
-// 	close(fd[0]);
-// 	close(fd[1]);
-// 	ft_putstr_fd("pipex: ", 2);
-// 	ft_putstr_fd(str, 2);
-// 	ft_putstr_fd(": ", 2);
-// 	perror("");
-// 	exit(code);
-// }
 
 static void	infile_open(char *file)
 {
@@ -36,10 +27,7 @@ static void	infile_open(char *file)
 
 	file1 = open(file, O_RDONLY);
 	if (file1 == -1)
-	{
-		printf("WRONG\n");
-		error_msg(file);
-	}
+		error_msg_fd(file, 0);
 	dup2(file1, STDIN_FILENO);
 	close(file1);
 }
@@ -53,7 +41,7 @@ static void	outfile_open(char *file, int type)
 	else 
 		file2 = open(file, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (file2 == -1)
-		error_msg(file);
+		error_msg_fd(file, 0);
 	dup2(file2, STDOUT_FILENO);
 	close(file2);
 }

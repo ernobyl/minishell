@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:13:32 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:42:51 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	handle_special_chars(char *str, char *dest, int *i, int *j)
 static char	*add_extra_space(char *str, int count)
 {
 	char	*dest;
-	char	sign;
 	int		i;
 	int		j;
 

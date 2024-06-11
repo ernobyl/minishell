@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 21:49:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:47:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ static char	*find_variable(char *str)
 	return (var);
 }
 
+static int	find_env_var(t_env *shell, char *var)
+{
+	int	i;
+
+	i = 0;
+	while (shell->env[i])
+	{
+		if (ft_strncmp(shell->env[i], var, ft_strlen(var)) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 static char	*expand_str(char *str, t_env *shell)
 {
 	char		*dest;
@@ -41,26 +55,18 @@ static char	*expand_str(char *str, t_env *shell)
 	int			i;
 	int			len;
 
-	i = 0;
 	var = find_variable(str);
 	if (!var)
 		return (NULL);
 	len = ft_strlen(var) - 1;
-	while (shell->env[i])
+	i = find_env_var(shell, var);
+	if (i != -1)
 	{
-		if (ft_strncmp(shell->env[i], var, ft_strlen(var)) == 0)
-		{
-			dest = find_and_replace(str, ft_strchr_next \
-			(shell->env[i], '='), len);
-			{
-				free(str);
-				free(var);
-				return (dest);
-			}
-		}
-		i++;
+		dest = find_and_replace(str, ft_strchr_next \
+		(shell->env[i], '='), len);
 	}
-	dest = find_and_replace(str, "\0", 0);
+	else
+		dest = find_and_replace(str, "\0", 0);
 	free(str);
 	free(var);
 	return (dest);

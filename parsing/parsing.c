@@ -6,11 +6,21 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:49:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:17:06 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
+
+void	print_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		printf("%s\n", arr[i++]);
+	printf("done\n");
+}
 
 bool	parsing(char *input, t_env *shell)
 {
