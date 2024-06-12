@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/12 14:14:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:20:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	//char	**array;
 	int		i;
 
-	i = 0;
+	i = 1;
 	if (num == EXIT)
 		exit_builtin(param, shell);
 	if (num == PWD)
@@ -65,8 +65,8 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	if (num == EXPORT)
 	{
 		//array = ft_split(param, ' ');
-		if (param[0] == NULL || param[1] == NULL)
-			ret_value = export_builtin(ret_value, shell, param[0]);
+		if (param[1] == NULL || param[2] == NULL)
+			ret_value = export_builtin(ret_value, shell, param[1]);
 		//else
 		ret_value = export_array(ret_value, shell, param);
 		//ft_free(array);

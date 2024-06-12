@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/12 13:46:36 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:06:21 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_signal(int sig)
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
-	char	*param;
+	//char	*param;
 	
 	while (!g_exit_flag)
 	{
@@ -36,7 +36,7 @@ int	readline_loop(t_env *shell, int ret_value)
 			break ;
 		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);
-		param = skip_set(input, input);
+		//param = skip_set(input, input);
 		if (parsing(input, shell) == 0)
 			{
 				ret_value = 1;
