@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/11 18:17:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:58:26 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
+
+char	*skip_set(char *str, char *set)
+{
+	char	*skipped;
+	int		i;
+	int		k;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == set[i])
+			i++;
+		else
+			break ;
+		if (str[i] == ' ' || str[i] == '\t')
+			break ;
+	}
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	skipped = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
+	if (!skipped)
+		return (NULL);
+	k = 0;
+	while (str[i])
+		skipped[k++] = str[i++];
+	return (skipped);
+}
 
 int	echo_builtin(char *file, char **param)
 {
@@ -33,15 +60,13 @@ int	echo_builtin(char *file, char **param)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(t_env *shell, char *new_var)
+int	export_builtin(int ret_value, t_env *shell, char *new_var)
 {
 	int	i;
 	int	found;
-	int	ret_value;
 
 	i = 0;
 	found = 0;
-	ret_value = 0;
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], new_var,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:05:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	get_builtin_num(char *input)
 		return (EXIT);
 	else if (ft_strcmp("pwd", input) == 0)
 		return (PWD);
-	else if (ft_strncmp("cd", input, 3) == 0
+	else if (ft_strncmp("cd ", input, 3) == 0
 		|| ft_strcmp("cd", input) == 0)
 		return (CD);
-	else if (ft_strncmp("echo", input, 5) == 0
-		|| ft_strncmp("echo -n", input, 8) == 0)
+	else if (ft_strncmp("echo ", input, 5) == 0
+		|| ft_strncmp("echo -n", input, 7) == 0)
 		return (ECHO);
 	else if (ft_strcmp("export", input) == 0
-		|| ft_strncmp("export", input, 7)  == 0)
+		|| ft_strncmp("export ", input, 7)  == 0)
 		return (EXPORT);
 	else if (ft_strncmp("unset ", input, 6) == 0)
 		return (UNSET);
@@ -50,18 +50,33 @@ static void	init_builtin_arr(char **arr)
 
 static int	match_function(int num, int ret_value, char **param, t_env *shell)
 {
+	//char	**array;
+	int		i;
+
+	i = 0;
 	if (num == EXIT)
-		ret_value = (100);
+		exit_builtin(param, shell);
 	if (num == PWD)
 		ret_value = pwd_builtin();
 	if (num == CD)
 		ret_value = cd_builtin(param[1]);
 	if (num == ECHO)
 		ret_value = echo_builtin(NULL, param);
-	// if (num == EXPORT)
-	// 	ret_value = export_builtin(shell, param);
-	// if (num == UNSET)
-	// 	ret_value = unset_builtin(shell, param);
+	if (num == EXPORT)
+	{
+		//array = ft_split(param, ' ');
+		if (param[0] == NULL || param[1] == NULL)
+			ret_value = export_builtin(ret_value, shell, param[0]);
+		//else
+		ret_value = export_array(ret_value, shell, param);
+		//ft_free(array);
+	}
+	while (param[i])
+	{
+		if (num == UNSET)
+			ret_value = unset_builtin(shell, param[i]);
+		i++;
+	}
 	if (num == ENV)
 		ret_value = env_builtin(shell);
 	return (ret_value);

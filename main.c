@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/10 21:26:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:46:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,47 @@ void	handle_signal(int sig)
 		printf("\nhandle signal interrupt\n");
 }
 
-int	main(void)
-{
-	t_env	shell;
-	char	*input;
-	int		ret_value;
 
-	shell.env = init_env_list();
-	ret_value = 0;
-	signal(SIGQUIT, handle_signal);
-	signal(SIGINT, handle_signal);
+int	readline_loop(t_env *shell, int ret_value)
+{
+	char	*input;
+	char	*param;
+	
 	while (!g_exit_flag)
 	{
 		input = readline("minishell> ");
-		if (input != NULL)
-		{
+		if (input == NULL) // if readline returns NULL, it means the end of input, which should exit minishell
+			break ;
+		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);
-			if (parsing(input, &shell) == 0)
+		param = skip_set(input, input);
+		if (parsing(input, shell) == 0)
 			{
 				ret_value = 1;
 				break ;
 			}
-			// if (ft_strncmp(input, "<< ", 3) == 0)
-			// 	heredoc(skip_set(input, "<<"));
-		}
-		if (input == NULL || ret_value == EXIT_SIGNAL)
-		{
-			ret_value = 0;
-			break ;
-		}
-		if (ret_value == NO_SIGNAL)
-			printf("no signal\n");
+		// ret_value = run_builtin(input, param, shell);
+		// if (parsing(input, shell) == 1)
+		// {
+		// 	//free(input);
+		// }
+		//free(input);
 	}
+	return (ret_value);
+}
+
+int	main(void)
+{
+	int		ret_value;
+	t_env	shell;
+	
+	shell.env = init_env_list();
+	ret_value = 0;
+	signal(SIGQUIT, handle_signal);
+	signal(SIGINT, handle_signal);
+
+	ret_value = readline_loop(&shell, ret_value);
+
 	ft_free(shell.env);
 	return (ret_value);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 10:53:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:59:50 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,41 @@ int	cd_builtin(const char *path)
 		return (EXIT_SUCCESS);
 	else
 		return (error_msg("cd failed"));
+}
+
+void	exit_builtin(char **param, t_env *shell)
+{
+	ft_free(shell->env);
+	ft_free(param);
+	printf("exit\n");
+	exit(0);
+}
+
+int	export_array(int ret_value, t_env *shell, char **array)
+{
+	int	found;
+
+	shell->k = 0;
+	while (array[shell->k])
+	{
+		found = 0;
+		shell->i = 0;
+		while (shell->env[shell->i])
+		{
+			if (ft_strncmp(shell->env[shell->i], array[shell->k],
+					ft_strlen_c(shell->env[shell->i], '=') + 1) == 0)
+			{
+				ret_value = replace_variable(&shell->env[shell->i], array[shell->k]);
+				found = 1;
+				break ;
+			}
+			shell->i++;
+		}
+		if (ft_strchr(array[shell->k], '=') == NULL)
+			return (error_msg("Invalid environment variable format."));
+		if (!found)
+			ret_value = add_variable(shell, array[shell->k], shell->i);
+		shell->k++;
+	}
+	return (ret_value);
 }
