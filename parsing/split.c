@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 09:16:36 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:34:33 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:57:04 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-static int	count_words(char *s)
+static int	count_words(const char *s)
 {
 	int		i;
 	int		rows;
@@ -35,7 +35,7 @@ static int	count_words(char *s)
 	return (rows);
 }
 
-static int	count_letters(char *s, int i)
+static int	count_letters(const char *s, int i)
 {
 	int		count;
 
@@ -51,7 +51,7 @@ static int	count_letters(char *s, int i)
 	return (count);
 }
 
-static bool	fill(char **dest, char *s, char c, int rows)
+static bool	fill(char **dest, const char *s, char c, int rows)
 {
 	int			i;
 	size_t		start;

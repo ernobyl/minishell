@@ -6,11 +6,21 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 17:42:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:59:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+
+static void	print_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		printf("%s\n", arr[i++]);
+	printf("done\n");
+}
 
 char	**parse_literals(t_struct *token)
 {

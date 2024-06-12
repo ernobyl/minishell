@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:38:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:54:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenize.h"
 
-static int	match_tokentype(char *str)
+static int	match_tokentype(char *str, int type, int i)
 {
 	if (ft_strcmp("<<", str) == 0)
 		return (HEREDOC);
@@ -22,7 +22,7 @@ static int	match_tokentype(char *str)
 		return (D_OUTFILE);
 	else if (ft_strcmp(">", str) == 0)
 		return (OUTFILE);
-	else if (ft_strcmp("|", str) == 0)
+	else if (ft_strcmp("|", str) == 0 && ((i != 0 && type != PIPE)))
 		return (PIPE);
 	return (LITERAL);
 }
@@ -39,7 +39,7 @@ t_struct	*tokenize(char **arr, t_env *shell)
 	index = 0;
 	while (arr[i])
 	{
-		type = match_tokentype(arr[i]);
+		type = match_tokentype(arr[i], type, i);
 		if (type == PIPE)
 			index++;
 		if (type == PIPE || type == LITERAL)

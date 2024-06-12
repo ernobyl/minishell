@@ -6,12 +6,21 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:59:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
+static void	print_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		printf("%s\n", arr[i++]);
+	printf("done\n");
+}
 static int	get_builtin_num(char *input)
 {
 	// MODIFY THIS FUNCTION TO WORK WITH PARSING

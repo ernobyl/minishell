@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 17:17:06 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:58:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ bool	parsing(char *input, t_env *shell)
 	str = validate_syntax(input);
 	if (!str)
 	{
-		free(input);
+		// check with leaks. if no free(input) -> leaks and if free(input) -> malloc error;
+		// free(input);
 		printf("Invalid syntax\n");
 		return (false);
 	}
