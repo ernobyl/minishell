@@ -69,7 +69,7 @@ int	export_array(int ret_value, t_env *shell, char **array)
 {
 	int	found;
 
-	shell->k = 0;
+	shell->k = 1;
 	while (array[shell->k])
 	{
 		found = 0;

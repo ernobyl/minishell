@@ -28,7 +28,7 @@ static int	get_builtin_num(char *input)
 	else if (ft_strcmp("export", input) == 0
 		|| ft_strncmp("export ", input, 7)  == 0)
 		return (EXPORT);
-	else if (ft_strncmp("unset ", input, 6) == 0)
+	else if (ft_strcmp("unset", input) == 0)
 		return (UNSET);
 	else if (ft_strcmp("env", input) == 0)
 		return (ENV);
@@ -50,7 +50,6 @@ static void	init_builtin_arr(char **arr)
 
 static int	match_function(int num, int ret_value, char **param, t_env *shell)
 {
-	//char	**array;
 	int		i;
 
 	i = 1;
@@ -64,18 +63,20 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 		ret_value = echo_builtin(NULL, param);
 	if (num == EXPORT)
 	{
-		//array = ft_split(param, ' ');
-		if (param[1] == NULL || param[2] == NULL)
+		if (param[1] == NULL)
+			ret_value = export_builtin(ret_value, shell, "");
+		else if (param[2] == NULL)
 			ret_value = export_builtin(ret_value, shell, param[1]);
-		//else
-		ret_value = export_array(ret_value, shell, param);
-		//ft_free(array);
+		else
+			ret_value = export_array(ret_value, shell, param);
 	}
-	while (param[i])
+	if (num == UNSET)
 	{
-		if (num == UNSET)
+		while (param[i])
+		{
 			ret_value = unset_builtin(shell, param[i]);
-		i++;
+			i++;
+		}
 	}
 	if (num == ENV)
 		ret_value = env_builtin(shell);
