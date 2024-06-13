@@ -53,14 +53,14 @@ void	open_files(t_struct *token)
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		if (temp->type == INFILE)
+		if (temp->type == HEREDOC)
+		 	heredoc(temp->value);
+		else if (temp->type == INFILE)
 			infile_open(temp->value);
 		else if (temp->type == OUTFILE)
 			outfile_open(temp->value, OUTFILE);
 		else if (temp->type == D_OUTFILE)
 			outfile_open(temp->value, D_OUTFILE);
-		// else if (temp->token == HEREDOC)
-		// 	heredoc(skip_set(input, "<<"));
 		temp = temp->next;
 	}
 }

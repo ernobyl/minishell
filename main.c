@@ -13,41 +13,37 @@
 #include "includes/builtins.h"
 #include "includes/parsing.h"
 
-volatile	sig_atomic_t	g_exit_flag = 0;
-
 void	handle_signal(int sig)
 {
 	if (sig == SIGQUIT)
-		g_exit_flag = 1;
+		g_signal_flag = 1;
 	else if (sig == SIGINT)
-		printf("\nhandle signal interrupt\n");
+	{
+		g_signal_flag = 2;
+		printf("\nminishell> ");
+	}
 }
 
 
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
-	//char	*param;
 	
-	while (!g_exit_flag)
+	while (g_signal_flag != 1)
 	{
+		g_signal_flag = 0;
+		if (g_signal_flag == 2)
+			continue ;
+		ret_value = 0;
 		input = readline("minishell> ");
 		if (input == NULL) // if readline returns NULL, it means the end of input, which should exit minishell
 			break ;
-		if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
+		if (*input == '\0')
+			continue ;
+		else if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
 			add_history(input);
-		//param = skip_set(input, input);
 		if (parsing(input, shell) == 0)
-			{
-				ret_value = 1;
-				break ;
-			}
-		// ret_value = run_builtin(input, param, shell);
-		// if (parsing(input, shell) == 1)
-		// {
-		// 	//free(input);
-		// }
-		//free(input);
+			ret_value = 1;
 	}
 	return (ret_value);
 }
@@ -61,9 +57,7 @@ int	main(void)
 	ret_value = 0;
 	signal(SIGQUIT, handle_signal);
 	signal(SIGINT, handle_signal);
-
 	ret_value = readline_loop(&shell, ret_value);
-
 	ft_free(shell.env);
 	return (ret_value);
 }

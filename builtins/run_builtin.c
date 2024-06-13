@@ -14,7 +14,6 @@
 
 static int	get_builtin_num(char *input)
 {
-	// MODIFY THIS FUNCTION TO WORK WITH PARSING
 	if (ft_strcmp("exit", input) == 0)
 		return (EXIT);
 	else if (ft_strcmp("pwd", input) == 0)
@@ -48,19 +47,23 @@ static void	init_builtin_arr(char **arr)
 	arr[NOT_BUILTIN] = NULL;
 }
 
+static void	check_first(int num, int *ret_value, char **param, t_env *shell)
+{
+	if (num == EXIT)
+		exit_builtin(param, shell);
+	if (num == PWD)
+		*ret_value = pwd_builtin();
+	if (num == CD)
+		*ret_value = cd_builtin(param[1]);
+	if (num == ECHO)
+		*ret_value = echo_builtin(NULL, param);
+}
+
 static int	match_function(int num, int ret_value, char **param, t_env *shell)
 {
 	int		i;
 
-	i = 1;
-	if (num == EXIT)
-		exit_builtin(param, shell);
-	if (num == PWD)
-		ret_value = pwd_builtin();
-	if (num == CD)
-		ret_value = cd_builtin(param[1]);
-	if (num == ECHO)
-		ret_value = echo_builtin(NULL, param);
+	check_first(num, &ret_value, param, shell);
 	if (num == EXPORT)
 	{
 		if (param[1] == NULL)
@@ -70,6 +73,7 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 		else
 			ret_value = export_array(ret_value, shell, param);
 	}
+	i = 1;
 	if (num == UNSET)
 	{
 		while (param[i])

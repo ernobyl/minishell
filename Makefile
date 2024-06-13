@@ -40,6 +40,7 @@ SRCS	:=	main.c \
 			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
 			builtins/error_handling.c \
+			includes/global.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

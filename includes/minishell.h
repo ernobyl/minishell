@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <errno.h>
+# include "global.h"
 
 # define EXIT_MAIN 50
 
@@ -35,6 +36,6 @@ typedef struct s_env
 	int		pipe;
 }			t_env;
 
-void	heredoc(char *limiter);
+void	handle_signal(int sig);
 
 #endif
