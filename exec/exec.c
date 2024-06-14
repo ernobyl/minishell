@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 17:42:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:59:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	exec(t_struct *token, t_env *shell)
 		save_fds(fd);
 		create_pipe(token->index, shell->pipe, &old_pipe_in);
 		args = parse_literals(token);
+		if (token->type == HEREDOC)
+			heredoc(token->value);
 		open_files(token);
 		if (run_builtin(args[0], args, shell) == 101)
 			create_child(&args[0], shell->env);

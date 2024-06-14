@@ -6,10 +6,11 @@
 /*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/12 16:07:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:29:24 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 
 int g_signal_flag = 0;
+int	g_exit_status = 0;
