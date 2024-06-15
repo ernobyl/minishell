@@ -55,5 +55,6 @@ int		unset_builtin(t_env *shell, char *to_unset);
 int		env_builtin(t_env *shell);
 int		run_builtin(char *cmd, char **param, t_env *shell);
 void	exit_builtin(char **param, t_env *shell);
+void	export_shlvl(char **envp);
 
 #endif

@@ -78,6 +78,8 @@ void	execute(char *cmd, char **args, char **envp)
 		free(args);
 		handle_error_exec(127, cmd, "command not found");
 	}
+	if (ft_strcmp(cmd, "minishell") == 0)
+		export_shlvl(envp);
 	if (execve(path, args, envp) == -1)
 		handle_error_exec(127, cmd, "command not found");
 }
