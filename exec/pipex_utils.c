@@ -68,7 +68,11 @@ void	execute(char *cmd, char **args, char **envp)
 {
 	char	*path;
 	int		i;
-
+	int		len;
+	
+	len = ft_strlen(cmd);
+	while (cmd[len] != '/')
+		len--;
 	path = env_path(cmd, envp);
 	if (!path)
 	{
@@ -78,7 +82,7 @@ void	execute(char *cmd, char **args, char **envp)
 		free(args);
 		handle_error_exec(127, cmd, "command not found");
 	}
-	if (ft_strcmp(cmd, "minishell") == 0)
+	if (ft_strcmp(cmd, "minishell") == 0 || ft_strcmp(cmd + len, "minishell"))
 		export_shlvl(envp);
 	if (execve(path, args, envp) == -1)
 		handle_error_exec(127, cmd, "command not found");
