@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/14 16:14:50 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:27:44 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ static void	parent_wait(int *fd, pid_t reader)
 
 	close(fd[1]);
 	waitpid(reader, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	if (g_heredoc_sig == 5 || 
+        ((status) && WEXITSTATUS(status) == 130))
 	{
         //close(fd[1]);
 		close(fd[0]);
+        g_exit_status = 130;
 	}
 	else
 	{
@@ -70,7 +72,6 @@ void heredoc(char *limiter)
         {
             if (g_heredoc_sig == 5)
             {
-                line = NULL;
 				exit(130);
             }
             if (strncmp(line, limiter, strlen(limiter)) == 0)
@@ -83,12 +84,12 @@ void heredoc(char *limiter)
             free(line);
         }
         close(fd[1]);
-        exit(EXIT_SUCCESS);
+        exit_st(EXIT_SUCCESS);
     }
     else
     {
         // Parent process
-        //signal(SIGINT, signal_heredoc);
+        signal(SIGINT, signal_heredoc);
         parent_wait(fd, reader);
     }
 }

@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/06/12 13:45:24 by emichels         ###   ########.fr        #
+#    Updated: 2024/06/17 14:38:34 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 
 NAME	:= minishell
-CC		:= cc
-CFLAGS	:= -Wextra -Wall -Werror -g
+CC		:= gcc
+CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -41,6 +41,7 @@ SRCS	:=	main.c \
 			builtins/builtin_utils.c \
 			builtins/error_handling.c \
 			includes/global.c \
+			exitstatus/exitstatus.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/14 16:01:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:25:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	error_msg_fd(char *str, int code)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
 	perror("");
-	exit(code);
+	exit_st(code);
 }
 
 static void	infile_open(char *file)

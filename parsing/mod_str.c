@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 17:42:51 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:46:19 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*add_extra_space(char *str, int count)
 
 	i = 0;
 	j = 0;
-	dest = malloc(sizeof(char) * (ft_strlen(str) + count));
+	dest = malloc(sizeof(char) * (ft_strlen(str) + count + 1));
 	if (!dest)
 		return (NULL);
 	while (str[i])

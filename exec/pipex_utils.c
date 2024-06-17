@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/11 18:34:37 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:03:37 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_error(int exitcode, const char *errormsg)
 {
 	perror(errormsg);
-	exit(exitcode);
+	exit_st(exitcode);
 }
 
 void	handle_error_exec(int exitcode, char *cmd, char *msg)
@@ -24,7 +24,7 @@ void	handle_error_exec(int exitcode, char *cmd, char *msg)
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(msg, 2);
-	exit(exitcode);
+	exit_st(exitcode);
 }
 
 char	*freereturn(char **tofree, char *toreturn)
@@ -71,7 +71,7 @@ void	execute(char *cmd, char **args, char **envp)
 	int		len;
 	
 	len = ft_strlen(cmd);
-	while (cmd[len] != '/')
+	while (cmd[len] && cmd[len] != '/')
 		len--;
 	path = env_path(cmd, envp);
 	if (!path)

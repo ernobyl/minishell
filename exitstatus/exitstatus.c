@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   exitstatus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/17 11:16:43 by emichels         ###   ########.fr       */
+/*   Created: 2024/06/17 10:52:53 by emichels          #+#    #+#             */
+/*   Updated: 2024/06/17 14:23:41 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
+#include "../includes/exec.h"
 
-extern int	g_signal_flag;
-extern int	g_exit_status;
-
-void	exit_st(int status);
-
-#endif
+void	exit_st(int status)
+{
+	g_exit_status = status;
+	exit(g_exit_status);
+}

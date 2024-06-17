@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/12 13:59:50 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:36:15 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	exit_builtin(char **param, t_env *shell)
 	ft_free(shell->env);
 	ft_free(param);
 	printf("exit\n");
-	exit(0);
+	exit_st(0);
 }
 
 int	export_array(int ret_value, t_env *shell, char **array)
