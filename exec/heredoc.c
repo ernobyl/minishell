@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/17 15:28:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:15:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void heredoc(char *limiter)
     char *line;
 
     signal(SIGINT, signal_heredoc);
-    // if (pipe(fd) == -1)
-    // {
-    //     perror("pipe failed");
-    //     return;
-    // }
+    if (pipe(fd) == -1)
+    {
+        perror("pipe failed");
+        return;
+    }
     reader = fork();
     if (reader == -1)
     {
@@ -75,13 +75,13 @@ void heredoc(char *limiter)
                 close(fd[1]);
 				exit(130);
             }
-            if (strncmp(line, limiter, strlen(limiter)) == 0)
+            if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
             {
                 free(line);
                 close(fd[1]);
                 break ;
             }
-            write(fd[1], line, strlen(line));
+            write(fd[1], line, ft_strlen(line));
             write(fd[1], "\n", 1);
             free(line);
         }
