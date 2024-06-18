@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/17 15:38:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:45:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,35 @@ char	**parse_literals(t_struct *token)
 	return (args);
 }
 
-static void	create_pipe(int token_index, int pipe_index, int *old_pipe_in)
+static void	create_pipe(int token_index, int pipe_index, int *old_pipe_in, int *new_pipe)
 {
-	int	new_pipe[2];
-
-	dup2(*old_pipe_in, STDIN_FILENO);
-	if (*old_pipe_in != 0)
-		close(*old_pipe_in);
-	if (token_index == pipe_index)
-		return ;
-	pipe(new_pipe);
-	dup2(new_pipe[1], STDOUT_FILENO);
-	close(new_pipe[1]);
-	*old_pipe_in = dup(new_pipe[0]);
-	close(new_pipe[0]);
+	if (token_index != pipe_index)
+	{
+		pipe(new_pipe);
+		dup2(*old_pipe_in, STDIN_FILENO);
+		if (*old_pipe_in != 0)
+			close(*old_pipe_in);
+		dup2(new_pipe[1], STDOUT_FILENO);
+		close(new_pipe[1]);
+		*old_pipe_in = dup(new_pipe[0]);
+	}
+	else
+	{
+		dup2(*old_pipe_in, STDIN_FILENO);
+		if (*old_pipe_in != 0)
+			close(*old_pipe_in);
+	}
 }
 
 static void	create_child(char **args, char **envp)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid == -1)
 		handle_error(1, "pid failed");
 	if (pid == 0)
 		execute(args[0], args, envp);
-	if (WIFEXITED(status))
-		g_exit_status = WEXITSTATUS(status);
-	waitpid(pid, &status, 0);
 }
 
 void	exec(t_struct *token, t_env *shell)
@@ -75,12 +75,13 @@ void	exec(t_struct *token, t_env *shell)
 	char		**args;
 	int			fd[2];
 	int			old_pipe_in;
+	int			new_pipe[2];
 
 	old_pipe_in = 0;
 	while (token)
 	{
 		save_fds(fd);
-		create_pipe(token->index, shell->pipe, &old_pipe_in);
+		create_pipe(token->index, shell->pipe, &old_pipe_in, new_pipe);
 		args = parse_literals(token);
 		if (token->type == HEREDOC)
 			heredoc(token->value);
@@ -95,4 +96,5 @@ void	exec(t_struct *token, t_env *shell)
 		restore_fds(fd);
 	}
 	close_fds(fd, old_pipe_in);
+	while (wait(NULL) > 0);
 }
