@@ -65,6 +65,8 @@ static void	create_child(char **args, char **envp)
 		handle_error(1, "pid failed");
 	if (pid == 0)
 		execute(args[0], args, envp);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
 	waitpid(pid, &status, 0);
 }
 

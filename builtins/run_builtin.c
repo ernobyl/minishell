@@ -21,7 +21,7 @@ static int	get_builtin_num(char *input)
 	else if (ft_strncmp("cd ", input, 3) == 0
 		|| ft_strcmp("cd", input) == 0)
 		return (CD);
-	else if (ft_strncmp("echo ", input, 5) == 0
+	else if (ft_strcmp("echo", input) == 0
 		|| ft_strncmp("echo -n", input, 7) == 0)
 		return (ECHO);
 	else if (ft_strcmp("export", input) == 0
@@ -92,8 +92,16 @@ int	run_builtin(char *cmd, char **param, t_env *shell)
 	int		num;
 	int		ret_value;
 	char	*arr[8];
+	int		i;
 
 	ret_value = 0;
+	i = 0;
+	while (param[i])
+	{
+		if (ft_strcmp(param[i], "$?") == 0)
+			param[i] = ft_itoa(g_exit_status);
+		i++;
+	}
 	num = get_builtin_num(cmd);
 	if (num == NOT_BUILTIN)
 		return (101);

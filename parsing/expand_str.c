@@ -79,7 +79,8 @@ char	**expand_env(char **arr, t_env *shell)
 	i = 0;
 	while (arr[i])
 	{
-		while (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
+		while (ft_strcmp(arr[i], "$?") != 0 && 
+				ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
 		{
 			arr[i] = expand_str(arr[i], shell);
 			if (!arr[i])

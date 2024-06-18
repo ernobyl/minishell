@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc
-CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror -g #-fsanitize=address
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
