@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/12 16:20:31 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:11:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,8 @@ int	run_builtin(char *cmd, char **param, t_env *shell)
 	int		num;
 	int		ret_value;
 	char	*arr[8];
-	int		i;
 
 	ret_value = 0;
-	i = 0;
-	while (param[i])
-	{
-		if (ft_strcmp(param[i], "$?") == 0)
-			param[i] = ft_itoa(g_exit_status);
-		i++;
-	}
 	num = get_builtin_num(cmd);
 	if (num == NOT_BUILTIN)
 		return (101);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/11 14:47:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:10:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ char	**expand_env(char **arr, t_env *shell)
 	i = 0;
 	while (arr[i])
 	{
-		while (ft_strcmp(arr[i], "$?") != 0 && 
-				ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
+		while (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
 		{
 			arr[i] = expand_str(arr[i], shell);
 			if (!arr[i])
