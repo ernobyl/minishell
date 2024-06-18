@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/05/23 11:06:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:36:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	init_sort_struct(int size, t_alpha *sort)
 	sort->min_index = -1;
 	sort->min_value = NULL;
 	sort->printed = (int *)malloc(size * sizeof(int));
-	while (i <= size)
+	while (i < size)
 	{
 		sort->printed[i] = 0;
 		i++;
