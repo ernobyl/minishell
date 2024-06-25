@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/18 19:40:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:14:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	env_builtin(t_env *shell)
 	i = 0;
 	if (shell->env == NULL)
 	{
-		ft_putendl_fd("environment list not found", 2);
+		ft_putendl_fd("Environment list not found.", 2);
 		return (EXIT_FAILURE);
 	}
 	while (shell->env[i])
