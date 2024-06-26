@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 00:37:57 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/18 18:45:36 by root             ###   ########.fr       */
+/*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
+/*   Updated: 2024/06/26 22:31:11 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	exec(t_struct *token, t_env *shell)
 		if (token->type == HEREDOC)
 			heredoc(token->value);
 		open_files(token);
-		if (run_builtin(args[0], args, shell) == 101)
+		if (run_builtin(args[0], args, shell, token) == 101)
 			create_child(&args[0], shell->env);
 		ft_free(args);
 		while (token && token->type != PIPE)

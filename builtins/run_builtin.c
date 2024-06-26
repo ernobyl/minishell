@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/18 19:11:24 by root             ###   ########.fr       */
+/*   Updated: 2024/06/26 22:36:48 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/exec.h"
 #include "../includes/builtins.h"
 
 static int	get_builtin_num(char *input)
@@ -87,7 +88,7 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	return (ret_value);
 }
 
-int	run_builtin(char *cmd, char **param, t_env *shell)
+int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 {
 	int		num;
 	int		ret_value;
@@ -95,6 +96,8 @@ int	run_builtin(char *cmd, char **param, t_env *shell)
 
 	ret_value = 0;
 	num = get_builtin_num(cmd);
+	if (num == EXIT)
+		free(token);
 	if (num == NOT_BUILTIN)
 		return (101);
 	init_builtin_arr(arr);
