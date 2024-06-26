@@ -5,11 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/26 22:26:41 by kmatjuhi         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/26 23:23:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* ************************************************************************** */
+
+#include "../includes/exec.h"
 #include "../includes/builtins.h"
 
 static int	get_builtin_num(char *input)
@@ -96,7 +99,7 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	return (ret_value);
 }
 
-int	run_builtin(char *cmd, char **param, t_env *shell)
+int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 {
 	int		num;
 	int		ret_value;
@@ -104,6 +107,8 @@ int	run_builtin(char *cmd, char **param, t_env *shell)
 
 	ret_value = 0;
 	num = get_builtin_num(cmd);
+	if (num == EXIT)
+		free(token);
 	if (num == NOT_BUILTIN)
 		return (101);
 	init_builtin_arr(arr);

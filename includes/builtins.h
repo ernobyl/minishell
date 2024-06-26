@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 22:39:58 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/26 23:23:40 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		export_builtin(int ret_value, t_env *shell, char *new_var);
 int		export_array(int ret_value, t_env *shell, char **array);
 int		unset_builtin(t_env *shell, char *to_unset);
 int		env_builtin(t_env *shell);
-int		run_builtin(char *cmd, char **param, t_env *shell);
+//int		run_builtin(char *cmd, char **param, t_env *shell);
 void	exit_builtin(char **param, t_env *shell);
 void	export_shlvl(char **envp);
 
