@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/17 14:36:15 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:37:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	cd_builtin(const char *path)
 	if (chdir(path) == 0)
 		return (EXIT_SUCCESS);
 	else
-		return (error_msg("cd failed"));
+		return (error_msg(" No such file or directory"));
 }
 
 void	exit_builtin(char **param, t_env *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/18 19:10:48 by root             ###   ########.fr       */
+/*   Updated: 2024/06/26 13:36:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,15 @@ static char	*expand_str(char *str, t_env *shell)
 		return (NULL);
 	len = ft_strlen(var) - 1;
 	i = find_env_var(shell, var);
-	if (i != -1)
+	if (ft_strncmp(var, "?=", 2) == 0)
+		dest = find_and_replace(str, ft_itoa(g_exit_status), len);
+	else if (i != -1)
 	{
 		dest = find_and_replace(str, ft_strchr_next \
 		(shell->env[i], '='), len);
 	}
 	else
-		dest = find_and_replace(str, "\0", 0);
+		dest = find_and_replace(str, "$", 1);
 	free(str);
 	free(var);
 	return (dest);
@@ -79,7 +81,7 @@ char	**expand_env(char **arr, t_env *shell)
 	i = 0;
 	while (arr[i])
 	{
-		while (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
+		if (ft_strchr(arr[i], '$') && arr[i][0] != '\'' )
 		{
 			arr[i] = expand_str(arr[i], shell);
 			if (!arr[i])

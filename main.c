@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/17 14:29:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:48:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	handle_signal(int sig)
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
-	
+
 	while (g_signal_flag != 1)
 	{
 		signal(SIGQUIT, handle_signal);
@@ -36,7 +36,6 @@ int	readline_loop(t_env *shell, int ret_value)
 		g_signal_flag = 0;
 		if (g_signal_flag == 2)
 			continue ;
-		ret_value = 0;
 		input = readline("minishell> ");
 		if (input == NULL) // if readline returns NULL, it means the end of input, which should exit minishell
 			break ;
@@ -57,7 +56,7 @@ int	main(void)
 {
 	int		ret_value;
 	t_env	shell;
-	
+
 	shell.env = init_env_list();
 	ret_value = 0;
 	ret_value = readline_loop(&shell, ret_value);
