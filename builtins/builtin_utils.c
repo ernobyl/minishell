@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/18 19:36:10 by root             ###   ########.fr       */
+/*   Updated: 2024/06/26 22:42:37 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	double_buf_size(char **str, size_t *buf_size)
 		free(*str);
 		*str = malloc(*buf_size);
 		if (*str == NULL)
-			return (error_msg("malloc failed"));
+			return (error_msg("malloc failed", 1));
 		return (EXIT_SUCCESS);
 	}
 	else
 	{
 		free(*str);
-		return (error_msg("pwd: getcwd failed"));
+		return (error_msg("pwd: getcwd failed", 1));
 	}
 }
 
@@ -35,7 +35,7 @@ int	replace_variable(char **env_var, char *new_var)
 	free((*env_var));
 	*env_var = ft_strdup(new_var);
 	if ((*env_var) == NULL)
-		return (error_msg("strdup failed"));
+		return (error_msg("strdup failed", 1));
 	return (EXIT_SUCCESS);
 }
 
@@ -46,7 +46,7 @@ int	add_variable(t_env *shell, char *new_var, int size)
 
 	add_env = malloc((size + 2) * sizeof(char *));
 	if (add_env == NULL)
-		return (error_msg("malloc failed"));
+		return (error_msg("malloc failed", 1));
 	i = 0;
 	while (i < size)
 	{

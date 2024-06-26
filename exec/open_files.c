@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/17 14:25:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:31:56 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	infile_open(char *file)
 
 	file1 = open(file, O_RDONLY);
 	if (file1 == -1)
-		error_msg_fd(file, 0);
+		error_msg_fd(file, 1);
 	dup2(file1, STDIN_FILENO);
 	close(file1);
 }

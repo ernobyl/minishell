@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 13:44:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/26 23:11:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	export_builtin(int ret_value, t_env *shell, char *new_var)
 	if (ft_strcmp (new_var, "") == 0)
 		return (print_list_alpha(shell->env, i));
 	else if (ft_strchr(new_var, '=') == NULL)
-		return (error_msg("Invalid environment variable format."));
+		return (error_msg(" not a valid identifier", 1));
 	if (!found)
 		ret_value = add_variable(shell, new_var, i);
 	return (ret_value);
@@ -114,7 +114,7 @@ int	unset_builtin(t_env *shell, char *to_unset)
 		}
 		i++;
 	}
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	env_builtin(t_env *shell)

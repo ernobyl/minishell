@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:16:44 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/18 19:11:24 by root             ###   ########.fr       */
+/*   Updated: 2024/06/26 22:26:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,20 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	if (num == EXPORT)
 	{
 		if (param[1] == NULL)
+		{
 			ret_value = export_builtin(ret_value, shell, "");
+			// printf("export 1 ret %d", ret_value);
+		}
 		else if (param[2] == NULL)
+		{
 			ret_value = export_builtin(ret_value, shell, param[1]);
+			// printf("export 2 ret %d", ret_value);
+		}
 		else
+		{
 			ret_value = export_array(ret_value, shell, param);
+			// printf("export 3 ret %d", ret_value);
+		}
 	}
 	i = 1;
 	if (num == UNSET)
@@ -99,5 +108,7 @@ int	run_builtin(char *cmd, char **param, t_env *shell)
 		return (101);
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
+	g_exit_status = ret_value;
+	// printf("%d\n", g_exit_status);
 	return (ret_value);
 }

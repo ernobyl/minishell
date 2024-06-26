@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 13:44:18 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:39:58 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_alphasort
 	int		min_index;
 }			t_alpha;
 
-int		error_msg(char *msg);
+int		error_msg(char *msg, int code);
 char	*skip_set(char *str, char *set);
 char	**init_env_list(void);
 int		print_list_alpha(char **list, int size);
