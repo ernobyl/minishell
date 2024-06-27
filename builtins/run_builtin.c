@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 23:23:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:38:34 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,15 @@ static void	check_first(int num, int *ret_value, char **param, t_env *shell)
 	if (num == PWD)
 		*ret_value = pwd_builtin();
 	if (num == CD)
-		*ret_value = cd_builtin(param[1]);
+	{
+		if (param[2])
+		{
+			ft_putendl_fd(" too many arguments\n", 2);
+			*ret_value = 1;
+		}
+		else
+			*ret_value = cd_builtin(param[1]);
+	}
 	if (num == ECHO)
 		*ret_value = echo_builtin(NULL, param);
 }
