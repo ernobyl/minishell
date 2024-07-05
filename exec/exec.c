@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 22:31:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:29:57 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ static void	create_pipe(int token_index, int pipe_index, int *old_pipe_in, int *
 			close(*old_pipe_in);
 		dup2(new_pipe[1], STDOUT_FILENO);
 		close(new_pipe[1]);
-		*old_pipe_in = dup(new_pipe[0]);
+		if (pipe_index == 0)
+			*old_pipe_in = dup(new_pipe[0]);
+		else
+			dup2(*old_pipe_in, new_pipe[0]);
+		close(new_pipe[0]);
 	}
 	else
 	{
