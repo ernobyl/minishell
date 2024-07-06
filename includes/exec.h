@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/12 16:07:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:18:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	open_files(t_struct *token);
 void	save_fds(int *fd);
 void	restore_fds(int *fd);
 void	close_fds(int *fd, int old_pipe_in);
-void    heredoc(char *limiter);
+void	heredoc(char *limiter);
 
 #endif

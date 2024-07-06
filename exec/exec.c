@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/06 14:36:18 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:31:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,22 @@ static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in
 	if (pid == 0)
 	{
 		if (*pipe_in != -1)
+		{
 			dup2(*pipe_in, STDIN_FILENO);
+			close(*pipe_in);
+		}
 		if (token->index != shell->pipe)
 		{
 			close(pipefd[0]);
 			dup2(pipefd[1], STDOUT_FILENO);
+			close(pipefd[1]);
 		}
 		if (token->type == HEREDOC)
 			heredoc(token->value);
 		open_files(token);
 		if (run_builtin(args[0], args, shell, token) == 101)
-		{
 			execute(args[0], args, shell->env);
-			close(pipefd[1]);
-			close(pipefd[0]);
-		}
+		exit(0);
 	}
 	return (pid);
 }
@@ -81,6 +82,7 @@ void wait_for_children(int *pids, int amount)
 			g_exit_status = WEXITSTATUS(status);
 		i++;
 	}
+	free(pids);
 }
 
 void	exec(t_struct *token, t_env *shell)
@@ -92,6 +94,7 @@ void	exec(t_struct *token, t_env *shell)
 	int		*pids;
 
 	pipe_in = -1;
+	int i = 0;
 	args = parse_literals(token);
 	if (shell->pipe == 0 && run_builtin(args[0], args, shell, token) != 101)
 		return ;
@@ -105,7 +108,7 @@ void	exec(t_struct *token, t_env *shell)
 				handle_error(1, "pipe failed");
 		}
 		args = parse_literals(token);
-		create_child(&args[0], shell, token, &pipe_in, pipefd);
+		pids[i++] = create_child(&args[0], shell, token, &pipe_in, pipefd);
 		close(pipefd[1]);
 		pipe_in = dup(pipefd[0]);
 		close(pipefd[0]);

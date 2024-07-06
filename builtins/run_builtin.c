@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 10:38:34 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:22:39 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,5 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
 	g_exit_status = ret_value;
-	// printf("%d\n", g_exit_status);
 	return (ret_value);
 }
