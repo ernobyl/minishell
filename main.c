@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 13:48:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:18:23 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ int	main(void)
 	ret_value = 0;
 	ret_value = readline_loop(&shell, ret_value);
 	ft_free(shell.env);
+	// close(STDIN_FILENO);
+	// close(STDOUT_FILENO);
 	return (ret_value);
 }

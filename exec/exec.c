@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/06 13:49:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:36:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	exec(t_struct *token, t_env *shell)
 	char	**args;
 	int		pipe_in;
 	int		pipefd[2];
+	int		fd[2];
 	int		*pids;
 
 	pipe_in = -1;
@@ -97,6 +98,7 @@ void	exec(t_struct *token, t_env *shell)
 	pids = ft_calloc(shell->pipe + 1, sizeof(int));
 	while (token)
 	{
+		save_fds(fd);
 		if (token->index != shell->pipe)
 		{
 			if (pipe(pipefd) == -1)
@@ -112,12 +114,10 @@ void	exec(t_struct *token, t_env *shell)
 			token = token->next;
 		if (token && token->type == PIPE)
 			token = token->next;
+		restore_fds(fd);
 	}
-	if (pipe_in != -1)
-		close(pipe_in);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
+	close_fds(fd, pipe_in);
 	wait_for_children(pids, shell->pipe);
 }
