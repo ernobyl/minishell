@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/06 13:04:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:49:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,9 @@ char	**parse_literals(t_struct *token)
 	return (args);
 }
 
-// static void	create_pipe(int token_index, int pipe_index, int *old_pipe_in, int *new_pipe)
-// {
-// 	if (token_index != pipe_index)
-// 	{
-// 		pipe(new_pipe);
-// 		dup2(*old_pipe_in, STDIN_FILENO);
-// 		if (*old_pipe_in != 0)
-// 			close(*old_pipe_in);
-// 		dup2(new_pipe[1], STDOUT_FILENO);
-// 		close(new_pipe[1]);
-// 		if (pipe_index == 0)
-// 			*old_pipe_in = dup(new_pipe[0]);
-// 		else
-// 			dup2(*old_pipe_in, new_pipe[0]);
-// 		close(new_pipe[0]);
-// 	}
-// 	else
-// 	{
-// 		dup2(*old_pipe_in, STDIN_FILENO);
-// 		if (*old_pipe_in != 0)
-// 			close(*old_pipe_in);
-// 	}
-// }
-
-static void	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
+static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
-	pid_t	pid;
+	int	pid;
 
 	pid = fork();
 	if (pid == -1)
@@ -86,20 +62,39 @@ static void	create_child(char **args, t_env *shell, t_struct *token, int *pipe_i
 		{
 			execute(args[0], args, shell->env);
 			close(pipefd[1]);
+			close(pipefd[0]);
 		}
+	}
+	return (pid);
+}
+
+void wait_for_children(int *pids, int amount)
+{
+	int i;
+	int status;
+
+	i = 0;
+	while (i <= amount)
+	{
+		waitpid(pids[i], &status, 0);
+		if (WEXITSTATUS(status) != 0)
+			g_exit_status = WEXITSTATUS(status);
+		i++;
 	}
 }
 
 void	exec(t_struct *token, t_env *shell)
 {
-	char		**args;
-	int			pipe_in;
-	int			pipefd[2];
+	char	**args;
+	int		pipe_in;
+	int		pipefd[2];
+	int		*pids;
 
 	pipe_in = -1;
 	args = parse_literals(token);
 	if (shell->pipe == 0 && run_builtin(args[0], args, shell, token) != 101)
 		return ;
+	pids = ft_calloc(shell->pipe + 1, sizeof(int));
 	while (token)
 	{
 		if (token->index != shell->pipe)
@@ -120,5 +115,9 @@ void	exec(t_struct *token, t_env *shell)
 	}
 	if (pipe_in != -1)
 		close(pipe_in);
-	while (wait(NULL) > 0);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	wait_for_children(pids, shell->pipe);
 }
