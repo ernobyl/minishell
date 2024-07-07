@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:08:38 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 10:43:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:01:50 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@ size_t	ft_strlen_c(char *str, int c)
 {
 	size_t	i;
 
+	if (str[1] == '\0')
+		return (1);
 	i = 0;
 	while (str && str[i] != (char)c)
-		i++;
+{
+	if (str[i + 1] == '\0')
+		break ;
+	i++;
+}
 	return (i);
 }

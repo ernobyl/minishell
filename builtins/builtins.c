@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 23:11:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:03:23 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,34 @@ int	echo_builtin(char *file, char **param)
 int	export_builtin(int ret_value, t_env *shell, char *new_var)
 {
 	int	i;
+	int	k;
 	int	found;
 
+/* THIS NEEDS TO BE A SEPARATE CHECKING FUNCTION, AND ALSO APPLIED TO "export_array" */
+	i = -1;
+	while (new_var[++i])
+	{
+		if (new_var[0] == '=')
+			return (error_msg(" not a valid identifier", 1));
+		else if (new_var[i] == '=')
+			break ;
+		else if (!ft_isalnum(new_var[i]))
+			return (error_msg(" not a valid identifier", 1));
+		k = 0;
+		if (ft_isdigit(new_var[i]))
+		{
+			while (new_var[k])
+			{
+				if (ft_isalpha(new_var[k]))
+					break ;
+				if (!ft_isalpha(new_var[k]))
+					k++;
+				if (new_var[k] == '\0')
+					return (error_msg(" not a valid identifier", 1));
+			}
+		}
+	}
+	/* END OF CHECKING FUNCTION */
 	i = 0;
 	found = 0;
 	while (shell->env[i])
@@ -81,8 +107,6 @@ int	export_builtin(int ret_value, t_env *shell, char *new_var)
 	}
 	if (ft_strcmp (new_var, "") == 0)
 		return (print_list_alpha(shell->env, i));
-	else if (ft_strchr(new_var, '=') == NULL)
-		return (error_msg(" not a valid identifier", 1));
 	if (!found)
 		ret_value = add_variable(shell, new_var, i);
 	return (ret_value);

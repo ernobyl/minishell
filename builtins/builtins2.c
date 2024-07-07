@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/26 23:06:58 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:03:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ int	export_array(int ret_value, t_env *shell, char **array)
 			}
 			shell->i++;
 		}
-		if (ft_strchr(array[shell->k], '=') == NULL)
-			return (error_msg("", 0));
 		if (!found)
 			ret_value = add_variable(shell, array[shell->k], shell->i);
 		shell->k++;
