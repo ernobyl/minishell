@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 19:39:59 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:16:00 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	exec(t_struct *token, t_env *shell)
 
 	pipe_in = -1;
 	int i = 0;
-	args = parse_literals(token);
+	if (ft_strcmp(token->value, "\0") == 0)
+		token = token->next;
 	pids = ft_calloc(shell->pipe + 1, sizeof(int));
 	while (token)
 	{

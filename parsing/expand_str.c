@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/26 21:53:17 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:12:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,27 @@ char	*find_and_replace_exitcode(char *str)
 	{
 		i++;
 		while (*exit_code)
-		dest[j++] = *exit_code++;
+			dest[j++] = *exit_code++;
 	}
 	while (str[i])
 		dest[j++] = str[i++];
 	dest[j] = '\0';
 	return (dest);
+}
+char *check_single_dollar(char *str)
+{
+	int	i;
+	char *new;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i + 1] == '"')
+		return (str);
+	free(str);
+	new = malloc(sizeof(char) * 1);
+	new[0] = '\0';
+	return (new);
 }
 
 static char	*expand_str(char *str, t_env *shell)
@@ -93,8 +108,7 @@ static char	*expand_str(char *str, t_env *shell)
 	char		*var;
 	int			i;
 	int			len;
-	
-	// find variable only if not $?
+
 	if (check_match_exitcode(str))
 		dest = find_and_replace_exitcode(str);
 	else
@@ -110,7 +124,9 @@ static char	*expand_str(char *str, t_env *shell)
 			(shell->env[i], '='), len);
 		}
 		else
-			return (str);
+		{
+			return (check_single_dollar(str));
+		}
 		free(var);
 	}
 	free(str);
@@ -139,6 +155,8 @@ bool	check_dollar_signs(char *str, t_env *shell)
 	}
 	return (true);
 }
+
+
 
 char	**expand_env(char **arr, t_env *shell)
 {
