@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/26 22:31:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:23:31 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static void	outfile_open(char *file, int type)
 
 	if (type == OUTFILE)
 		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	else 
+	else
 		file2 = open(file, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (file2 == -1)
-		error_msg_fd(file, 0);
+		error_msg_fd(file, 1);
 	dup2(file2, STDOUT_FILENO);
 	close(file2);
 }
@@ -53,9 +53,7 @@ void	open_files(t_struct *token)
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
-		if (temp->type == HEREDOC)
-		  	heredoc(temp->value);
-		else if (temp->type == INFILE)
+		if (temp->type == INFILE)
 			infile_open(temp->value);
 		else if (temp->type == OUTFILE)
 			outfile_open(temp->value, OUTFILE);

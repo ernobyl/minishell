@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/06 22:31:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:39:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in
 			heredoc(token->value);
 		open_files(token);
 		if (run_builtin(args[0], args, shell, token) == 101)
-			execute(args[0], args, shell->env);
-		exit(0);
+			execute(args[0], args, shell->env, pipefd);
+		exit(g_exit_status);
 	}
 	return (pid);
 }
@@ -78,8 +78,7 @@ void wait_for_children(int *pids, int amount)
 	while (i <= amount)
 	{
 		waitpid(pids[i], &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			g_exit_status = WEXITSTATUS(status);
+		g_exit_status = WEXITSTATUS(status);
 		i++;
 	}
 	free(pids);
@@ -96,8 +95,6 @@ void	exec(t_struct *token, t_env *shell)
 	pipe_in = -1;
 	int i = 0;
 	args = parse_literals(token);
-	if (shell->pipe == 0 && run_builtin(args[0], args, shell, token) != 101)
-		return ;
 	pids = ft_calloc(shell->pipe + 1, sizeof(int));
 	while (token)
 	{
