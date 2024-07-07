@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/26 22:33:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:27:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_struct	*tokenize(char **arr, t_env *shell);
 t_struct	*add_new(int token, char *value, int index);
 void		add_back(t_struct **lst, t_struct *new);
 void		free_stack(t_struct **stack);
-void		print_nodes(t_struct *stack);
 int			run_builtin(char *cmd, char **param, t_env *shell, t_struct *token);
 
 #endif

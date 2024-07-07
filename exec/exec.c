@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 21:16:00 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:30:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in
 	return (pid);
 }
 
-void wait_for_children(int *pids, int amount)
+void	wait_for_children(int *pids, int amount)
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
 
 	i = 0;
 	while (i <= amount)
@@ -91,9 +91,10 @@ void	exec(t_struct *token, t_env *shell)
 	int		pipefd[2];
 	int		fd[2];
 	int		*pids;
+	int		i;
 
 	pipe_in = -1;
-	int i = 0;
+	i = 0;
 	if (ft_strcmp(token->value, "\0") == 0)
 		token = token->next;
 	pids = ft_calloc(shell->pipe + 1, sizeof(int));

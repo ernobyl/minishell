@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 22:26:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:29:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	check_match_exitcode(char *str)
 		return (true);
 	return (false);
 }
+
 char	*find_and_replace_exitcode(char *str)
 {
 	int		len;
@@ -72,7 +73,6 @@ char	*find_and_replace_exitcode(char *str)
 	exit_code = ft_itoa(g_exit_status);
 	len = ft_strlen(str) - 2 + ft_strlen(exit_code);
 	dest = malloc(len + 1);
-
 	while (str[i] != '$')
 		dest[j++] = str[i++];
 	if (str[++i] == '?')
@@ -86,6 +86,7 @@ char	*find_and_replace_exitcode(char *str)
 	dest[j] = '\0';
 	return (dest);
 }
+
 char	*check_single_dollar(char *str)
 {
 	int		i;

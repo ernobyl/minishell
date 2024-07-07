@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 21:48:05 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:31:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	execute(char *cmd, char **args, char **envp, int *fd)
 	char	*path;
 	int		i;
 	int		len;
-	
+
 	len = ft_strlen(cmd);
 	if (ft_strrchr(cmd, '/'))
 	{

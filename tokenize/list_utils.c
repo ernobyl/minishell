@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:27:18 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:27:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,5 @@ void	free_stack(t_struct **stack)
 			temp = next;
 		}
 		free(*stack);
-	}
-}
-
-void	print_nodes(t_struct *stack)
-{
-	t_struct	*temp;
-
-	temp = stack;
-	while (temp)
-	{
-		printf("index {%d}, type {%d}, value {%s}\n", temp->index, temp->type, temp->value);
-		temp = temp->next;
 	}
 }
