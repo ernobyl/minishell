@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/07 21:48:24 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/07 22:46:21 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc
-# CFLAGS	:= -Wextra -Wall -Werror
+CFLAGS	:= -Wextra -Wall -Werror
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -24,6 +24,7 @@ SRCS	:=	main.c \
 			exec/open_files.c \
 			exec/fd_utils.c \
 			exec/exec_error.c \
+			exec/safe_func.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \

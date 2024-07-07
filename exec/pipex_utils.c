@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 22:31:18 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:49:36 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*env_path(char *cmd, char **envp)
 	return (freereturn(path_array, 0));
 }
 
-static void	is_dir(char **args, char *str)
+static void	is_dir(char *str)
 {
 	int		fd3;
 
@@ -61,40 +61,38 @@ static void	is_dir(char **args, char *str)
 	}
 }
 
-void	execute(char *cmd, char **args, char **envp, int *fd)
+void	is_direct_xcute(char *cmd, char **args, char **envp)
 {
-	char	*path;
-	int		i;
-	int		len;
-
-	len = ft_strlen(cmd);
 	if (ft_strrchr(cmd, '/'))
 	{
-		is_dir(args, args[0]);
+		is_dir(args[0]);
 		if (access(args[0], F_OK) != 0)
 			handle_error_exec(127, cmd, ": No such file or directory\n");
 		execve(args[0], args, envp);
 		handle_error_exec(126, cmd, ": Permission denied\n");
 	}
+}
+
+void	execute(char *cmd, char **args, char **envp)
+{
+	char	*path;
+	int		len;
+
+	len = ft_strlen(cmd);
+	is_direct_xcute(cmd, args, envp);
 	while (cmd[len] && cmd[len] != '/')
 		len--;
 	path = env_path(cmd, envp);
-	if (!path)
+	if (!path || (access(path, X_OK == -1)))
 	{
-		i = -1;
-		while (args[++i])
-			free(args[i]);
-		free(args);
-		handle_error_exec(127, cmd, "command not found");
-	}
-	if (access(path, X_OK == -1))
-	{
-		i = -1;
-		while (args[++i])
-			free(args[i]);
-		free(args);
-		free(path);
-		handle_error_exec(126, cmd, ": Permission denied\n");
+		ft_free(args);
+		if (!path)
+			handle_error_exec(127, cmd, "command not found");
+		else
+		{
+			free(path);
+			handle_error_exec(126, cmd, ": Permission denied\n");
+		}
 	}
 	if (ft_strcmp(cmd, "minishell") == 0 || ft_strcmp(cmd + len, "minishell"))
 		export_shlvl(envp);

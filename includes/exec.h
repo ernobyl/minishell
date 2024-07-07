@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 21:48:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:49:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@
 void	exec(t_struct *token, t_env *shell);
 void	handle_error(int exitcode, const char *errormsg);
 void	handle_error_exec(int exitcode, char *cmd, char *msg);
-void	execute(char *cmd, char **args, char **envp, int *pipefd);
+void	execute(char *cmd, char **args, char **envp);
 void	open_files(t_struct *token);
 void	save_fds(int *fd);
 void	restore_fds(int *fd);
 void	close_fds(int *fd, int old_pipe_in);
+void	safe_pipe(int *fd);
+int		safe_fork(void);
 void	heredoc(char *limiter);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 22:30:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:51:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in
 {
 	int	pid;
 
-	pid = fork();
-	if (pid == -1)
-		handle_error(1, "fork failed");
+	pid = safe_fork();
 	if (pid == 0)
 	{
 		if (*pipe_in != -1)
@@ -63,7 +61,7 @@ static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in
 			heredoc(token->value);
 		open_files(token);
 		if (run_builtin(args[0], args, shell, token) == 101)
-			execute(args[0], args, shell->env, pipefd);
+			execute(args[0], args, shell->env);
 		exit(g_exit_status);
 	}
 	return (pid);
@@ -102,10 +100,7 @@ void	exec(t_struct *token, t_env *shell)
 	{
 		save_fds(fd);
 		if (token->index != shell->pipe)
-		{
-			if (pipe(pipefd) == -1)
-				handle_error(1, "pipe failed");
-		}
+			safe_pipe(pipefd);
 		args = parse_literals(token);
 		pids[i++] = create_child(&args[0], shell, token, &pipe_in, pipefd);
 		close(pipefd[1]);
