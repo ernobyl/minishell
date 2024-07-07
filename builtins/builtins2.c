@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 14:03:20 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:32:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	exit_builtin(char **param, t_env *shell)
 	}
 	ft_free(shell->env);
 	ft_free(param);
+	// only prints exit but does not exit the program;
 	printf("exit\n");
 	exit_st(exit_code);
 }

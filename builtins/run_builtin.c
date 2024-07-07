@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/06 22:22:39 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:30:27 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,7 @@ static void	check_first(int num, int *ret_value, char **param, t_env *shell)
 		*ret_value = pwd_builtin();
 	if (num == CD)
 	{
-		if (param[2])
-		{
-			ft_putendl_fd(" too many arguments\n", 2);
-			*ret_value = 1;
-		}
-		else
-			*ret_value = cd_builtin(param[1]);
+		*ret_value = cd_builtin(param[1]);
 	}
 	if (num == ECHO)
 		*ret_value = echo_builtin(NULL, param);
@@ -78,20 +72,11 @@ static int	match_function(int num, int ret_value, char **param, t_env *shell)
 	if (num == EXPORT)
 	{
 		if (param[1] == NULL)
-		{
 			ret_value = export_builtin(ret_value, shell, "");
-			// printf("export 1 ret %d", ret_value);
-		}
 		else if (param[2] == NULL)
-		{
 			ret_value = export_builtin(ret_value, shell, param[1]);
-			// printf("export 2 ret %d", ret_value);
-		}
 		else
-		{
 			ret_value = export_array(ret_value, shell, param);
-			// printf("export 3 ret %d", ret_value);
-		}
 	}
 	i = 1;
 	if (num == UNSET)
