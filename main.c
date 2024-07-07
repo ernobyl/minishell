@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/06 14:18:23 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:33:06 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	handle_signal(int sig)
 	}
 }
 
-
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
@@ -37,14 +36,14 @@ int	readline_loop(t_env *shell, int ret_value)
 		if (g_signal_flag == 2)
 			continue ;
 		input = readline("minishell> ");
-		if (input == NULL) // if readline returns NULL, it means the end of input, which should exit minishell
+		if (input == NULL)
 			break ;
 		if (*input == '\0')
 		{
 			free(input);
 			continue ;
 		}
-		else if (input != NULL) // NOTE: only whitespaces (pressing enter = '\n') should not get added to history
+		else if (input != NULL)
 			add_history(input);
 		if (parsing(input, shell) == 0)
 			ret_value = 1;
@@ -61,7 +60,5 @@ int	main(void)
 	ret_value = 0;
 	ret_value = readline_loop(&shell, ret_value);
 	ft_free(shell.env);
-	// close(STDIN_FILENO);
-	// close(STDOUT_FILENO);
 	return (ret_value);
 }

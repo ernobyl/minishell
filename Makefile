@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/07 14:55:15 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/07 21:48:24 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	:=	main.c \
 			exec/pipex_utils.c \
 			exec/open_files.c \
 			exec/fd_utils.c \
+			exec/exec_error.c \
 			parsing/parsing.c \
 			parsing/validate_syntax.c \
 			parsing/quote_utils.c \

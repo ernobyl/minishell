@@ -5,11 +5,9 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/07 20:30:27 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/07/07 21:37:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
-
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
@@ -28,7 +26,7 @@ static int	get_builtin_num(char *input)
 		|| ft_strncmp("echo -n", input, 7) == 0)
 		return (ECHO);
 	else if (ft_strcmp("export", input) == 0
-		|| ft_strncmp("export ", input, 7)  == 0)
+		|| ft_strncmp("export ", input, 7) == 0)
 		return (EXPORT);
 	else if (ft_strcmp("unset", input) == 0)
 		return (UNSET);

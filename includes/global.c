@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/14 15:29:24 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:34:20 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 
-int g_signal_flag = 0;
+int	g_signal_flag = 0;
 int	g_exit_status = 0;

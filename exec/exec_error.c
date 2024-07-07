@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_c.c                                      :+:      :+:    :+:   */
+/*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 13:08:38 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 21:35:04 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/07/07 21:47:48 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/07/07 21:49:04 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/exec.h"
 
-size_t	ft_strlen_c(char *str, int c)
+void	handle_error(int exitcode, const char *errormsg)
 {
-	size_t	i;
+	perror(errormsg);
+	exit_st(exitcode);
+}
 
-	if (str[1] == '\0')
-		return (1);
-	i = 0;
-	while (str && str[i] != (char)c)
-	{
-		if (str[i + 1] == '\0')
-			break ;
-		i++;
-	}
-	return (i);
+void	handle_error_exec(int exitcode, char *cmd, char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(msg, 2);
+	exit_st(exitcode);
 }

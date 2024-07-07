@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 20:32:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:39:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ int	cd_builtin(const char *path)
 		return (error_msg(" No such file or directory", 1));
 }
 
-int count_param(char **param)
+int	count_param(char **param)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (param[i])
 		i++;
 	return (i);
 }
+
 void	exit_builtin(char **param, t_env *shell)
 {
 	int	exit_code;
@@ -108,7 +109,8 @@ int	export_array(int ret_value, t_env *shell, char **array)
 			if (ft_strncmp(shell->env[shell->i], array[shell->k],
 					ft_strlen_c(shell->env[shell->i], '=') + 1) == 0)
 			{
-				ret_value = replace_variable(&shell->env[shell->i], array[shell->k]);
+				ret_value = replace_variable(&shell->env[shell->i], \
+				array[shell->k]);
 				found = 1;
 				break ;
 			}

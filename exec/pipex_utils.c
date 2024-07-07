@@ -6,26 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 19:26:49 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:48:05 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
-
-void	handle_error(int exitcode, const char *errormsg)
-{
-	perror(errormsg);
-	exit_st(exitcode);
-}
-
-void	handle_error_exec(int exitcode, char *cmd, char *msg)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(msg, 2);
-	exit_st(exitcode);
-}
 
 char	*freereturn(char **tofree, char *toreturn)
 {
