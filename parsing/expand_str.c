@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 21:12:43 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:26:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ bool	check_match_exitcode(char *str)
 }
 char	*find_and_replace_exitcode(char *str)
 {
-	int len;
-	char *exit_code;
-	char *dest;
-	int i;
-	int j;
+	int		len;
+	char	*exit_code;
+	char	*dest;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;
@@ -86,10 +86,10 @@ char	*find_and_replace_exitcode(char *str)
 	dest[j] = '\0';
 	return (dest);
 }
-char *check_single_dollar(char *str)
+char	*check_single_dollar(char *str)
 {
-	int	i;
-	char *new;
+	int		i;
+	char	*new;
 
 	i = 0;
 	while (str[i] && str[i] != '$')
@@ -124,9 +124,7 @@ static char	*expand_str(char *str, t_env *shell)
 			(shell->env[i], '='), len);
 		}
 		else
-		{
 			return (check_single_dollar(str));
-		}
 		free(var);
 	}
 	free(str);
@@ -155,8 +153,6 @@ bool	check_dollar_signs(char *str, t_env *shell)
 	}
 	return (true);
 }
-
-
 
 char	**expand_env(char **arr, t_env *shell)
 {
