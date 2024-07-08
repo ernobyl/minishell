@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:42:14 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:23:17 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd);
 void	exec_cmds(t_struct *token, t_env *shell);
 void	execute(char *cmd, char **args, char **envp);
 int		run_builtin(char *cmd, char **param, t_env *shell, t_struct *token);
-// char	**args_list(t_struct *token);
+char	**args_list(t_struct *token);
 
 // ERROR
 void	handle_error(int exitcode, const char *errormsg);

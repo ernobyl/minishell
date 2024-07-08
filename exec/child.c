@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:37:27 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:47:17 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static char	**args_list(t_struct *token)
+char	**args_list(t_struct *token)
 {
 	t_struct	*temp;
 	char		**args;

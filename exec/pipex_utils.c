@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 11:51:25 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:45:24 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	execute(char *cmd, char **args, char **envp)
 	path = env_path(cmd, envp);
 	if (!path || (access(path, X_OK == -1)))
 	{
-		ft_free(args);
 		if (!path)
 			handle_error_exec(127, cmd, "command not found");
 		else

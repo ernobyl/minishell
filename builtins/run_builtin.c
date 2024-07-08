@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:00:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:39:46 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 	int		num;
 	int		ret_value;
 	char	*arr[8];
+	int		fd[2];
 
 	ret_value = 0;
 	num = get_builtin_num(cmd);
@@ -102,8 +103,18 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 		free(token);
 	if (num == NOT_BUILTIN)
 		return (101);
+	if (shell->cmds_num == 0)
+	{
+		save_fds(fd);
+		open_files(token);
+	}
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
+	if (shell->cmds_num == 0)
+	{
+		safe_dup2(fd[0], STDIN_FILENO);
+		safe_dup2(fd[1], STDOUT_FILENO);
+	}
 	shell->exit_code = ret_value;
 	return (ret_value);
 }

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 12:33:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:47:23 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,21 @@ void	exec_cmds(t_struct *token, t_env *shell)
 	int		fd[2];
 	int		pipe_in;
 	int		i;
+	char	**args;
 
+	args = args_list(token);
 	pipe_in = -1;
 	i = 0;
 	if (ft_strcmp(token->value, "\0") == 0)
 		token = token->next;
+	if (shell->cmds_num == 0)
+	{
+		if (run_builtin(args[0], args, shell, token) != 101)
+		{
+			ft_free(args);
+			return ;
+		}
+	}
 	pids = ft_calloc(shell->cmds_num + 1, sizeof(int));
 	while (token)
 	{
