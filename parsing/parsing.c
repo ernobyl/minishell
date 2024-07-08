@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/26 21:51:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:55:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	parsing(char *input, t_env *shell)
 	if (!arr)
 		return (false);
 	token = tokenize(arr, shell);
-	exec(token, shell);
+	exec_cmds(token, shell);
 	ft_free(arr);
 	free(token);
 	return (true);

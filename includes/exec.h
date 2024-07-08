@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 22:49:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:59:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,22 @@
 # include "minishell.h"
 # include "tokenize.h"
 
-void	exec(t_struct *token, t_env *shell);
+void	exec_cmds(t_struct *token, t_env *shell);
+void	execute(char *cmd, char **args, char **envp);
+
+// ERROR
 void	handle_error(int exitcode, const char *errormsg);
 void	handle_error_exec(int exitcode, char *cmd, char *msg);
-void	execute(char *cmd, char **args, char **envp);
+
+// FILES FUNCTIONS
 void	open_files(t_struct *token);
 void	save_fds(int *fd);
-void	restore_fds(int *fd);
+void	restore_fds(int *fd, int *pipefd, int *pipe_in);
 void	close_fds(int *fd, int old_pipe_in);
+void	heredoc(char *limiter);
+
+// SAFE FUNCTIONS
 void	safe_pipe(int *fd);
 int		safe_fork(void);
-void	heredoc(char *limiter);
 
 #endif

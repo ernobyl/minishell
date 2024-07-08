@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:12:41 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/06 22:03:57 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:59:58 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	save_fds(int *fd)
 	fd[1] = dup(STDOUT_FILENO);
 }
 
-void	restore_fds(int *fd)
+void	restore_fds(int *fd, int *pipefd, int *pipe_in)
 {
+	close(pipefd[1]);
+	*pipe_in = dup(pipefd[0]);
+	close(pipefd[0]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);

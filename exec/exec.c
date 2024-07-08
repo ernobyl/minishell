@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 22:51:19 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:01:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**parse_literals(t_struct *token)
 	return (args);
 }
 
-static int	create_child(char **args, t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
+static int	child(char **args, t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
 	int	pid;
 
@@ -82,7 +82,7 @@ void	wait_for_children(int *pids, int amount)
 	free(pids);
 }
 
-void	exec(t_struct *token, t_env *shell)
+void	exec_cmds(t_struct *token, t_env *shell)
 {
 	char	**args;
 	int		pipe_in;
@@ -102,16 +102,13 @@ void	exec(t_struct *token, t_env *shell)
 		if (token->index != shell->pipe)
 			safe_pipe(pipefd);
 		args = parse_literals(token);
-		pids[i++] = create_child(&args[0], shell, token, &pipe_in, pipefd);
-		close(pipefd[1]);
-		pipe_in = dup(pipefd[0]);
-		close(pipefd[0]);
+		pids[i++] = child(&args[0], shell, token, &pipe_in, pipefd);
 		ft_free(args);
 		while (token && token->type != PIPE)
 			token = token->next;
 		if (token && token->type == PIPE)
 			token = token->next;
-		restore_fds(fd);
+		restore_fds(fd, pipefd, &pipe_in);
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);
