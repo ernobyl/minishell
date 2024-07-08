@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exitstatus.c                                       :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 10:52:53 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 22:27:56 by kmatjuhi         ###   ########.fr       */
+/*   Created: 2024/07/08 12:48:38 by kmatjuhi          #+#    #+#             */
+/*   Updated: 2024/07/08 13:42:37 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
+#include "../includes/parsing.h"
 
-void	exit_st(int status)
+bool	ft_iswhitespace(char c)
 {
-	g_exit_status = status;
-	exit(g_exit_status);
+	if (c == ' ' || c == '\t' || c == '\n')
+		return (true);
+	return (false);
+}
+
+bool	ft_isspecialchar(char c)
+{
+	if (c == '|' || c == '<' || c == '>')
+		return (true);
+	return (false);
+}
+
+char	*ft_strchr_next(const char *s, int c)
+{
+	while (*s && (char)c != *s)
+		s++;
+	if ((char)c == *s)
+		return ((char *)s + 1);
+	return (0);
 }

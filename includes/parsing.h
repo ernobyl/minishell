@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/05/25 01:26:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:49:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,26 @@
 # include <stdbool.h>
 # include "exec.h"
 
-bool	ft_isquote(char c);
+char	**split(char *s);
+char	*add_space(char *str);
+char	*validate_syntax(char *str);
+bool	parsing(char *input, t_env *shell);
+
+// EXPAND
+char	**expand_env(char **arr, t_env *shell);
+char	*find_variable(char *str);
+char	*expand_str(char *str, t_env *shell);
+int		find_env_var(t_env *shell, char *var);
+
+// PARSING UTILS
+char	*ft_strchr_next(const char *s, int c);
 bool	ft_isspecialchar(char c);
 bool	ft_iswhitespace(char c);
-bool	matching_quote(char *str, int i, char quote);
-bool	parsing(char *input, t_env *shell);
-char	**expand_env(char **arr, t_env *shell);
-char	*find_and_replace(char *str, char *replace, int len);
-char	*ft_strchr_next(const char *s, int c);
-char	*mod_str(char *str);
-char	**split(char *s);
+
+// QUOTE FUNC
 char	*trim_quote(char *str);
-char	*validate_syntax(char *str);
 int		skip_quotes(char *str, int i, char quote);
+bool	matching_quote(char *str, int i, char quote);
+bool	ft_isquote(char c);
 
 #endif

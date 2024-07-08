@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/08 11:41:07 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/08 13:43:37 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,23 +18,23 @@ CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
-			exec/heredoc.c \
-			exec/exec.c \
 			exec/child.c \
-			exec/pipex_utils.c \
-			exec/open_files.c \
-			exec/fd_utils.c \
 			exec/exec_error.c \
+			exec/exec.c \
+			exec/heredoc.c \
+			exec/fd_utils.c \
+			exec/open_files.c \
+			exec/pipex_utils.c \
 			exec/safe_func.c \
-			parsing/parsing.c \
-			parsing/validate_syntax.c \
-			parsing/quote_utils.c \
-			parsing/mod_str.c \
-			parsing/split.c \
+			parsing/add_space.c \
 			parsing/expand_str.c \
-			parsing/ft_strchr_next.c \
+			parsing/expand_str2.c \
+			parsing/parsing_utils.c \
+			parsing/parsing.c \
+			parsing/quote_utils.c \
+			parsing/split.c \
 			parsing/trim_quote.c \
-			parsing/find_and_replace.c \
+			parsing/validate_syntax.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
 			builtins/environment.c \
@@ -43,8 +43,6 @@ SRCS	:=	main.c \
 			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
 			builtins/error_handling.c \
-			includes/global.c \
-			exitstatus/exitstatus.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

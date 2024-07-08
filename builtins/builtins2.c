@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 21:39:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:05:51 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	exit_builtin(char **param, t_env *shell)
 	ft_free(param);
 	// only prints exit but does not exit the program;
 	printf("exit\n");
-	exit_st(exit_code);
+	exit(exit_code);
 }
 
 int	export_array(int ret_value, t_env *shell, char **array)

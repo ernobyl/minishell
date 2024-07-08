@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 22:27:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:43:36 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	add_back(t_struct **lst, t_struct *new)
 	while (tail->next != NULL)
 		tail = tail->next;
 	tail->next = new;
-}
-
-void	add_front(t_list **lst, t_list *new)
-{
-	if (lst)
-		new->next = *lst;
-	*lst = new;
 }
 
 void	free_stack(t_struct **stack)

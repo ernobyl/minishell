@@ -6,12 +6,14 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 21:33:06 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:08:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
 #include "includes/parsing.h"
+
+int	g_signal_flag = 0;
 
 void	handle_signal(int sig)
 {
@@ -57,6 +59,7 @@ int	main(void)
 	t_env	shell;
 
 	shell.env = init_env_list();
+	shell.exit_code = 0;
 	ret_value = 0;
 	ret_value = readline_loop(&shell, ret_value);
 	ft_free(shell.env);

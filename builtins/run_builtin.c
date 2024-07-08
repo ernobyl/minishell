@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 21:37:14 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:00:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 		return (101);
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
-	g_exit_status = ret_value;
+	shell->exit_code = ret_value;
 	return (ret_value);
 }

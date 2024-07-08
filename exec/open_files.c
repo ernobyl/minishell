@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:45:54 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:05:18 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	error_msg_fd(char *str, int code)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
 	perror("");
-	exit_st(code);
+	exit(code);
 }
 
 static void	infile_open(char *file)

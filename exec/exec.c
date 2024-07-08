@@ -6,22 +6,22 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 11:44:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:33:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static void	wait_for_children(int *pids, int cmds_num)
+static void	wait_for_children(t_env *shell, int *pids)
 {
 	int	i;
 	int	status;
 
 	i = 0;
-	while (i <= cmds_num)
+	while (i <= shell->cmds_num)
 	{
 		waitpid(pids[i], &status, 0);
-		g_exit_status = WEXITSTATUS(status);
+		shell->exit_code = WEXITSTATUS(status);
 		i++;
 	}
 	free(pids);
@@ -61,5 +61,5 @@ void	exec_cmds(t_struct *token, t_env *shell)
 	safe_close(pipefd[0]);
 	safe_close(pipefd[1]);
 	close_fds(fd, pipe_in);
-	wait_for_children(pids, shell->cmds_num);
+	wait_for_children(shell, pids);
 }

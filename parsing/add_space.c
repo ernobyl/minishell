@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/17 14:46:19 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:00:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,14 @@ static char	*add_extra_space(char *str, int count)
 	return (dest);
 }
 
-char	*mod_str(char *str)
+char	*add_space(char *str)
 {
 	char	*dest;
 	int		count;
 
 	count = count_extra_space(str);
 	dest = add_extra_space(str, count);
+	if (!dest)
+		free(str);
 	return (dest);
 }

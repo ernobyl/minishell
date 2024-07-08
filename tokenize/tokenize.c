@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:46:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:45:04 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ t_struct	*tokenize(char **arr, t_env *shell)
 {
 	t_struct	*head;
 	int			index;
-	int			i;
 	int			type;
+	int			i;
 
 	head = NULL;
-	i = 0;
 	index = 0;
+	i = 0;
 	while (arr[i])
 	{
 		type = match_tokentype(arr[i]);

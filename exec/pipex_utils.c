@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 22:49:36 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:51:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-char	*freereturn(char **tofree, char *toreturn)
+static char	*freereturn(char **tofree, char *toreturn)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ char	*freereturn(char **tofree, char *toreturn)
 	return (toreturn);
 }
 
-char	*env_path(char *cmd, char **envp)
+static char	*env_path(char *cmd, char **envp)
 {
 	char	**path_array;
 	char	*path;
@@ -61,7 +61,7 @@ static void	is_dir(char *str)
 	}
 }
 
-void	is_direct_xcute(char *cmd, char **args, char **envp)
+static void	is_direct_xcute(char *cmd, char **args, char **envp)
 {
 	if (ft_strrchr(cmd, '/'))
 	{

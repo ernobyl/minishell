@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:02:00 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:34:19 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:39:33 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*trim_quote(char *str)
 		else
 			new_str[j++] = str[i++];
 	}
-	free(str);
 	new_str[j] = '\0';
+	free(str);
 	return (new_str);
 }

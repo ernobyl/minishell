@@ -6,27 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/06 23:57:59 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:52:52 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-bool	ft_iswhitespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (true);
-	return (false);
-}
-
-bool	ft_isspecialchar(char c)
-{
-	if (c == '|' || c == '<' || c == '>')
-		return (true);
-	return (false);
-}
-
-bool	validate_correct(char *str, int i, char sign)
+static bool	validate_correct(char *str, int i, char sign)
 {
 	if (sign == '|' && str[i + 1] == '|')
 		return (false);
@@ -38,7 +24,7 @@ bool	validate_correct(char *str, int i, char sign)
 	return (true);
 }
 
-int	validate_specialchar(char *str, int i, char sign)
+static int	validate_specialchar(char *str, int i, char sign)
 {
 	int	count;
 

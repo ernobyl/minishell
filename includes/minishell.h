@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 11:43:55 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:08:38 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <errno.h>
-# include "global.h"
 
 # define EXIT_MAIN 50
 
 extern char	**environ;
+extern int	g_signal_flag;
 
 typedef struct s_env
 {
@@ -34,6 +34,7 @@ typedef struct s_env
 	int		k;
 	char	**env;
 	int		cmds_num;
+	int		exit_code;
 }			t_env;
 
 void	handle_signal(int sig);

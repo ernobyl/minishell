@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/06/18 19:15:50 by root             ###   ########.fr       */
+/*   Updated: 2024/07/08 12:04:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	parent_wait(int *fd, pid_t reader)
 	{
         //close(fd[1]);
 		close(fd[0]);
-        g_exit_status = 130;
+        exit(130);
 	}
 	else
 	{
@@ -86,7 +86,7 @@ void heredoc(char *limiter)
             free(line);
         }
         close(fd[1]);
-        exit_st(EXIT_SUCCESS);
+        exit(EXIT_SUCCESS);
     }
     else
     {

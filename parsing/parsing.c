@@ -6,21 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 10:55:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:52:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-
-void	print_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		printf("%s\n", arr[i++]);
-	printf("done\n");
-}
 
 bool	parsing(char *input, t_env *shell)
 {
@@ -35,7 +25,9 @@ bool	parsing(char *input, t_env *shell)
 		printf("Invalid syntax\n");
 		return (false);
 	}
-	str = mod_str(ft_strtrim(str, " "));
+	str = add_space(ft_strtrim(str, " "));
+	if (!str)
+		return (false);
 	arr = split(str);
 	free(str);
 	if (!arr)
@@ -46,6 +38,7 @@ bool	parsing(char *input, t_env *shell)
 	token = tokenize(arr, shell);
 	exec_cmds(token, shell);
 	ft_free(arr);
+	// free whole token;
 	free(token);
 	return (true);
 }
