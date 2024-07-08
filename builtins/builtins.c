@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/07 20:31:16 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:53:44 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ int	env_builtin(t_env *shell)
 	}
 	while (shell->env[i])
 	{
-		printf("%s\n", (shell->env)[i]);
+		if (ft_strchr(shell->env[i], '='))
+			printf("%s\n", (shell->env)[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
