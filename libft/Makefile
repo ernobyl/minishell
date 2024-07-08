@@ -2,7 +2,7 @@
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIC
 
 SRCS = ft_memset.c \
 		ft_bzero.c \
