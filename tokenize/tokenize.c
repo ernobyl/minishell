@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/10 22:38:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:46:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ t_struct	*tokenize(char **arr, t_env *shell)
 		}
 		i++;
 	}
-	shell->pipe = index;
+	shell->cmds_num = index;
 	return (head);
 }

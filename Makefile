@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/08 09:58:48 by emichels         ###   ########.fr        #
+#    Updated: 2024/07/08 11:41:07 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
 			exec/heredoc.c \
 			exec/exec.c \
+			exec/child.c \
 			exec/pipex_utils.c \
 			exec/open_files.c \
 			exec/fd_utils.c \

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 22:44:03 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/07 22:48:27 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:25:37 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,17 @@ int	safe_fork(void)
 	if (pid == -1)
 		handle_error(1, "fork failed");
 	return (pid);
+}
+
+void	safe_close(int fd)
+{
+	if (fd >= 0)
+		close(fd);
+}
+
+void	safe_dup2(int fd, int fd2)
+{
+	if (dup2(fd, fd2) == -1)
+		handle_error(1, "dup2 failed");
+	safe_close(fd);
 }

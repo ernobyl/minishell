@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/06/12 13:39:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:43:55 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_env
 	int		i;
 	int		k;
 	char	**env;
-	int		pipe;
+	int		cmds_num;
 }			t_env;
 
 void	handle_signal(int sig);
