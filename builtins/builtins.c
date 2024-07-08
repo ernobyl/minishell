@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 15:53:44 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,12 @@ int	echo_builtin(char *file, char **param)
 int	export_builtin(int ret_value, t_env *shell, char *new_var)
 {
 	int	i;
-	int	k;
 	int	found;
 
-/* THIS NEEDS TO BE A SEPARATE CHECKING FUNCTION, AND ALSO APPLIED TO "export_array" */
 	i = -1;
-	while (new_var[++i])
-	{
-		if (new_var[0] == '=')
-			return (error_msg(" not a valid identifier", 1));
-		else if (new_var[i] == '=')
-			break ;
-		else if (!ft_isalnum(new_var[i]))
-			return (error_msg(" not a valid identifier", 1));
-		k = 0;
-		if (ft_isdigit(new_var[i]))
-		{
-			while (new_var[k])
-			{
-				if (ft_isalpha(new_var[k]))
-					break ;
-				if (!ft_isalpha(new_var[k]))
-					k++;
-				if (new_var[k] == '\0')
-					return (error_msg(" not a valid identifier", 1));
-			}
-		}
-	}
-	/* END OF CHECKING FUNCTION */
+	ret_value = check_export(new_var, i);
+	if (ret_value != 0)
+		return (ret_value);
 	i = 0;
 	found = 0;
 	while (shell->env[i])

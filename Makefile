@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/08 13:43:37 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/08 18:01:32 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS	:=	main.c \
 			builtins/builtins2.c \
 			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
+			builtins/builtin_utils2.c \
 			builtins/error_handling.c \
 
 OBJS	:= ${SRCS:.c=.o}

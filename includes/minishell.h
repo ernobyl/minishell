@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:08:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:16:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_env
 {
 	int		i;
 	int		k;
+	int		found;
 	char	**env;
 	int		cmds_num;
 	int		exit_code;

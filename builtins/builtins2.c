@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 12:05:51 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:25:21 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	exit_builtin(char **param, t_env *shell)
 	param_count = count_param(param);
 	if (param_count > 2)
 	{
-		printf(" too many arguments");
+		ft_putendl_fd(" too many arguments", 2);
 		exit_code = 1;
 	}
 	if (param_count == 2)
@@ -84,8 +84,8 @@ void	exit_builtin(char **param, t_env *shell)
 		exit_code = ft_atoi(param[1]);
 		if (exit_code == 0 && ft_strcmp(param[1], "0") != 0)
 		{
-			printf(" numeric argument required");
-			exit_code = 255;
+			ft_putendl_fd(" numeric argument required", 2);
+			exit_code = 2;
 		}
 	}
 	ft_free(shell->env);
@@ -97,26 +97,27 @@ void	exit_builtin(char **param, t_env *shell)
 
 int	export_array(int ret_value, t_env *shell, char **array)
 {
-	int	found;
-
 	shell->k = 1;
 	while (array[shell->k])
 	{
-		found = 0;
+		shell->i = -1;
+		ret_value = check_export(array[shell->k], shell->i);
+		if (ret_value != 0)
+			return (ret_value);
+		shell->found = 0;
 		shell->i = 0;
 		while (shell->env[shell->i])
 		{
 			if (ft_strncmp(shell->env[shell->i], array[shell->k],
 					ft_strlen_c(shell->env[shell->i], '=') + 1) == 0)
 			{
-				ret_value = replace_variable(&shell->env[shell->i], \
-				array[shell->k]);
-				found = 1;
+				ret_value = replace_variable(&shell->env[shell->i], array[shell->k]);
+				shell->found = 1;
 				break ;
 			}
 			shell->i++;
 		}
-		if (!found)
+		if (!shell->found)
 			ret_value = add_variable(shell, array[shell->k], shell->i);
 		shell->k++;
 	}
