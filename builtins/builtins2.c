@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 18:25:21 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:48:42 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,36 +90,35 @@ void	exit_builtin(char **param, t_env *shell)
 	}
 	ft_free(shell->env);
 	ft_free(param);
-	// only prints exit but does not exit the program;
 	printf("exit\n");
 	exit(exit_code);
 }
 
-int	export_array(int ret_value, t_env *shell, char **array)
+int	export_array(int r_val, t_env *shell, char **ar)
 {
 	shell->k = 1;
-	while (array[shell->k])
+	while (ar[shell->k])
 	{
 		shell->i = -1;
-		ret_value = check_export(array[shell->k], shell->i);
-		if (ret_value != 0)
-			return (ret_value);
+		r_val = check_export(ar[shell->k], shell->i);
+		if (r_val != 0)
+			return (r_val);
 		shell->found = 0;
 		shell->i = 0;
 		while (shell->env[shell->i])
 		{
-			if (ft_strncmp(shell->env[shell->i], array[shell->k],
+			if (ft_strncmp(shell->env[shell->i], ar[shell->k],
 					ft_strlen_c(shell->env[shell->i], '=') + 1) == 0)
 			{
-				ret_value = replace_variable(&shell->env[shell->i], array[shell->k]);
+				r_val = replace_variable(&shell->env[shell->i], ar[shell->k]);
 				shell->found = 1;
 				break ;
 			}
 			shell->i++;
 		}
 		if (!shell->found)
-			ret_value = add_variable(shell, array[shell->k], shell->i);
+			r_val = add_variable(shell, ar[shell->k], shell->i);
 		shell->k++;
 	}
-	return (ret_value);
+	return (r_val);
 }

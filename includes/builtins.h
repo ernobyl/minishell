@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 18:08:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:52:21 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ int		pwd_builtin(void);
 int		cd_builtin(const char *path);
 int		echo_builtin(char *file, char **param);
 int		export_builtin(int ret_value, t_env *shell, char *new_var);
-int		export_array(int ret_value, t_env *shell, char **array);
+int		export_array(int r_val, t_env *shell, char **ar);
 int		unset_builtin(t_env *shell, char *to_unset);
 int		env_builtin(t_env *shell);
-//int		run_builtin(char *cmd, char **param, t_env *shell);
 void	exit_builtin(char **param, t_env *shell);
 void	export_shlvl(char **envp);
 int		check_export(char *new_var, int i);

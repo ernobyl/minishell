@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 18:33:05 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:49:13 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_export(char *new_var, int i)
 {
 	int	k;
-	
+
 	while (new_var[++i])
 	{
 		if (new_var[0] == '=')
