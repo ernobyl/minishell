@@ -6,12 +6,19 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 12:08:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:27:55 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
 #include "includes/parsing.h"
+
+// void check_for_leaks() {
+//     pid_t pid = getpid();
+//     char command[256];
+//     snprintf(command, sizeof(command), "leaks %d", pid);
+//     system(command);
+// }
 
 int	g_signal_flag = 0;
 
@@ -49,6 +56,7 @@ int	readline_loop(t_env *shell, int ret_value)
 			add_history(input);
 		if (parsing(input, shell) == 0)
 			ret_value = 1;
+		// check_for_leaks();
 	}
 	return (ret_value);
 }

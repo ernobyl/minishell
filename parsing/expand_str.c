@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:40:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:59:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ static bool	expanded_all(char *str, t_env *shell)
 	return (true);
 }
 
+static char *add_equal_sign(char *str)
+{
+	char	*dest;
+	int		len;
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = 0;
+	len = ft_strlen(str);
+	dest = malloc(sizeof(char) * len + 2);
+	if (!dest)
+		return (NULL);
+	while (str[i])
+		dest[j++] = str[i++];
+	dest[j++] = '=';
+	dest[j] = '\0';
+	free(str);
+	return (dest);
+}
+
 char	*find_variable(char *str)
 {
 	char	*var;
@@ -54,8 +75,12 @@ char	*find_variable(char *str)
 		free(str);
 		return (NULL);
 	}
-	i = ft_strlen(var);
-	var[i] = '=';
+	var = add_equal_sign(var);
+	if (!var)
+	{
+		free(str);
+		return (NULL);
+	}
 	return (var);
 }
 

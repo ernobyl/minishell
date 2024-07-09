@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:21:03 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:02:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ static int	count_extra_space(char *str)
 	{
 		while (str[i] && ft_iswhitespace(str[i]))
 			i++;
-		if (str[i] && ft_isquote(str[i]))
-			i = skip_quotes(str, i + 1, str[i]);
-		if (i == -1)
-			return (-1);
-		if (str[i] == '\0')
-			break ;
 		if (str[i] && ft_isspecialchar(str[i]))
 		{
 			if (i > 0 && str[i - 1] != ' ')
@@ -36,7 +30,12 @@ static int	count_extra_space(char *str)
 			if (str[i + 1] && str[i + 1] != ' ' && str[i + 1] != str[i])
 				count++;
 		}
-		i++;
+		if (str[i] && ft_isquote(str[i]))
+			i = skip_quotes(str, i + 1, str[i]);
+		if (i == -1)
+			return (-1);
+		if (str[i] != '\0' && str[i] != '"')
+			i++;
 	}
 	return (count);
 }
@@ -78,19 +77,12 @@ static char	*add_extra_space(char *str, int count)
 		return (NULL);
 	while (str[i])
 	{
-		if (ft_isquote(str[i]))
+		if (str[i] && ft_isquote(str[i]))
 			handle_quotes(str, dest, &i, &j);
-		if (ft_isspecialchar(str[i]))
+		if (str[i] && ft_isspecialchar(str[i]))
 			handle_special_chars(str, dest, &i, &j);
-		else
-		{
-			if (str[i])
-			{
-				dest[j] = str[i];
-				i++;
-				j++;
-			}
-		}
+		else if (str[i])
+			dest[j++] = str[i++];
 	}
 	dest[j] = '\0';
 	free(str);
@@ -104,10 +96,7 @@ char	*add_space(char *str)
 
 	count = count_extra_space(str);
 	if (count == -1)
-	{
-		printf("count is wrong\n");
 		return (NULL);
-	}
 	dest = add_extra_space(str, count);
 	if (!dest)
 		free(str);

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:36:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:13:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ static int	validate_specialchar(char *str, int i, char sign)
 	return (i);
 }
 
-char	*validate_syntax(char *str)
+static char	*validate_syntax2(char *str, int i)
 {
-	int	i;
-
-	i = 0;
-	str = ft_strtrim(str, " ");
 	while (str[i])
 	{
 		while (str[i] && ft_iswhitespace(str[i]))
@@ -73,5 +69,17 @@ char	*validate_syntax(char *str)
 		else
 			i++;
 	}
+	return (str);
+}
+
+char	*validate_syntax(char *str)
+{
+	int	i;
+
+	i = 0;
+	str = ft_strtrim(str, " ");
+	if (!str)
+		return (NULL);
+	str = validate_syntax2(str, i);
 	return (str);
 }
