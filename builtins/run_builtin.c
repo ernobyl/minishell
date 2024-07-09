@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 17:44:09 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:53:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	check_first(int num, int *ret_value, char **param, t_env *shell)
 	if (num == CD)
 	{
 		if (param[2])
-			*ret_value = error_msg(" too many arguments", 1);
+			*ret_value = error_msg(" too many arguments", 0);
 		else
 			*ret_value = cd_builtin(param[1]);
 	}
@@ -106,14 +106,14 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 		free(token);
 	if (num == NOT_BUILTIN)
 		return (101);
-	if (shell->cmds_num == 0)
+	if (shell->cmds_num == 0 && num != EXIT)
 	{
 		save_fds(fd);
 		open_files(token);
 	}
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
-	if (shell->cmds_num == 0)
+	if (shell->cmds_num == 0 && num != EXIT)
 	{
 		safe_dup2(fd[0], STDIN_FILENO);
 		safe_dup2(fd[1], STDOUT_FILENO);

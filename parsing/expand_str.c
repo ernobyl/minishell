@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 13:40:21 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:40:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	*find_variable(char *str)
 	}
 	i = ft_strlen(var);
 	var[i] = '=';
-	var[i + 1] = '\0';
 	return (var);
 }
 

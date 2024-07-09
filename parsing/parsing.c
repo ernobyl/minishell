@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 13:52:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:37:53 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ bool	parsing(char *input, t_env *shell)
 	str = validate_syntax(input);
 	if (!str)
 	{
-		free(input);
 		printf("Invalid syntax\n");
 		return (false);
 	}

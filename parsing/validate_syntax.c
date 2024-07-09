@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:52:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:36:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,17 @@ char	*validate_syntax(char *str)
 	str = ft_strtrim(str, " ");
 	while (str[i])
 	{
-		while (ft_iswhitespace(str[i]))
+		while (str[i] && ft_iswhitespace(str[i]))
 			i++;
-		if (ft_isquote(str[i]))
+		if (str[i] && ft_isquote(str[i]))
 		{
-			if (!matching_quote(str, i + 1, str[i]))
+			if (str[i + 1] && !matching_quote(str, i + 1, str[i]))
 				return (NULL);
 			i = skip_quotes(str, i + 1, str[i]);
+			if (i == -1)
+				return (NULL);
+			if (str[i] && str[i] == '\0')
+				break ;
 		}
 		else if (ft_isspecialchar(str[i]))
 		{
