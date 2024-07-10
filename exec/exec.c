@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/10 12:03:54 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:15:06 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static bool	run_one_cmd(t_env *shell, t_struct *token)
 			ft_free(args);
 			return (true);
 		}
+		ft_free(args);
 	}
 	return (false);
 }
