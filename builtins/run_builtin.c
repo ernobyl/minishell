@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:53:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:41:23 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,13 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 	if (shell->cmds_num == 0 && num != EXIT)
 	{
 		save_fds(fd);
-		open_files(token);
+		if (open_files2(token) == 1)
+		{
+			safe_dup2(fd[0], STDIN_FILENO);
+			safe_dup2(fd[1], STDOUT_FILENO);
+			shell->exit_code = 1;
+			return (1);
+		}
 	}
 	init_builtin_arr(arr);
 	ret_value = match_function(num, ret_value, param, shell);
