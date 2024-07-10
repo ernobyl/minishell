@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:14:22 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,11 @@ static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 	else
 	{
 		if (*pipe_in != -1)
-		{
-			dup2(*pipe_in, STDIN_FILENO);
-			close(*pipe_in);
-		}
+			safe_dup2(*pipe_in, STDIN_FILENO);
 		if (token->index != shell->cmds_num)
 		{
 			close(pipefd[0]);
-			dup2(pipefd[1], STDOUT_FILENO);
-			close(pipefd[1]);
+			safe_dup2(pipefd[1], STDOUT_FILENO);
 		}
 		open_files(token);
 		if (run_builtin(args[0], args, shell, token) == 101)
