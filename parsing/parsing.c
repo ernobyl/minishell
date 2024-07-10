@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:37:53 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:00:49 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ bool	parsing(char *input, t_env *shell)
 		return (false);
 	token = tokenize(arr, shell);
 	exec_cmds(token, shell);
-	ft_free(arr);
-	// free whole token;
-	free(token);
+	free_stack(token);
 	return (true);
 }

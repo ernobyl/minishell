@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/10 09:39:56 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/10 11:54:28 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc
-CFLAGS	:= -Wextra -Wall -Werror -g
+CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -38,13 +38,14 @@ SRCS	:=	main.c \
 			parsing/validate_syntax.c \
 			tokenize/tokenize.c \
 			tokenize/list_utils.c \
-			builtins/environment.c \
-			builtins/builtins.c \
-			builtins/builtins2.c \
-			builtins/run_builtin.c \
 			builtins/builtin_utils.c \
 			builtins/builtin_utils2.c \
+			builtins/builtins.c \
+			builtins/builtins2.c \
+			builtins/environment.c \
 			builtins/error_handling.c \
+			builtins/get_builtin_num.c \
+			builtins/run_builtin.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

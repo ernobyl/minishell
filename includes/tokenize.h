@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 12:45:18 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:00:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ t_struct	*tokenize(char **arr, t_env *shell);
 // LIST UTILES
 t_struct	*add_new(int token, char *value, int index);
 void		add_back(t_struct **lst, t_struct *new);
-void		free_stack(t_struct **stack);
+void		free_stack(t_struct *stack);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/09 09:52:21 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:53:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int		env_builtin(t_env *shell);
 void	exit_builtin(char **param, t_env *shell);
 void	export_shlvl(char **envp);
 int		check_export(char *new_var, int i);
+int		get_builtin_num(char *input);
 
 #endif

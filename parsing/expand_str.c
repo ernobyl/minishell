@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 21:59:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:02:46 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ static bool	expanded_all(char *str, t_env *shell)
 	return (true);
 }
 
-static char *add_equal_sign(char *str)
+static char	*add_equal_sign(char *str)
 {
 	char	*dest;
 	int		len;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	len = ft_strlen(str);
