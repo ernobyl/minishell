@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 11:54:01 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:37:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	check_first(int num, int *ret_value, char **param, t_env *shell)
 	if (num == CD)
 	{
 		if (param[2])
-			*ret_value = error_msg(" too many arguments", 0);
+			*ret_value = error_msg(" too many arguments", 1);
 		else
 			*ret_value = cd_builtin(param[1]);
 	}

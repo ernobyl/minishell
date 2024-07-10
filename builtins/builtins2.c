@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/09 22:09:57 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:36:12 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	exit_builtin(char **param, t_env *shell)
 		if (exit_code == 0 && ft_strcmp(param[1], "0") != 0)
 		{
 			ft_putendl_fd(" numeric argument required", 2);
-			exit_code = 255;
+			exit_code = 2;
 		}
 	}
 	ft_free(shell->env);
