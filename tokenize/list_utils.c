@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 12:00:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 08:33:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ void	free_stack(t_struct *stack)
 		free(current);
 		current = next;
 	}
+}
+
+t_struct	*is_empty_token(t_struct *token)
+{
+	if (ft_strcmp(token->value, "\0") == 0)
+		token = token->next;
+	return (token);
 }

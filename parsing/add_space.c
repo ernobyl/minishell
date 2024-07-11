@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 21:02:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 07:51:36 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static char	*add_extra_space(char *str, int count)
 	{
 		if (str[i] && ft_isquote(str[i]))
 			handle_quotes(str, dest, &i, &j);
+		if (str[i] && ft_isquote(str[i]))
+			continue ;
 		if (str[i] && ft_isspecialchar(str[i]))
 			handle_special_chars(str, dest, &i, &j);
 		else if (str[i])

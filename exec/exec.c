@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/10 22:14:40 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 08:33:17 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ static bool	run_one_cmd(t_env *shell, t_struct *token)
 	return (false);
 }
 
+static void	parent(t_env *shell, int *pids, int *fd, int pipe_in)
+{
+	close_fds(fd, pipe_in);
+	wait_for_children(shell, pids);
+}
+
 void	exec_cmds(t_struct *token, t_env *shell)
 {
 	int		*pids;
@@ -67,8 +73,7 @@ void	exec_cmds(t_struct *token, t_env *shell)
 	i = 0;
 	if (run_one_cmd(shell, token))
 		return ;
-	if (ft_strcmp(token->value, "\0") == 0)
-		token = token->next;
+	token = is_empty_token(token);
 	pids = ft_calloc(shell->cmds_num + 1, sizeof(int));
 	if (!pids)
 		return ;
@@ -81,8 +86,5 @@ void	exec_cmds(t_struct *token, t_env *shell)
 		token = next_cmd(token);
 		restore_fds(fd, pipefd, &pipe_in);
 	}
-	safe_close(pipefd[0]);
-	safe_close(pipefd[1]);
-	close_fds(fd, pipe_in);
-	wait_for_children(shell, pids);
+	parent(shell, pids, fd, pipe_in);
 }
