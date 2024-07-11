@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 17:31:51 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:09:42 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ int	main(void)
 
 	shell.env = init_env_list();
 	shell.exit_code = 0;
+	shell.prev_dir = NULL;
 	ret_value = 0;
 	ret_value = readline_loop(&shell, ret_value);
 	ft_free(shell.env);
+	free(shell.prev_dir);
 	return (ret_value);
 }
