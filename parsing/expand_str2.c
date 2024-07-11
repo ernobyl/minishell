@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 16:59:59 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:25:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ char	*expand_str(char *str, t_env *shell)
 		}
 		else
 			return (is_single_dollar(str));
-		// free(var);
 	}
 	free(str);
 	return (dest);

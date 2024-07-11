@@ -6,19 +6,19 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/10 23:36:22 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:21:39 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
 #include "includes/parsing.h"
 
-// void check_for_leaks() {
-//     pid_t pid = getpid();
-//     char command[256];
-//     snprintf(command, sizeof(command), "leaks %d", pid);
-//     system(command);
-// }
+void check_for_leaks() {
+    pid_t pid = getpid();
+    char command[256];
+    snprintf(command, sizeof(command), "leaks %d", pid);
+    system(command);
+}
 
 int	g_signal_flag = 0;
 
