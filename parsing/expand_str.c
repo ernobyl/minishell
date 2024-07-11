@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 17:28:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:42:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ static bool	expanded_all(char *str, t_env *shell)
 			if (!var)
 				return (false);
 			j = find_env_var(shell, var);
-			free(var);
 			if (j != -1)
-			{
 				return (false);
-			}
 		}
 		i++;
 	}

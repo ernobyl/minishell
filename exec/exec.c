@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 14:56:43 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:41:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	wait_for_children(t_env *shell, int *pids)
 		shell->exit_code = WEXITSTATUS(status);
 		i++;
 	}
-	free(pids);
 }
 
 static t_struct	*next_cmd(t_struct *token)

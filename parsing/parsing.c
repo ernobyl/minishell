@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 17:50:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:43:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ bool	parsing(char *input, t_env *shell)
 	if (!arr)
 		return (false);
 	token = tokenize(arr, shell);
-	free(arr);
 	exec_cmds(token, shell);
 	free_stack(token);
 	return (true);
