@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 11:57:34 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:14:27 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	open_files2(t_struct *token)
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == HEREDOC)
-			heredoc(token->value);
+			heredoc(temp->value);
 		if (temp->type == INFILE)
 			infile = infile_open2(temp->value);
 		else if (temp->type == OUTFILE)
