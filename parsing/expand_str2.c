@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 12:21:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:59:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,17 @@ static bool	is_exitcode(char *str)
 	return (false);
 }
 
-static char	*find_and_replace_exitcode(char *str, t_env *shell)
+static char	*find_and_replace_exitcode(char *str, t_env *shell, int i)
 {
-	int		len;
 	char	*exit_code;
 	char	*dest;
-	int		i;
+	int		k;
 	int		j;
 
 	j = 0;
-	i = 0;
+	k = 0;
 	exit_code = ft_itoa(shell->exit_code);
-	len = ft_strlen(str) - 2 + ft_strlen(exit_code);
-	dest = malloc(len + 1);
+	dest = malloc(ft_strlen(str) - 1 + ft_strlen(exit_code));
 	if (!dest)
 		return (NULL);
 	while (str[i] != '$')
@@ -44,12 +42,13 @@ static char	*find_and_replace_exitcode(char *str, t_env *shell)
 	if (str[++i] == '?')
 	{
 		i++;
-		while (*exit_code)
-			dest[j++] = *exit_code++;
+		while (exit_code[k])
+			dest[j++] = exit_code[k++];
 	}
 	while (str[i])
 		dest[j++] = str[i++];
 	dest[j] = '\0';
+	free(exit_code);
 	return (dest);
 }
 
@@ -104,7 +103,7 @@ char	*expand_str(char *str, t_env *shell)
 	int			len;
 
 	if (is_exitcode(str))
-		dest = find_and_replace_exitcode(str, shell);
+		dest = find_and_replace_exitcode(str, shell, 0);
 	else
 	{
 		var = find_variable(str);
@@ -119,7 +118,7 @@ char	*expand_str(char *str, t_env *shell)
 		}
 		else
 			return (is_single_dollar(str));
-		free(var);
+		// free(var);
 	}
 	free(str);
 	return (dest);

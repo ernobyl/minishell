@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 12:40:16 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:00:49 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	expanded_all(char *str, t_env *shell)
 		{
 			var = find_variable(str);
 			if (!var)
-				return (NULL);
+				return (false);
 			j = find_env_var(shell, var);
 			if (j != -1)
 				return (false);
@@ -92,7 +92,10 @@ int	find_env_var(t_env *shell, char *var)
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], var, ft_strlen(var)) == 0)
+		{
+			free(var);
 			return (i);
+		}
 		i++;
 	}
 	free(var);
