@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 17:21:39 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:53:55 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	readline_loop(t_env *shell, int ret_value)
 			add_history(input);
 		if (parsing(input, shell) == 0)
 			ret_value = 1;
-		// check_for_leaks();
+		check_for_leaks();
 	}
 	return (ret_value);
 }
