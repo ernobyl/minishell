@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/10 09:53:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:28:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ int		replace_variable(char **env_var, char *new_var);
 int		add_variable(t_env *shell, char *new_var, int size);
 int		double_buf_size(char **str, size_t *buf_size);
 int		pwd_builtin(void);
-int		cd_builtin(const char *path);
+int		cd_builtin(t_env *shell, const char *path);
 int		echo_builtin(char *file, char **param);
 int		export_builtin(int ret_value, t_env *shell, char *new_var);
 int		export_array(int r_val, t_env *shell, char **ar);
 int		unset_builtin(t_env *shell, char *to_unset);
 int		env_builtin(t_env *shell);
-void	exit_builtin(char **param, t_env *shell);
+int		exit_builtin(char **param, t_env *shell);
 void	export_shlvl(char **envp);
 int		check_export(char *new_var, int i);
 int		get_builtin_num(char *input);
+void	env_replace_var(t_env *shell, char *new_var);
+char	*current_dir(void);
+char	*custom_getenv(t_env *shell, char *var);
+int		handle_oldpwd(t_env *shell, char *prev_dir);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/10 15:37:30 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:58:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@ static void	init_builtin_arr(char **arr)
 static void	check_first(int num, int *ret_value, char **param, t_env *shell)
 {
 	if (num == EXIT)
-		exit_builtin(param, shell);
+		*ret_value = exit_builtin(param, shell);
 	if (num == PWD)
 		*ret_value = pwd_builtin();
 	if (num == CD)
 	{
-		if (param[2])
+		if (!param[1])
+			*ret_value = cd_builtin(shell, NULL);
+		else if (param[2])
 			*ret_value = error_msg(" too many arguments", 1);
 		else
-			*ret_value = cd_builtin(param[1]);
+			*ret_value = cd_builtin(shell, param[1]);
 	}
 	if (num == ECHO)
 		*ret_value = echo_builtin(NULL, param);
@@ -95,8 +97,6 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 
 	ret_value = 0;
 	num = get_builtin_num(cmd);
-	if (num == EXIT)
-		free(token);
 	if (num == NOT_BUILTIN)
 		return (101);
 	ret_value = builtin_file(shell, token, fd, num);

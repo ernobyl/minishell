@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/10 15:36:12 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:34:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,27 @@ int	pwd_builtin(void)
 	}
 }
 
-int	cd_builtin(const char *path)
+int	cd_builtin(t_env *shell, const char *path)
 {
+	static char	*prev_dir = NULL;
+	char		*old_pwd;
 	const char	*home;
 
-	if (path == NULL || ft_strcmp(path, "") == 0)
+	if (path && ft_strcmp(path, "-") == 0)
 	{
-		home = getenv("HOME");
+		if (handle_oldpwd(shell, prev_dir) == 1)
+			return (error_msg("cd: OLDPWD not set", 1));
+		return (EXIT_SUCCESS);
+	}
+	prev_dir = current_dir();
+	old_pwd = ft_strjoin("OLDPWD=", prev_dir);
+	env_replace_var(shell, old_pwd);
+	free(old_pwd);
+	if (path == NULL || ft_strcmp(path, "~") == 0)
+	{
+		home = custom_getenv(shell, "HOME");
 		if (home == NULL)
-			return (error_msg("cd: HOME not set", 0));
+			return (error_msg("cd: HOME not set", 1));
 		path = home;
 	}
 	if (chdir(path) == 0)
@@ -67,7 +79,7 @@ int	count_param(char **param)
 	return (i);
 }
 
-void	exit_builtin(char **param, t_env *shell)
+int	exit_builtin(char **param, t_env *shell)
 {
 	int	exit_code;
 	int	param_count;
@@ -78,6 +90,8 @@ void	exit_builtin(char **param, t_env *shell)
 	{
 		ft_putendl_fd(" too many arguments", 2);
 		exit_code = 1;
+		printf("exit\n");
+		return (exit_code);
 	}
 	if (param_count == 2)
 	{
