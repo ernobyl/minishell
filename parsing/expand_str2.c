@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 14:56:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:31:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ static char	*find_and_replace_exitcode(char *str, t_env *shell, int i)
 {
 	char	*exit_code;
 	char	*dest;
-	int		j;
 	int		k;
+	int		j;
 	
 	j = 0;
-	i = 0;
 	k = 0;
 	exit_code = ft_itoa(shell->exit_code);
 	dest = malloc(ft_strlen(str) - 1 + ft_strlen(exit_code));
@@ -104,7 +103,7 @@ char	*expand_str(char *str, t_env *shell)
 	int			len;
 
 	if (is_exitcode(str))
-		dest = find_and_replace_exitcode(str, shell, i);
+		dest = find_and_replace_exitcode(str, shell, 0);
 	else
 	{
 		var = find_variable(str);
@@ -119,7 +118,6 @@ char	*expand_str(char *str, t_env *shell)
 		}
 		else
 			return (is_single_dollar(str));
-		free(var);
 	}
 	free(str);
 	return (dest);
