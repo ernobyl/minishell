@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 17:34:08 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:06:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,17 @@ int	pwd_builtin(void)
 
 int	cd_builtin(t_env *shell, const char *path)
 {
-	static char	*prev_dir = NULL;
 	char		*old_pwd;
 	const char	*home;
 
 	if (path && ft_strcmp(path, "-") == 0)
 	{
-		if (handle_oldpwd(shell, prev_dir) == 1)
+		if (handle_oldpwd(shell, shell->prev_dir) == 1)
 			return (error_msg("cd: OLDPWD not set", 1));
 		return (EXIT_SUCCESS);
 	}
-	prev_dir = current_dir();
-	old_pwd = ft_strjoin("OLDPWD=", prev_dir);
+	shell->prev_dir = current_dir();
+	old_pwd = ft_strjoin("OLDPWD=", shell->prev_dir);
 	env_replace_var(shell, old_pwd);
 	free(old_pwd);
 	if (path == NULL || ft_strcmp(path, "~") == 0)

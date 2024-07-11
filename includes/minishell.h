@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 18:16:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:00:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_env
 	int		k;
 	int		found;
 	char	**env;
+	char	*prev_dir;
 	int		cmds_num;
 	int		exit_code;
 }			t_env;

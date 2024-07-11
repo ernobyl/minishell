@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 17:34:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:18:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,19 @@ char	*custom_getenv(t_env *shell, char *var)
 int	handle_oldpwd(t_env *shell, char *prev_dir)
 {
 	char	*old_pwd;
+	char	*path;
 
 	prev_dir = custom_getenv(shell, "OLDPWD");
+	path = current_dir();
 	if (!prev_dir)
 		return (1);
-	old_pwd = ft_strjoin("OLDPWD=", current_dir());
+	old_pwd = ft_strjoin("OLDPWD=", path);
 	if (chdir(prev_dir) == 0)
 	{
 		printf("%s\n", prev_dir);
 		env_replace_var(shell, old_pwd);
 		free(old_pwd);
+		free(path);
 	}
 	return (0);
 }
