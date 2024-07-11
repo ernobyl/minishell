@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 17:25:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:31:11 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*find_and_replace_exitcode(char *str, t_env *shell, int i)
 	char	*dest;
 	int		k;
 	int		j;
-
+	
 	j = 0;
 	k = 0;
 	exit_code = ft_itoa(shell->exit_code);
