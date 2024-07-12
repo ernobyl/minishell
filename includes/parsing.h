@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/08 13:49:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:47:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 char	**split(char *s);
 char	*add_space(char *str);
-char	*validate_syntax(char *str);
+char	*validate_syntax(t_env *shell, char *str);
 bool	parsing(char *input, t_env *shell);
 
 // EXPAND

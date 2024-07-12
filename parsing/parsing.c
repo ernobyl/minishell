@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/12 09:29:31 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:46:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ bool	parsing(char *input, t_env *shell)
 	char		**arr;
 	char		*str;
 
-	str = validate_syntax(input);
+	str = validate_syntax(shell, input);
 	if (!str)
-	{
-		printf("Invalid syntax\n");
 		return (false);
-	}
 	str = add_space(ft_strtrim(str, " "));
 	if (!str)
 		return (false);
@@ -34,7 +31,7 @@ bool	parsing(char *input, t_env *shell)
 	arr = expand_env(arr, shell);
 	if (!arr)
 		return (false);
-	token = tokenize(arr, shell);
+	token = tokenize(arr, shell, 0, 0);
 	free(arr);
 	exec_cmds(token, shell);
 	free_stack(token);

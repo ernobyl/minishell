@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:27:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 08:34:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:39:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_struct
 	struct s_struct	*next;
 }					t_struct;
 
-t_struct	*tokenize(char **arr, t_env *shell);
+t_struct	*tokenize(char **arr, t_env *shell, int index, int i);
 
 // LIST UTILES
 t_struct	*add_new(int token, char *value, int index);

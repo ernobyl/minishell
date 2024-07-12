@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 21:13:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:58:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	validate_correct(char *str, int i, char sign)
 		return (false);
 	else if (sign == '<' || sign == '>')
 	{
-		if (str[i + 1] == sign && str[i + 2] == sign)
+		if ((str[i + 1] == sign && str[i + 2] == sign) || (str[i] == '<' && str[i + 1] == '|'))
 			return (false);
 	}
 	return (true);
@@ -62,6 +62,8 @@ static char	*validate_syntax2(char *str, int i)
 		}
 		else if (ft_isspecialchar(str[i]))
 		{
+			if (i == 0)
+				return (NULL);
 			i = validate_specialchar(str, i, str[i]);
 			if (i == -1 || str[i] == '\0')
 				return (NULL);
@@ -72,7 +74,7 @@ static char	*validate_syntax2(char *str, int i)
 	return (str);
 }
 
-char	*validate_syntax(char *str)
+char	*validate_syntax(t_env *shell, char *str)
 {
 	int	i;
 
@@ -81,5 +83,10 @@ char	*validate_syntax(char *str)
 	if (!str)
 		return (NULL);
 	str = validate_syntax2(str, i);
+	if (!str)
+	{
+		ft_putstr_fd("minishell: syntax error\n", 2);
+		shell->exit_code = 258;
+	}
 	return (str);
 }
