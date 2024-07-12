@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/12 12:38:45 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:48:28 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 static int	match_tokentype(char *str)
 {
+	int	type;
+	
+	type = LITERAL;
 	if (ft_strcmp("<<", str) == 0)
-		return (HEREDOC);
+		type = HEREDOC;
 	else if (ft_strcmp("<", str) == 0)
-		return (INFILE);
+		type = INFILE;
 	else if (ft_strcmp(">>", str) == 0)
-		return (D_OUTFILE);
+		type = D_OUTFILE;
 	else if (ft_strcmp(">", str) == 0)
-		return (OUTFILE);
+		type = OUTFILE;
 	else if (ft_strcmp("|", str) == 0)
-		return (PIPE);
-	return (LITERAL);
+		type = PIPE;
+	if (type >= 42 && type <= 44)
+		free(str);
+	return (type);
 }
 
 t_struct	*tokenize(char **arr, t_env *shell, int index, int i)
