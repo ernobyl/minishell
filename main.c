@@ -6,45 +6,61 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/12 17:05:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:53:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
 #include "includes/parsing.h"
 
-void check_for_leaks() {
-    pid_t pid = getpid();
-    char command[256];
-    snprintf(command, sizeof(command), "leaks %d", pid);
-    system(command);
-}
+// void check_for_leaks() {
+//     pid_t pid = getpid();
+//     char command[256];
+//     snprintf(command, sizeof(command), "leaks %d", pid);
+//     system(command);
+// }
 
 int	g_signal_flag = 0;
 
-void	handle_signal(int sig)
+void handle_signal(int sig)
 {
-	if (sig == SIGQUIT)
-		g_signal_flag = 1;
-	else if (sig == SIGINT)
+    if (sig == SIGQUIT)
+        g_signal_flag = 1;
+    else if (sig == SIGINT)
 	{
-		g_signal_flag = 2;
-		write(1, "\n", 1);
-	}
+        g_signal_flag = 2;
+        rl_replace_line("", 0);
+        rl_on_new_line();
+        printf("\n");
+        rl_redisplay();
+		g_signal_flag = 0;
+    }
+}
+
+void setup_signal_handlers(void)
+{
+    struct sigaction sa;
+
+    sa.sa_handler = handle_signal;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGQUIT, &sa, NULL);
 }
 
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
-
+	
+	setup_signal_handlers();
 	while (g_signal_flag != 1)
 	{
-		signal(SIGQUIT, handle_signal);
-		signal(SIGINT, handle_signal);
-		g_signal_flag = 0;
-		if (g_signal_flag == 2)
-			continue ;
 		input = readline("minishell> ");
+		if (g_signal_flag == 2)
+		{
+			free(input);
+			continue ;
+		}
 		if (input == NULL)
 			break ;
 		if (*input == '\0')
