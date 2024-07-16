@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/12 13:27:49 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/16 11:40:42 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc
-CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \

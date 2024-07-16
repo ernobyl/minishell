@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/12 13:02:35 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:06:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_export(char *new_var, int i)
 
 	while (new_var[++i])
 	{
-		if (new_var[0] == '=')
+		if (!ft_isalpha(new_var[0]))
 			return (error_msg(" not a valid identifier", 1));
 		else if (new_var[i] == '=')
 			break ;
