@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 18:00:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:59:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <errno.h>
 
 # define EXIT_MAIN 50
+# define SA_RESTART 0x10000000
 
 extern char	**environ;
 extern int	g_signal_flag;
