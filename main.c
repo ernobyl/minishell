@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/19 13:04:20 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:04:19 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,6 @@
 //     system(command);
 // }
 
-//int	g_signal_flag = 0;
-
-void handle_signal(int sig)
-{
-    if (sig == SIGQUIT)
-	{
-		printf("test");
-        // g_signal_flag = 1;
-		// g_signal_flag = 0;
-	}
-    else if (sig == SIGINT)
-	{
-        //g_signal_flag = 2;
-        rl_replace_line("", 0);
-        rl_on_new_line();
-        printf("\n");
-        rl_redisplay();
-		//g_signal_flag = 0;
-    }
-}
-
-void setup_signal_handlers(void)
-{
-    struct sigaction sa;
-
-    sa.sa_handler = handle_signal;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN);
-}
-
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
@@ -60,11 +28,6 @@ int	readline_loop(t_env *shell, int ret_value)
 	while (1)
 	{
 		input = readline("minishell> ");
-		// if (g_signal_flag == 2)
-		// {
-		// 	free(input);
-		// 	continue ;
-		// }
 		if (input == NULL)
 			break ;
 		if (*input == '\0')
@@ -78,6 +41,7 @@ int	readline_loop(t_env *shell, int ret_value)
 			ret_value = 1;
 		// check_for_leaks();
 	}
+	reset_signal_handlers();
 	return (ret_value);
 }
 

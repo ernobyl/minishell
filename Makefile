@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/16 11:40:42 by emichels         ###   ########.fr        #
+#    Updated: 2024/07/19 18:04:29 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc
-CFLAGS	:= -Wextra -Wall -Werror
+CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -46,6 +46,7 @@ SRCS	:=	main.c \
 			builtins/error_handling.c \
 			builtins/get_builtin_num.c \
 			builtins/run_builtin.c \
+			signals/signals.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
