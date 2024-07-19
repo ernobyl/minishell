@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/18 14:58:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:04:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void handle_signal(int sig)
 {
     if (sig == SIGQUIT)
 	{
-		printf("ASS");
+		printf("test");
         // g_signal_flag = 1;
 		// g_signal_flag = 0;
 	}
@@ -49,7 +49,7 @@ void setup_signal_handlers(void)
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
     sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGQUIT, &sa, NULL);
+    signal(SIGQUIT, SIG_IGN);
 }
 
 int	readline_loop(t_env *shell, int ret_value)
