@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/12 17:00:26 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:07:52 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int	unset_builtin(t_env *shell, char *to_unset)
 	while (shell->env[i])
 	{
 		var_len = ft_strlen_c(shell->env[i], '=');
-		if (var_len == unset_len
-			&& ft_strncmp(shell->env[i], to_unset, var_len) == 0)
+		if ((ft_strcmp(shell->env[i], to_unset) == 0) || (var_len == unset_len
+				&& ft_strncmp(shell->env[i], to_unset, var_len) == 0))
 		{
 			free(shell->env[i]);
 			while (shell->env[i])
