@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/12 12:58:08 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:02:04 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static bool	validate_correct(char *str, int i, char sign)
 		return (false);
 	else if (sign == '<' || sign == '>')
 	{
-		if ((str[i + 1] == sign && str[i + 2] == sign) || (str[i] == '<' && str[i + 1] == '|'))
+		if ((str[i + 1] == sign && str[i + 2] == sign) || \
+		(str[i] == '<' && str[i + 1] == '|'))
 			return (false);
 	}
 	return (true);
@@ -48,8 +49,6 @@ static char	*validate_syntax2(char *str, int i)
 {
 	while (str[i])
 	{
-		while (str[i] && ft_iswhitespace(str[i]))
-			i++;
 		if (str[i] && ft_isquote(str[i]))
 		{
 			if (str[i + 1] && !matching_quote(str, i + 1, str[i]))
