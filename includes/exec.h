@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 21:46:33 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:24:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		open_files2(t_struct *token);
 void	save_fds(int *fd);
 void	restore_fds(int *fd, int *pipefd, int *pipe_in, int cmds);
 void	close_fds(int *fd, int pipe_in);
-void	heredoc(char *limiter);
+void	heredoc_open(t_struct *token);
+void	heredoc(char **limiter, int count);
 
 // // SAFE FUNCTIONS
 void	safe_pipe(int *fd);

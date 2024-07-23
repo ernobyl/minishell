@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/12 15:49:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:24:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,43 @@ static void	outfile_open(char *file, int type)
 	close(file2);
 }
 
+void	heredoc_open(t_struct *token)
+{
+	t_struct	*temp;
+	char		**limiter;
+	int			count;
+	int			i;
+
+	count = 0;
+	i = 0;
+	temp = token;
+	while (temp && temp->index == token->index)
+	{
+		if (temp->type == HEREDOC)
+			count++;
+		temp = temp->next;
+	}
+	if (count == 0)
+		return ;
+	limiter = malloc(sizeof(char *) * count);
+	temp = token;
+	while (temp && temp->index == token->index)
+	{
+		if (temp->type == HEREDOC)
+			limiter[i++] = ft_strdup(temp->value);
+		temp = temp->next;
+	}
+	heredoc(limiter, count);
+}
+
 void	open_files(t_struct *token)
 {
 	t_struct	*temp;
 
 	temp = token;
+	heredoc_open(token);
 	while (temp && temp->index == token->index)
 	{
-		if (temp->type == HEREDOC)
-			heredoc(temp->value);
 		if (temp->type == INFILE)
 			infile_open(temp->value);
 		else if (temp->type == OUTFILE)

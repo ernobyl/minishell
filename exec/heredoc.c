@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/09 10:58:21 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:32:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ static void	parent_wait(int *fd, pid_t reader)
 	}
 }
 
-static void	heredoc_child(int *fd, char *line, char *limiter)
+static void	heredoc_child(int *fd, char *line, char **limiter, int count)
 {
+	int	i;
+
+	i = 0;
 	close(fd[0]);
 	while (!g_heredoc_sig)
 	{
@@ -57,21 +60,30 @@ static void	heredoc_child(int *fd, char *line, char *limiter)
 			close(fd[1]);
 			exit(130);
 		}
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+		if (ft_strncmp(line, limiter[i], ft_strlen(limiter[i])) == 0 && i == count - 1)
 		{
 			free(line);
 			close(fd[1]);
 			break ;
 		}
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 1);
+		if (ft_strncmp(line, limiter[i], ft_strlen(limiter[i])) == 0)
+		{
+			i++;
+			free(line);
+			continue ;
+		}
+		if (i == count - 1)
+		{
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 1);
+		}
 		free(line);
 	}
 	close(fd[1]);
 	return ;
 }
 
-void	heredoc(char *limiter)
+void	heredoc(char **limiter, int count)
 {
 	pid_t	reader;
 	int		fd[2];
@@ -92,7 +104,8 @@ void	heredoc(char *limiter)
 	}
 	if (reader == 0)
 	{
-		heredoc_child(fd, line, limiter);
+		heredoc_child(fd, line, limiter, count);
+		ft_free(limiter);
 		exit(EXIT_SUCCESS);
 	}
 	else
