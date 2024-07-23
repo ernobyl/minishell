@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 18:41:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:56:10 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	wait_for_children(t_env *shell, int *pids)
 		shell->exit_code = WEXITSTATUS(status);
 		i++;
 	}
+	free(pids);
 }
 
 static t_struct	*next_cmd(t_struct *token)
@@ -58,7 +59,6 @@ static void	parent(t_env *shell, int *pids, int *fd, int pipe_in)
 {
 	close_fds(fd, pipe_in);
 	wait_for_children(shell, pids);
-	free(pids);
 }
 
 void	exec_cmds(t_struct *token, t_env *shell)
@@ -84,7 +84,7 @@ void	exec_cmds(t_struct *token, t_env *shell)
 			safe_pipe(pipefd);
 		pids[i++] = child(shell, token, &pipe_in, pipefd);
 		token = next_cmd(token);
-		restore_fds(fd, pipefd, &pipe_in);
+		restore_fds(fd, pipefd, &pipe_in, shell->cmds_num);
 	}
 	parent(shell, pids, fd, pipe_in);
 }

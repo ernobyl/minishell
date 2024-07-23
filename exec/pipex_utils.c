@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/08 14:45:24 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:48:20 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*env_path(char *cmd, char **envp)
 	return (freereturn(path_array, 0));
 }
 
-static void	is_dir(char *str)
+static void	is_dir(char **args, char *str)
 {
 	int		fd3;
 
@@ -57,7 +57,7 @@ static void	is_dir(char *str)
 	if (fd3 != -1)
 	{
 		close(fd3);
-		handle_error_exec(126, str, ": is a directory\n");
+		handle_error_exec(126, args, str, ": is a directory\n");
 	}
 }
 
@@ -65,11 +65,11 @@ static void	is_direct_xcute(char *cmd, char **args, char **envp)
 {
 	if (ft_strrchr(cmd, '/'))
 	{
-		is_dir(args[0]);
+		is_dir(args, args[0]);
 		if (access(args[0], F_OK) != 0)
-			handle_error_exec(127, cmd, ": No such file or directory\n");
+			handle_error_exec(127, args, cmd, ": No such file or directory\n");
 		execve(args[0], args, envp);
-		handle_error_exec(126, cmd, ": Permission denied\n");
+		handle_error_exec(126, args, cmd, ": Permission denied\n");
 	}
 }
 
@@ -86,15 +86,15 @@ void	execute(char *cmd, char **args, char **envp)
 	if (!path || (access(path, X_OK == -1)))
 	{
 		if (!path)
-			handle_error_exec(127, cmd, "command not found");
+			handle_error_exec(127, args, cmd, "command not found");
 		else
 		{
 			free(path);
-			handle_error_exec(126, cmd, ": Permission denied\n");
+			handle_error_exec(126, args, cmd, ": Permission denied\n");
 		}
 	}
 	if (ft_strcmp(cmd, "minishell") == 0 || ft_strcmp(cmd + len, "minishell"))
 		export_shlvl(envp);
 	if (execve(path, args, envp) == -1)
-		handle_error_exec(127, cmd, "command not found");
+		handle_error_exec(127, args, cmd, "command not found");
 }

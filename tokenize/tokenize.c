@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/12 13:48:28 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:37:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	match_tokentype(char *str)
 {
 	int	type;
-	
+
 	type = LITERAL;
 	if (ft_strcmp("<<", str) == 0)
 		type = HEREDOC;
