@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 10:10:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:07:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,21 @@ char	**args_list(t_struct *token);
 void	handle_error(int exitcode, const char *errormsg);
 void	handle_error_exec(int exitcode, char **args, char *cmd, char *msg);
 
-// // FILES FUNCTIONS
+// FILES FUNCTIONS
 void	open_files(t_env *shell, t_struct *token);
 int		open_files2(t_env *shell, t_struct *token);
 void	save_fds(int *fd);
 void	restore_fds(int *fd, int *pipefd, int *pipe_in, int cmds);
 void	close_fds(int *fd, int pipe_in);
+
+// HEREDOC
 void	heredoc_open(t_env *shell, t_struct *token);
-void	heredoc(t_env *shell, char **limiter, int count);
+void	heredoc(t_env *shell, char **limiter);
+bool	is_last_limiter(char *line, char **limiter, int i, int k);
+bool	is_limiter(char *line, char **limiter, int *i);
+char	*handle_expansion(char *line, t_env *shell);
+void	write_line_to_fd(int fd, char *line);
+char	*read_line(void);
 
 // // SAFE FUNCTIONS
 void	safe_pipe(int *fd);

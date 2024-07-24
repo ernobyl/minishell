@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 10:05:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:16:50 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,13 @@ static void	parent_wait(int *fd, pid_t reader)
 	}
 }
 
-static void	heredoc_child(t_env *shell, int *fd, char *line, char **limiter, int count)
+static void	sig_exit_heredoc(int *fd)
+{
+	close(fd[1]);
+	exit(130);
+}
+
+static void	heredoc_child(t_env *shell, int *fd, char *line, char **limiter)
 {
 	int	i;
 
@@ -54,47 +60,26 @@ static void	heredoc_child(t_env *shell, int *fd, char *line, char **limiter, int
 	close(fd[0]);
 	while (!g_heredoc_sig)
 	{
-		line = readline("> ");
+		line = read_line();
 		if (g_heredoc_sig == 5)
-		{
-			close(fd[1]);
-			exit(130);
-		}
-		if (ft_strncmp(line, limiter[i], ft_strlen(limiter[i])) == 0 && i == count - 1)
-		{
-			free(line);
-			close(fd[1]);
+			sig_exit_heredoc(fd);
+		if (is_last_limiter(line, limiter, i, shell->k))
 			break ;
-		}
-		if (ft_strncmp(line, limiter[i], ft_strlen(limiter[i])) == 0)
-		{
-			i++;
-			free(line);
+		if (is_limiter(line, limiter, &i))
 			continue ;
-		}
-		if (i == count - 1)
+		if (i == shell->k - 1)
 		{
-			while (ft_strchr(line, '$'))
-			{
-				line = expand_str(line, shell);
-				if (!line)
-				{
-					free(line);
-					exit(1);
-				}
-				if (expanded_all(line, shell))
-					break ;
-			}
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], "\n", 1);
+			line = handle_expansion(line, shell);
+			if (!line)
+				exit(1);
+			write_line_to_fd(fd[1], line);
 		}
 		free(line);
 	}
 	close(fd[1]);
-	return ;
 }
 
-void	heredoc(t_env *shell, char **limiter, int count)
+void	heredoc(t_env *shell, char **limiter)
 {
 	pid_t	reader;
 	int		fd[2];
@@ -115,7 +100,7 @@ void	heredoc(t_env *shell, char **limiter, int count)
 	}
 	if (reader == 0)
 	{
-		heredoc_child(shell, fd, line, limiter, count);
+		heredoc_child(shell, fd, line, limiter);
 		ft_free(limiter);
 		exit(EXIT_SUCCESS);
 	}

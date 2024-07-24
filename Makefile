@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/23 20:49:15 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/24 11:09:01 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	:=	main.c \
 			exec/exec_error.c \
 			exec/exec.c \
 			exec/heredoc.c \
+			exec/heredoc_utils.c \
 			exec/fd_utils.c \
 			exec/open_files.c \
 			exec/open_files2.c \

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 10:10:43 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:24:28 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,20 @@ void	heredoc_open(t_env *shell, t_struct *token)
 {
 	t_struct	*temp;
 	char		**limiter;
-	int			count;
 	int			i;
 
-	count = 0;
+	shell->k = 0;
 	i = 0;
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == HEREDOC)
-			count++;
+			shell->k++;
 		temp = temp->next;
 	}
-	if (count == 0)
+	if (shell->k == 0)
 		return ;
-	limiter = malloc(sizeof(char *) * count);
+	limiter = malloc(sizeof(char *) * (shell->k + 1));
 	temp = token;
 	while (temp && temp->index == token->index)
 	{
@@ -72,7 +71,8 @@ void	heredoc_open(t_env *shell, t_struct *token)
 			limiter[i++] = ft_strdup(temp->value);
 		temp = temp->next;
 	}
-	heredoc(shell, limiter, count);
+	limiter[i] = NULL;
+	heredoc(shell, limiter);
 }
 
 void	open_files(t_env *shell, t_struct *token)
