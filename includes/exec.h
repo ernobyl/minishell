@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 11:07:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:23:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@
 
 int		child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd);
 void	exec_cmds(t_struct *token, t_env *shell);
-void	execute(char *cmd, char **args, char **envp);
+void	execute(t_env *shell, char *cmd, char **args, char **envp);
 int		run_builtin(char *cmd, char **param, t_env *shell, t_struct *token);
 char	**args_list(t_struct *token);
 
 // ERROR
 void	handle_error(int exitcode, const char *errormsg);
-void	handle_error_exec(int exitcode, char **args, char *cmd, char *msg);
+void	handle_error_exec(int exitcode, t_env *shell, char *cmd, char *msg);
 
 // FILES FUNCTIONS
 void	open_files(t_env *shell, t_struct *token);

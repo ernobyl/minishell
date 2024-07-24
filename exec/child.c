@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 10:09:34 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:00:52 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ char	**args_list(t_struct *token)
 
 static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
-	char	**args;
-
-	args = args_list(token);
-	if (!args)
+	shell->args = args_list(token);
+	if (!shell->args)
 		handle_error(1, "malloc failed");
 	else
 	{
@@ -58,9 +56,14 @@ static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 			safe_dup2(pipefd[1], STDOUT_FILENO);
 		}
 		open_files(shell, token);
-		if (run_builtin(args[0], args, shell, token) == 101)
-			execute(args[0], args, shell->env);
-		ft_free(args);
+		if (run_builtin(shell->args[0], shell->args, shell, token) == 101)
+		{
+			free_stack(token);
+			execute(shell, shell->args[0], shell->args, shell->env);
+		}
+		ft_free(shell->args);
+		ft_free(shell->env);
+		free(shell->pids);
 	}
 	exit(shell->exit_code);
 }

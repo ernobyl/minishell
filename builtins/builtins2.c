@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 14:44:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:43:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	cd_builtin(t_env *shell, const char *path)
 	old_pwd = ft_strjoin("OLDPWD=", shell->prev_dir);
 	env_replace_var(shell, old_pwd);
 	free(old_pwd);
-	free(shell->prev_dir);
 	if (path == NULL || ft_strcmp(path, "~") == 0)
 	{
 		home = custom_getenv(shell, "HOME");
