@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/24 13:37:46 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/24 14:38:52 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS	:=	main.c \
 			tokenize/list_utils.c \
 			builtins/builtin_utils.c \
 			builtins/builtin_utils2.c \
+			builtins/builtin_utils3.c \
 			builtins/builtins.c \
 			builtins/builtins2.c \
 			builtins/environment.c \

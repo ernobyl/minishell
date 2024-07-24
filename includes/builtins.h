@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/11 17:28:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:34:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	env_replace_var(t_env *shell, char *new_var);
 char	*current_dir(void);
 char	*custom_getenv(t_env *shell, char *var);
 int		handle_oldpwd(t_env *shell, char *prev_dir);
+void	update_pwd(t_env *shell);
 
 #endif
