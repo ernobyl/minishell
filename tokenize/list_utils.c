@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 09:02:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 08:33:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:32:39 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_struct	*add_new(int type, char *value, int index)
 		return (NULL);
 	new->index = index;
 	new->type = type;
-	new->value = value;
+	new->value = ft_strdup(value);
 	new->next = NULL;
 	return (new);
 }

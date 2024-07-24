@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/22 12:07:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:53:32 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	echo_builtin(char *file, char **param)
 		if (param[i])
 			ft_putstr_fd(" ", fd);
 	}
-	if (ft_strcmp(param[1], "-n") != 0)
+	if (param[i] && ft_strcmp(param[1], "-n") != 0)
 		ft_putstr_fd("\n", fd);
 	return (EXIT_SUCCESS);
 }

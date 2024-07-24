@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:20:45 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 20:37:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:34:31 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int	match_tokentype(char *str)
 		type = OUTFILE;
 	else if (ft_strcmp("|", str) == 0)
 		type = PIPE;
-	if (type >= 42 && type <= 44)
-		free(str);
 	return (type);
 }
 
