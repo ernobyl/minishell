@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/23 22:32:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:05:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	parent_wait(int *fd, pid_t reader)
 	}
 }
 
-static void	heredoc_child(int *fd, char *line, char **limiter, int count)
+static void	heredoc_child(t_env *shell, int *fd, char *line, char **limiter, int count)
 {
 	int	i;
 
@@ -74,6 +74,17 @@ static void	heredoc_child(int *fd, char *line, char **limiter, int count)
 		}
 		if (i == count - 1)
 		{
+			while (ft_strchr(line, '$'))
+			{
+				line = expand_str(line, shell);
+				if (!line)
+				{
+					free(line);
+					exit(1);
+				}
+				if (expanded_all(line, shell))
+					break ;
+			}
 			write(fd[1], line, ft_strlen(line));
 			write(fd[1], "\n", 1);
 		}
@@ -83,7 +94,7 @@ static void	heredoc_child(int *fd, char *line, char **limiter, int count)
 	return ;
 }
 
-void	heredoc(char **limiter, int count)
+void	heredoc(t_env *shell, char **limiter, int count)
 {
 	pid_t	reader;
 	int		fd[2];
@@ -104,7 +115,7 @@ void	heredoc(char **limiter, int count)
 	}
 	if (reader == 0)
 	{
-		heredoc_child(fd, line, limiter, count);
+		heredoc_child(shell, fd, line, limiter, count);
 		ft_free(limiter);
 		exit(EXIT_SUCCESS);
 	}

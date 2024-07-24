@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 22:24:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:10:56 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "minishell.h"
 # include "tokenize.h"
 # include <stdbool.h>
+# include "parsing.h"
 
 int		child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd);
 void	exec_cmds(t_struct *token, t_env *shell);
@@ -36,13 +37,13 @@ void	handle_error(int exitcode, const char *errormsg);
 void	handle_error_exec(int exitcode, char **args, char *cmd, char *msg);
 
 // // FILES FUNCTIONS
-void	open_files(t_struct *token);
-int		open_files2(t_struct *token);
+void	open_files(t_env *shell, t_struct *token);
+int		open_files2(t_env *shell, t_struct *token);
 void	save_fds(int *fd);
 void	restore_fds(int *fd, int *pipefd, int *pipe_in, int cmds);
 void	close_fds(int *fd, int pipe_in);
-void	heredoc_open(t_struct *token);
-void	heredoc(char **limiter, int count);
+void	heredoc_open(t_env *shell, t_struct *token);
+void	heredoc(t_env *shell, char **limiter, int count);
 
 // // SAFE FUNCTIONS
 void	safe_pipe(int *fd);

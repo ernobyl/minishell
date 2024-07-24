@@ -6,13 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:18:09 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 18:42:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:08:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-static bool	expanded_all(char *str, t_env *shell)
+bool	expanded_all(char *str, t_env *shell)
 {
 	int		i;
 	int		j;

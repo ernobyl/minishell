@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 22:24:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:10:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	outfile_open(char *file, int type)
 	close(file2);
 }
 
-void	heredoc_open(t_struct *token)
+void	heredoc_open(t_env *shell, t_struct *token)
 {
 	t_struct	*temp;
 	char		**limiter;
@@ -72,15 +72,15 @@ void	heredoc_open(t_struct *token)
 			limiter[i++] = ft_strdup(temp->value);
 		temp = temp->next;
 	}
-	heredoc(limiter, count);
+	heredoc(shell, limiter, count);
 }
 
-void	open_files(t_struct *token)
+void	open_files(t_env *shell, t_struct *token)
 {
 	t_struct	*temp;
 
 	temp = token;
-	heredoc_open(token);
+	heredoc_open(shell, token);
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)
