@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:24:18 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,13 @@ void	heredoc_open(t_env *shell, t_struct *token)
 	char		**limiter;
 	int			i;
 
-	shell->k = 0;
 	i = 0;
-	temp = token;
-	while (temp && temp->index == token->index)
-	{
-		if (temp->type == HEREDOC)
-			shell->k++;
-		temp = temp->next;
-	}
+	shell->k = count_heredoc(token);
 	if (shell->k == 0)
 		return ;
 	limiter = malloc(sizeof(char *) * (shell->k + 1));
 	if (!limiter)
-		exit(1);
+		return (error_msg_fd(shell, token, "malloc failed", 1));
 	temp = token;
 	while (temp && temp->index == token->index)
 	{

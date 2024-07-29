@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/29 14:39:31 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:30:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	heredoc(t_env *shell, char **limiter)
 	char	*line;
 
 	signal(SIGINT, signal_heredoc);
-	signal(SIGQUIT, SIG_IGN);
 	g_signal = 0;
 	line = NULL;
 	if (pipe(fd) == -1)
@@ -103,6 +102,5 @@ void	heredoc(t_env *shell, char **limiter)
 		ft_free(limiter);
 		exit(EXIT_SUCCESS);
 	}
-	else
-		parent_wait(fd, reader);
+	parent_wait(fd, reader);
 }

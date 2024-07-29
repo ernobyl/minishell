@@ -6,12 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:44:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
-#include "../includes/global.h"
 
 char	**args_list(t_struct *token)
 {
@@ -69,11 +68,29 @@ static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 	exit(shell->exit_code);
 }
 
+int	count_heredoc(t_struct *token)
+{
+	t_struct	*temp;
+	int			i;
+
+	i = 0;
+	temp = token;
+	while (temp && temp->index == token->index)
+	{
+		if (temp->type == HEREDOC)
+			i++;
+		temp = temp->next;
+	}
+	return (i);
+}
+
 int	child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
 	int		pid;
-	
+
 	pid = safe_fork();
+	if (count_heredoc(token))
+		signal(SIGQUIT, SIG_IGN);
 	if (pid == 0)
 		run_cmds(shell, token, pipe_in, pipefd);
 	return (pid);

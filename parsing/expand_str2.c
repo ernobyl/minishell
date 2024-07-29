@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 22:00:25 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:51:48 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static char	*is_single_dollar(char *str)
 		return (str);
 	free(str);
 	new = malloc(sizeof(char) * 1);
+	if (new == NULL)
+		return (NULL);
 	new[0] = '\0';
 	return (new);
 }

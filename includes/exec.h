@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 21:23:21 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:43:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	close_fds(int *fd, int pipe_in);
 
 // HEREDOC
 void	heredoc_open(t_env *shell, t_struct *token);
+int		count_heredoc(t_struct *token);
 void	heredoc(t_env *shell, char **limiter);
 bool	is_last_limiter(char *line, char **limiter, int i, int k);
 bool	is_limiter(char *line, char **limiter, int *i);
