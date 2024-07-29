@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 14:06:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:26:04 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int	echo_builtin(char *file, char **param)
 	return (EXIT_SUCCESS);
 }
 
-int	export_builtin(int ret_value, t_env *shell, char *new_var)
+int	export_builtin(t_env *shell, char *new_var)
 {
 	int	i;
 	int	found;
 
 	i = -1;
-	ret_value = check_export(new_var, i);
-	if (ret_value != 0)
-		return (ret_value);
+	shell->exit_code = check_export(new_var, i);
+	if (shell->exit_code != 0)
+		return (shell->exit_code);
 	i = 0;
 	found = 0;
 	while (shell->env[i])
@@ -78,7 +78,7 @@ int	export_builtin(int ret_value, t_env *shell, char *new_var)
 		if (ft_strncmp(shell->env[i], new_var,
 				ft_strlen_c(shell->env[i], '=') + 1) == 0)
 		{
-			ret_value = replace_variable(&shell->env[i], new_var);
+			shell->exit_code = replace_variable(&shell->env[i], new_var);
 			found = 1;
 			break ;
 		}
@@ -87,8 +87,8 @@ int	export_builtin(int ret_value, t_env *shell, char *new_var)
 	if (ft_strcmp (new_var, "") == 0)
 		return (print_list_alpha(shell->env, i));
 	if (!found)
-		ret_value = add_variable(shell, new_var, i);
-	return (ret_value);
+		shell->exit_code = add_variable(shell, new_var, i);
+	return (shell->exit_code);
 }
 
 int	unset_builtin(t_env *shell, char *to_unset)

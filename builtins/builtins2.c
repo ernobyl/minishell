@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/25 16:57:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:37:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,33 +79,32 @@ int	count_param(char **param)
 	return (i);
 }
 
-int	exit_builtin(char **param, t_env *shell)
+int	exit_builtin(char **param, t_env *shell, t_struct *token)
 {
-	int	exit_code;
 	int	param_count;
 
-	exit_code = 0;
 	param_count = count_param(param);
 	if (param_count > 2)
 	{
 		ft_putendl_fd(" too many arguments", 2);
-		exit_code = 1;
+		shell->exit_code = 1;
 		printf("exit\n");
-		return (exit_code);
+		return (shell->exit_code);
 	}
 	if (param_count == 2)
 	{
-		exit_code = ft_atoi(param[1]);
-		if (exit_code == 0 && ft_strcmp(param[1], "0") != 0)
+		shell->exit_code = ft_atoi(param[1]);
+		if (shell->exit_code == 0 && ft_strcmp(param[1], "0") != 0)
 		{
 			ft_putendl_fd(" numeric argument required", 2);
-			exit_code = 2;
+			shell->exit_code = 2;
 		}
 	}
 	ft_free(shell->env);
 	ft_free(param);
+	free_stack(token);
 	printf("exit\n");
-	exit(exit_code);
+	exit(shell->exit_code);
 }
 
 int	export_array(int r_val, t_env *shell, char **ar)

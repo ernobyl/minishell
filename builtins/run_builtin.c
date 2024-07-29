@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 10:12:21 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:33:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,51 +25,51 @@ static void	init_builtin_arr(char **arr)
 	arr[NOT_BUILTIN] = NULL;
 }
 
-static void	check_first(int num, int *ret_value, char **param, t_env *shell)
+static void	check_first(int num, char **param, t_env *shell, t_struct *token)
 {
 	if (num == EXIT)
-		*ret_value = exit_builtin(param, shell);
+		shell->exit_code = exit_builtin(param, shell, token);
 	if (num == PWD)
-		*ret_value = pwd_builtin();
+		shell->exit_code = pwd_builtin();
 	if (num == CD)
 	{
 		if (!param[1])
-			*ret_value = cd_builtin(shell, NULL);
+			shell->exit_code = cd_builtin(shell, NULL);
 		else if (param[2])
-			*ret_value = error_msg(" too many arguments", 1);
+			shell->exit_code = error_msg(" too many arguments", 1);
 		else
-			*ret_value = cd_builtin(shell, param[1]);
+			shell->exit_code = cd_builtin(shell, param[1]);
 	}
 	if (num == ECHO)
-		*ret_value = echo_builtin(NULL, param);
+		shell->exit_code = echo_builtin(NULL, param);
 }
 
-static int	match_function(int num, int ret_value, char **param, t_env *shell)
+static int	match_function(int num, char **param, t_env *shell, t_struct *token)
 {
 	int		i;
 
-	check_first(num, &ret_value, param, shell);
+	check_first(num, param, shell, token);
 	if (num == EXPORT)
 	{
 		if (param[1] == NULL)
-			ret_value = export_builtin(ret_value, shell, "");
+			shell->exit_code = export_builtin(shell, "");
 		else if (param[2] == NULL)
-			ret_value = export_builtin(ret_value, shell, param[1]);
+			shell->exit_code = export_builtin(shell, param[1]);
 		else
-			ret_value = export_array(ret_value, shell, param);
+			shell->exit_code = export_array(shell->exit_code, shell, param);
 	}
 	i = 1;
 	if (num == UNSET)
 	{
 		while (param[i])
 		{
-			ret_value = unset_builtin(shell, param[i]);
+			shell->exit_code = unset_builtin(shell, param[i]);
 			i++;
 		}
 	}
 	if (num == ENV)
-		ret_value = env_builtin(shell);
-	return (ret_value);
+		shell->exit_code = env_builtin(shell);
+	return (shell->exit_code);
 }
 
 static int	builtin_file(t_env *shell, t_struct *token, int *fd, int num)
@@ -103,7 +103,7 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 	if (ret_value == 1)
 		return (ret_value);
 	init_builtin_arr(arr);
-	ret_value = match_function(num, ret_value, param, shell);
+	ret_value = match_function(num, param, shell, token);
 	if (shell->cmds_num == 0 && num != EXIT)
 	{
 		safe_dup2(fd[0], STDIN_FILENO);
