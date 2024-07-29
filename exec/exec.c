@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 21:35:44 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:52:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/global.h"
 
 static void	wait_for_children(t_env *shell, int *pids)
 {
@@ -79,6 +80,8 @@ void	exec_cmds(t_struct *token, t_env *shell)
 	while (token)
 	{
 		save_fds(fd);
+		g_signal = 3;
+		signal(SIGQUIT, handle_quit);
 		if (token->index != shell->cmds_num)
 			safe_pipe(pipefd);
 		shell->pids[i++] = child(shell, token, &pipe_in, pipefd);

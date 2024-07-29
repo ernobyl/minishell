@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 11:27:33 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:03:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtins.h"
 #include "includes/parsing.h"
+#include "includes/global.h"
+
+int	g_signal = 0;
 
 int	readline_loop(t_env *shell, int ret_value)
 {
 	char	*input;
 
-	setup_signal_handlers();
 	while (1)
 	{
+		setup_signal_handlers();
 		input = readline("minishell> ");
 		if (input == NULL)
 			break ;

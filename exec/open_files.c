@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 21:01:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:47:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	heredoc_open(t_env *shell, t_struct *token)
 	if (shell->k == 0)
 		return ;
 	limiter = malloc(sizeof(char *) * (shell->k + 1));
+	if (!limiter)
+		exit(1);
 	temp = token;
 	while (temp && temp->index == token->index)
 	{

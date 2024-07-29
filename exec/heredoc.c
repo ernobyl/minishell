@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 11:16:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:39:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
-
-int	g_heredoc_sig = 0;
+#include "../includes/global.h"
 
 static void	signal_heredoc(int sig)
 {
-	if (sig == SIGQUIT)
-		g_heredoc_sig = 4;
-	else if (sig == SIGINT)
+	if (sig == SIGINT)
 	{
-		g_heredoc_sig = 5;
+		g_signal = 5;
 		printf("\n");
 		exit(130);
 	}
-	g_heredoc_sig = 0;
+	g_signal = 0;
 }
 
 static void	parent_wait(int *fd, pid_t reader)
@@ -33,7 +30,7 @@ static void	parent_wait(int *fd, pid_t reader)
 
 	close(fd[1]);
 	waitpid(reader, &status, 0);
-	if (g_heredoc_sig == 5
+	if (g_signal == 5
 		|| ((status) && WEXITSTATUS(status) == 130))
 	{
 		close(fd[0]);
@@ -58,10 +55,10 @@ static void	heredoc_child(t_env *shell, int *fd, char *line, char **limiter)
 
 	i = 0;
 	close(fd[0]);
-	while (!g_heredoc_sig)
+	while (!g_signal)
 	{
 		line = read_line();
-		if (g_heredoc_sig == 5)
+		if (g_signal == 5)
 			sig_exit_heredoc(fd);
 		if (is_last_limiter(line, limiter, i, shell->k))
 			break ;
@@ -86,6 +83,8 @@ void	heredoc(t_env *shell, char **limiter)
 	char	*line;
 
 	signal(SIGINT, signal_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+	g_signal = 0;
 	line = NULL;
 	if (pipe(fd) == -1)
 	{

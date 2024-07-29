@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 12:44:02 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:57:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct s_env
 	char	*prev_dir;
 	int		cmds_num;
 	int		exit_code;
-	int		heredoc_code;
 	char	**args;
 	int		*pids;
 }			t_env;
 
+void	handle_quit(int sig);
 void	setup_signal_handlers(void);
 void	reset_signal_handlers(void);
 
