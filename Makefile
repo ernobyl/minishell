@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc -g
-CFLAGS	:= -Wextra -Wall -Werror
+#CFLAGS	:= -Wextra -Wall -Werror
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \

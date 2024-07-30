@@ -11,6 +11,27 @@
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/global.h"
+// void print_open_fds() {
+//     int fd;
+//     char path[256];
+//     char buf[1024];
+//     ssize_t len;
+    
+//     printf("Open file descriptors:\n");
+//     for (fd = 0; fd < 1024; fd++) { // Typically, file descriptors range from 0 to 1023
+//         snprintf(path, sizeof(path), "/proc/self/fd/%d", fd);
+//         len = readlink(path, buf, sizeof(buf) - 1);
+//         if (len != -1) {
+//             buf[len] = '\0'; // Null-terminate the string
+//             printf("FD %d: %s\n", fd, buf);
+//         } else if (errno != ENOENT) {
+//             // Ignore ENOENT (No such file or directory) as it indicates the FD is closed
+//             perror("readlink");
+//         }
+//     }
+// }
+
 
 char	**args_list(t_struct *token)
 {
@@ -88,10 +109,14 @@ int	child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
 	int		pid;
 
+	heredoc_open(shell, token);
+	if (g_signal == 5)
+		return (0);
 	pid = safe_fork();
-	if (count_heredoc(token))
-		signal(SIGQUIT, SIG_IGN);
+	// if (count_heredoc(token))
+	// 	signal(SIGQUIT, SIG_IGN);
 	if (pid == 0)
 		run_cmds(shell, token, pipe_in, pipefd);
+	// print_open_fds();
 	return (pid);
 }

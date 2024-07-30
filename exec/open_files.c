@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
+#include "../includes/global.h"
+#include "../includes/minishell.h"
 
 static void	error_msg_fd(t_env *shell, t_struct *token, char *str, int code)
 {
@@ -60,6 +62,9 @@ void	heredoc_open(t_env *shell, t_struct *token)
 	shell->k = count_heredoc(token);
 	if (shell->k == 0)
 		return ;
+	g_signal = 0;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_interrupt);
 	limiter = malloc(sizeof(char *) * (shell->k + 1));
 	if (!limiter)
 		return (error_msg_fd(shell, token, "malloc failed", 1));
@@ -77,9 +82,13 @@ void	heredoc_open(t_env *shell, t_struct *token)
 void	open_files(t_env *shell, t_struct *token)
 {
 	t_struct	*temp;
-
 	temp = token;
-	heredoc_open(shell, token);
+	
+	if (count_heredoc)
+	{
+		infile_open(shell, token, shell->hd_name);
+		free(shell->hd_name);
+	}
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)

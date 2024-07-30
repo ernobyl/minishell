@@ -79,6 +79,8 @@ void	exec_cmds(t_struct *token, t_env *shell)
 		return ;
 	while (token)
 	{
+		if (g_signal == 5)
+			return ;
 		save_fds(fd);
 		g_signal = 3;
 		signal(SIGQUIT, handle_quit);

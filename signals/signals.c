@@ -13,6 +13,17 @@
 #include "../includes/minishell.h"
 #include "../includes/global.h"
 
+// static void	signal_heredoc(int sig)
+// {
+// 	if (sig == SIGINT)
+// 	{
+// 		g_signal = 5;
+// 		printf("\n");
+// 		exit(130);
+// 	}
+// 	g_signal = 0;
+// }
+
 void	handle_interrupt(int sig)
 {
 	(void)sig;

@@ -90,6 +90,11 @@ int	open_files2(t_env *shell, t_struct *token)
 	infile = "\0";
 	outfile = "\0";
 	heredoc_open(shell, token);
+	if (count_heredoc)
+	{
+		infile_open2(shell->hd_name);
+		free(shell->hd_name);
+	}
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)

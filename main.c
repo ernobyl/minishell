@@ -22,6 +22,7 @@ int	readline_loop(t_env *shell, int ret_value)
 
 	while (1)
 	{
+		g_signal = 0;
 		setup_signal_handlers();
 		input = readline("minishell> ");
 		if (input == NULL)

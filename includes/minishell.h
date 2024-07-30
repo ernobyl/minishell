@@ -38,9 +38,11 @@ typedef struct s_env
 	int		exit_code;
 	char	**args;
 	int		*pids;
+	char	*hd_name;
 }			t_env;
 
 void	handle_quit(int sig);
+void	handle_interrupt(int sig);
 void	setup_signal_handlers(void);
 void	reset_signal_handlers(void);
 
