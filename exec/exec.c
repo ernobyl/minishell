@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/29 15:10:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 02:49:10 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	exec_cmds(t_struct *token, t_env *shell)
 		return ;
 	while (token)
 	{
+		if (g_signal == 5)
+			return ;
 		save_fds(fd);
 		g_signal = 3;
 		signal(SIGQUIT, handle_quit);

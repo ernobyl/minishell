@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 15:44:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 02:36:13 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,10 @@ int	child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 {
 	int		pid;
 
+	heredoc_open(shell, token);
+	if (g_signal == 5)
+		return (0);
 	pid = safe_fork();
-	if (count_heredoc(token))
-		signal(SIGQUIT, SIG_IGN);
 	if (pid == 0)
 		run_cmds(shell, token, pipe_in, pipefd);
 	return (pid);

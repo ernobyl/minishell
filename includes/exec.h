@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 15:43:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 02:35:43 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "tokenize.h"
 # include <stdbool.h>
 # include "parsing.h"
+# include "global.h"
 
 int		child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd);
 void	exec_cmds(t_struct *token, t_env *shell);

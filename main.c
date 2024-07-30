@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/29 14:03:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 02:27:57 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	readline_loop(t_env *shell, int ret_value)
 
 	while (1)
 	{
+		g_signal = 0;
 		setup_signal_handlers();
 		input = readline("minishell> ");
 		if (input == NULL)
