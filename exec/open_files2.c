@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 11:43:21 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:55:25 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static char	*outfile_open2(char *file, int type)
 {
 	int	file2;
 
-	printf("opening file outfile open%s\n", file);
 	if (type == OUTFILE)
 		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	else
@@ -53,7 +52,7 @@ static char	*outfile_open2(char *file, int type)
 	return (file);
 }
 
-static int	reopen_files(char *infile, char *outfile)
+static int	reopen_files(char *infile, char *outfile, int type)
 {
 	int	fd;
 
@@ -69,13 +68,15 @@ static int	reopen_files(char *infile, char *outfile)
 	}
 	if (outfile != NULL && (ft_strcmp(outfile, "\0") != 0))
 	{
-		fd = open(outfile, O_RDONLY);
+		if (type == OUTFILE)
+			fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+		else
+			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0664);
 		if (fd == -1)
 		{
 			error_msg_fd2(outfile, 1);
 			return (1);
 		}
-		printf("beofre dubig %s", outfile);
 		safe_dup2(fd, STDOUT_FILENO);
 	}
 	return (0);
@@ -86,6 +87,7 @@ int	open_files2(t_env *shell, t_struct *token)
 	t_struct	*temp;
 	char		*infile;
 	char		*outfile;
+	int			file_type;
 
 	temp = token;
 	infile = "\0";
@@ -101,12 +103,18 @@ int	open_files2(t_env *shell, t_struct *token)
 		if (temp->type == INFILE)
 			infile = infile_open2(temp->value);
 		else if (temp->type == OUTFILE)
+		{
 			outfile = outfile_open2(temp->value, OUTFILE);
+			file_type = OUTFILE;
+		}
 		else if (temp->type == D_OUTFILE)
+		{
 			outfile = outfile_open2(temp->value, D_OUTFILE);
+			file_type = D_OUTFILE;
+		}
 		if (infile == NULL || outfile == NULL)
 			return (1);
 		temp = temp->next;
 	}
-	return (reopen_files(infile, outfile));
+	return (reopen_files(infile, outfile, file_type));
 }

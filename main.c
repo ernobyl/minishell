@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:13:40 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:05:57 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,16 @@ void	readline_loop(t_env *shell)
 	reset_signal_handlers();
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_env	shell;
 
+	(void)argv;
+	if (argc != 1)
+	{
+		error_msg("minishell does not accept additional arguments", 1);
+		return (1);
+	}
 	shell.env = init_env_list();
 	shell.exit_code = 0;
 	shell.prev_dir = NULL;
