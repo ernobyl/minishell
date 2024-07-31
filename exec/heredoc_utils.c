@@ -6,16 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:37:07 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 11:25:16 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 04:08:40 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
-
-char	*read_line(void)
-{
-	return (readline("> "));
-}
 
 bool	is_last_limiter(char *line, char **limiter, int i, int k)
 {

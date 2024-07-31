@@ -6,22 +6,22 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:47:10 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 04:07:49 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 #include "../includes/global.h"
 
-static void	heredoc_child(char *file_name, t_env *shell, char *line, char **limiter)
+static void	hd_child(char *file, t_env *shell, char *line, char **lim)
 {
+	int	stdin_backup;
+	int	fd;
 	int	i;
-	int fd;
-	i = 0;
-	int stdin_backup;
 
+	i = 0;
 	stdin_backup = dup(0);
-	fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
 		line = readline("> ");
@@ -31,11 +31,9 @@ static void	heredoc_child(char *file_name, t_env *shell, char *line, char **limi
 			shell->exit_code = 130;
 			break ;
 		}
-		if (line == NULL)
+		if (!line || is_last_limiter(line, lim, i, shell->k))
 			break ;
-		if (is_last_limiter(line, limiter, i, shell->k))
-			break ;
-		if (is_limiter(line, limiter, &i))
+		if (is_limiter(line, lim, &i))
 			continue ;
 		if (i == shell->k - 1)
 		{
@@ -69,5 +67,5 @@ void	heredoc(t_env *shell, char **limiter)
 	set_signal_hd();
 	line = NULL;
 	shell->hd_name = generate_heredoc_filename();
-	heredoc_child(shell->hd_name, shell, line, limiter);
+	hd_child(shell->hd_name, shell, line, limiter);
 }

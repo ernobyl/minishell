@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 02:46:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 04:05:00 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	open_files2(t_env *shell, t_struct *token)
 	t_struct	*temp;
 	char		*infile;
 	char		*outfile;
-	int			code;
 
 	temp = token;
 	infile = "\0";
@@ -106,6 +105,5 @@ int	open_files2(t_env *shell, t_struct *token)
 			return (1);
 		temp = temp->next;
 	}
-	code = reopen_files(infile, outfile);
-	return (code);
+	return (reopen_files(infile, outfile));
 }
