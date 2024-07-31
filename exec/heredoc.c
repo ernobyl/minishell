@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 04:07:49 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 04:33:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ static void	hd_child(char *file, t_env *shell, char *line, char **lim)
 	int	i;
 
 	i = 0;
-	stdin_backup = dup(0);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd == -1)
+		return ;
+	stdin_backup = dup(0);
 	while (1)
 	{
 		line = readline("> ");
 		if (g_signal == 5)
 		{
 			close(fd);
+			unlink(file);
 			shell->exit_code = 130;
 			break ;
 		}
@@ -55,7 +58,7 @@ char	*generate_heredoc_filename(void)
 	char		*file_name;
 
 	num = ft_itoa(i++);
-	file_name = ft_strjoin("temp/.tmp_heredoc_file_", num);
+	file_name = ft_strjoin(".tmp_heredoc_file_", num);
 	free(num);
 	return (file_name);
 }

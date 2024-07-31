@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 03:42:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 04:29:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	open_files(t_env *shell, t_struct *token)
 	if (count_heredoc(token) != 0)
 	{
 		infile_open(shell, shell->hd_name);
+		unlink(shell->hd_name);
 		free(shell->hd_name);
 	}
 	while (temp && temp->index == token->index)
