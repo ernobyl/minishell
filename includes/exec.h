@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 02:35:43 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:56:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/wait.h>
 # include "minishell.h"
 # include "tokenize.h"
-# include <stdbool.h>
 # include "parsing.h"
 # include "global.h"
 
@@ -54,7 +53,7 @@ char	*handle_expansion(char *line, t_env *shell);
 void	write_line_to_fd(int fd, char *line);
 char	*read_line(void);
 
-// // SAFE FUNCTIONS
+// SAFE FUNCTIONS
 void	safe_pipe(int *fd);
 void	safe_close(int fd);
 int		safe_fork(void);

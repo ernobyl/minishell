@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:48:05 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 02:27:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:13:48 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	handle_quit(int sig)
 
 void	setup_signal_handlers(void)
 {
+	g_signal = 0;
 	signal(SIGINT, handle_interrupt);
 	signal(SIGQUIT, SIG_IGN);
 }

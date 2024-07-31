@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 03:08:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:57:01 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "tokenize.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -22,27 +23,33 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <errno.h>
+# include <stdbool.h>
 
 # define EXIT_MAIN 50
 
-extern char	**environ;
+extern char				**environ;
+typedef struct s_struct	t_struct;
 
 typedef struct s_env
 {
-	int		i;
-	int		k;
-	int		found;
-	char	**env;
-	char	*prev_dir;
-	int		cmds_num;
-	int		exit_code;
-	char	**args;
-	int		*pids;
-	char	*hd_name;
-}			t_env;
+	t_struct	*token;
+	char		**env;
+	char		**args;
+	int			*pids;
+	char		*hd_name;
+	char		*prev_dir;
+	int			exit_code;
+	int			cmds_num;
+	int			found;
+	int			i;
+	int			k;
+}				t_env;
 
+// SIGNALS
 void	handle_quit(int sig);
 void	setup_signal_handlers(void);
 void	reset_signal_handlers(void);
+bool	set_fork_signal(void);
+void	set_signal_hd(void);
 
 #endif

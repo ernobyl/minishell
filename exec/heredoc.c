@@ -6,22 +6,12 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:00:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:47:10 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 #include "../includes/global.h"
-
-static void	signal_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_signal = 5;
-		write(1, "\n", 1);
-		close(0);
-	}
-}
 
 static void	heredoc_child(char *file_name, t_env *shell, char *line, char **limiter)
 {
@@ -72,12 +62,11 @@ char	*generate_heredoc_filename(void)
 	return (file_name);
 }
 
-void heredoc(t_env *shell, char **limiter)
+void	heredoc(t_env *shell, char **limiter)
 {
 	char	*line;
 
-	signal(SIGINT, signal_heredoc);
-	g_signal = 0;
+	set_signal_hd();
 	line = NULL;
 	shell->hd_name = generate_heredoc_filename();
 	heredoc_child(shell->hd_name, shell, line, limiter);

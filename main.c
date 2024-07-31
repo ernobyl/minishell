@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:07:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:13:40 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	readline_loop(t_env *shell)
 
 	while (1)
 	{
-		g_signal = 0;
 		setup_signal_handlers();
 		input = readline("minishell> ");
 		if (input == NULL)

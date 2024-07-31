@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/25 16:47:04 by emichels         ###   ########.fr        #
+#    Updated: 2024/07/31 03:56:22 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS	:=	main.c \
 			builtins/get_builtin_num.c \
 			builtins/run_builtin.c \
 			signals/signals.c \
+			signals/set_signals.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

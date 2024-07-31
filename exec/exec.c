@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 02:49:10 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:53:20 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	wait_for_children(t_env *shell, int *pids)
 		i++;
 	}
 	free(pids);
+}
+
+static void	parent(t_env *shell, int *pids, int *fd, int pipe_in)
+{
+	close_fds(fd, pipe_in);
+	wait_for_children(shell, pids);
 }
 
 static t_struct	*next_cmd(t_struct *token)
@@ -56,12 +62,6 @@ static bool	run_one_cmd(t_env *shell, t_struct *token)
 	return (false);
 }
 
-static void	parent(t_env *shell, int *pids, int *fd, int pipe_in)
-{
-	close_fds(fd, pipe_in);
-	wait_for_children(shell, pids);
-}
-
 void	exec_cmds(t_struct *token, t_env *shell)
 {
 	int		pipefd[2];
@@ -79,11 +79,9 @@ void	exec_cmds(t_struct *token, t_env *shell)
 		return ;
 	while (token)
 	{
-		if (g_signal == 5)
+		if (!set_fork_signal())
 			return ;
 		save_fds(fd);
-		g_signal = 3;
-		signal(SIGQUIT, handle_quit);
 		if (token->index != shell->cmds_num)
 			safe_pipe(pipefd);
 		shell->pids[i++] = child(shell, token, &pipe_in, pipefd);
