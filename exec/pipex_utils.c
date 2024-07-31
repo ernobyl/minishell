@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/24 21:26:23 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:09:41 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	is_dir(t_env *shell, char *str)
 	if (fd3 != -1)
 	{
 		close(fd3);
-		handle_error_exec(126, shell, str, ": is a directory\n");
+		handle_error_exec(126, shell, str, ": Is a directory\n");
 	}
 }
 

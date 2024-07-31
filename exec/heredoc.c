@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 02:44:39 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 03:00:26 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*generate_heredoc_filename(void)
 	free(num);
 	return (file_name);
 }
+
 void heredoc(t_env *shell, char **limiter)
 {
 	char	*line;
