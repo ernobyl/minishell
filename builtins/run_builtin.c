@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/29 12:33:45 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:35:40 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	builtin_file(t_env *shell, t_struct *token, int *fd, int num)
 {
 	if (shell->cmds_num == 0 && num != EXIT)
 	{
+		printf("wron ins\n");
 		save_fds(fd);
 		if (open_files2(shell, token) == 1)
 		{

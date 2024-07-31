@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 04:30:45 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:43:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*outfile_open2(char *file, int type)
 {
 	int	file2;
 
+	printf("opening file outfile open%s\n", file);
 	if (type == OUTFILE)
 		file2 = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	else
@@ -74,6 +75,7 @@ static int	reopen_files(char *infile, char *outfile)
 			error_msg_fd2(outfile, 1);
 			return (1);
 		}
+		printf("beofre dubig %s", outfile);
 		safe_dup2(fd, STDOUT_FILENO);
 	}
 	return (0);

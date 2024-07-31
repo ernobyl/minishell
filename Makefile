@@ -6,15 +6,15 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/31 03:56:22 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/07/31 11:13:37 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 
 NAME	:= minishell
-CC		:= gcc -g
-CFLAGS	:= -Wextra -Wall -Werror
+CC		:= gcc
+CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
