@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/25 16:40:41 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:27:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*current_dir(void)
 	}
 	if (getcwd(cwd, buf_size) != NULL)
 		return (cwd);
+	free(cwd);
 	return (NULL);
 }
 
@@ -112,6 +113,9 @@ int	handle_oldpwd(t_env *shell, char *prev_dir)
 		update_pwd(shell);
 		free(old_pwd);
 		free(path);
+		return (0);
 	}
-	return (0);
+	free(path);
+	free(old_pwd);
+	return (1);
 }

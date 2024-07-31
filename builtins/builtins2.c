@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/29 12:37:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:44:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	pwd_builtin(void)
 int	cd_builtin(t_env *shell, const char *path)
 {
 	char		*old_pwd;
-	const char	*home;
 
+	old_pwd = NULL;
 	if (path && ft_strcmp(path, "-") == 0)
 	{
 		if (handle_oldpwd(shell, shell->prev_dir) == 1)
@@ -52,16 +52,15 @@ int	cd_builtin(t_env *shell, const char *path)
 		return (EXIT_SUCCESS);
 	}
 	shell->prev_dir = current_dir();
-	old_pwd = ft_strjoin("OLDPWD=", shell->prev_dir);
-	env_replace_var(shell, old_pwd);
-	free(old_pwd);
-	free(shell->prev_dir);
+	if (shell->prev_dir != NULL)
+		change_oldpwd(shell, old_pwd);
+	else
+		path = NULL;
 	if (path == NULL || ft_strcmp(path, "~") == 0)
 	{
-		home = custom_getenv(shell, "HOME");
-		if (home == NULL)
+		path = custom_getenv(shell, "HOME");
+		if (path == NULL)
 			return (error_msg("cd: HOME not set", 1));
-		path = home;
 	}
 	if (chdir(path) == 0)
 		return (update_pwd(shell), EXIT_SUCCESS);
