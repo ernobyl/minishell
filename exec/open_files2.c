@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 11:55:25 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:18:14 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	reopen_files(char *infile, char *outfile, int type)
 			return (1);
 		}
 		safe_dup2(fd, STDIN_FILENO);
+		return (0);
 	}
 	if (outfile != NULL && (ft_strcmp(outfile, "\0") != 0))
 	{

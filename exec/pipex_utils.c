@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:09:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:06:59 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,31 @@ static char	*freereturn(char **tofree, char *toreturn)
 	free(tofree);
 	return (toreturn);
 }
+int	count_env(char **envp)
+{
+	int	i;
 
+	i = 0;
+	while (envp[i])
+		i++;
+	return (i);
+}
 static char	*env_path(char *cmd, char **envp)
 {
 	char	**path_array;
 	char	*path;
 	int		i;
+	int		j;
 	char	*subdir_path;
 
 	i = 0;
 	if (access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+	j = count_env(envp);
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
+	if (i == j)
+		return (NULL);
 	path_array = ft_split(envp[i] + 5, ':');
 	i = -1;
 	while (path_array && path_array[++i])
