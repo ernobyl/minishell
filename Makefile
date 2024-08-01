@@ -6,7 +6,7 @@
 #    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/31 11:13:37 by kmatjuhi         ###   ########.fr        #
+#    Updated: 2024/08/01 11:00:48 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	:=	main.c \
 			exec/open_files.c \
 			exec/open_files2.c \
 			exec/pipex_utils.c \
+			exec/pipex_utils2.c \
 			exec/safe_func.c \
 			parsing/add_space.c \
 			parsing/expand_str.c \

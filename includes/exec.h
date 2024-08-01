@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 03:56:48 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:00:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exec_cmds(t_struct *token, t_env *shell);
 void	execute(t_env *shell, char *cmd, char **args, char **envp);
 int		run_builtin(char *cmd, char **param, t_env *shell, t_struct *token);
 char	**args_list(t_struct *token);
+char	*env_path(char *cmd, char **envp);
 
 // ERROR
 void	handle_error(int exitcode, const char *errormsg);
