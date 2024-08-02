@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:38:14 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/01 11:00:29 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 08:31:16 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ char	*env_path(char *cmd, char **envp);
 // ERROR
 void	handle_error(int exitcode, const char *errormsg);
 void	handle_error_exec(int exitcode, t_env *shell, char *cmd, char *msg);
+int		error_msg_fd2(char *str, int code);
 
 // FILES FUNCTIONS
 void	open_files(t_env *shell, t_struct *token);
 int		open_files2(t_env *shell, t_struct *token);
+char	*infile_open2(char *file);
 void	save_fds(int *fd);
 void	restore_fds(int *fd, int *pipefd, int *pipe_in, int cmds);
 void	close_fds(int *fd, int pipe_in);
@@ -52,7 +54,6 @@ bool	is_last_limiter(char *line, char **limiter, int i, int k);
 bool	is_limiter(char *line, char **limiter, int *i);
 char	*handle_expansion(char *line, t_env *shell);
 void	write_line_to_fd(int fd, char *line);
-char	*read_line(void);
 
 // SAFE FUNCTIONS
 void	safe_pipe(int *fd);

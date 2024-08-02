@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 12:09:23 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 07:57:12 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	main(void)
 	shell.env = init_env_list();
 	shell.exit_code = 0;
 	shell.prev_dir = NULL;
+	shell.infile = "\0";
+	shell.outfile = "\0";
 	readline_loop(&shell);
 	ft_free(shell.env);
 	free(shell.prev_dir);

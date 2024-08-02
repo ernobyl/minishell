@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 03:57:01 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 07:56:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_env
 	char		**args;
 	int			*pids;
 	char		*hd_name;
+	char		*infile;
+	char		*outfile;
 	char		*prev_dir;
 	int			exit_code;
 	int			cmds_num;
