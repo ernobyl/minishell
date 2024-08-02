@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 10:19:34 by emichels          #+#    #+#              #
-#    Updated: 2024/07/31 12:18:06 by emichels         ###   ########.fr        #
+#    Updated: 2024/08/02 09:26:09 by kmatjuhi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	:= minishell
 CC		:= gcc -g
-CFLAGS	:= -Wextra -Wall -Werror -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror
 HEADERS	:= -I./builtins/
 LIBS	:= -Llibft -lft -lreadline
 SRCS	:=	main.c \
@@ -27,6 +27,7 @@ SRCS	:=	main.c \
 			exec/open_files.c \
 			exec/open_files2.c \
 			exec/pipex_utils.c \
+			exec/pipex_utils2.c \
 			exec/safe_func.c \
 			parsing/add_space.c \
 			parsing/expand_str.c \

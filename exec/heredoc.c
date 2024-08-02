@@ -6,34 +6,53 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 04:33:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 08:43:28 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 #include "../includes/global.h"
 
-static void	hd_child(char *file, t_env *shell, char *line, char **lim)
+static int	prepare_file_and_backup(const char *file, int *stdin_backup)
 {
-	int	stdin_backup;
 	int	fd;
-	int	i;
 
-	i = 0;
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
-		return ;
-	stdin_backup = dup(0);
+		return (-1);
+	*stdin_backup = dup(0);
+	if (*stdin_backup == -1)
+	{
+		close(fd);
+		return (-1);
+	}
+	return (fd);
+}
+
+static bool	check_signal(t_env *shell, char *file, int fd)
+{
+	if (g_signal == 5)
+	{
+		close(fd);
+		unlink(file);
+		shell->exit_code = 130;
+		return (true);
+	}
+	return (false);
+}
+
+static void	process_lines(int fd, t_env *shell, char **lim, char *file)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = NULL;
 	while (1)
 	{
-		line = readline("> ");
-		if (g_signal == 5)
-		{
-			close(fd);
-			unlink(file);
-			shell->exit_code = 130;
+		if (check_signal(shell, file, fd))
 			break ;
-		}
+		line = readline("> ");
 		if (!line || is_last_limiter(line, lim, i, shell->k))
 			break ;
 		if (is_limiter(line, lim, &i))
@@ -47,8 +66,6 @@ static void	hd_child(char *file, t_env *shell, char *line, char **lim)
 		}
 		free(line);
 	}
-	safe_dup2(stdin_backup, 0);
-	close(fd);
 }
 
 char	*generate_heredoc_filename(void)
@@ -65,10 +82,15 @@ char	*generate_heredoc_filename(void)
 
 void	heredoc(t_env *shell, char **limiter)
 {
-	char	*line;
+	int	stdin_backup;
+	int	fd;
 
 	set_signal_hd();
-	line = NULL;
 	shell->hd_name = generate_heredoc_filename();
-	hd_child(shell->hd_name, shell, line, limiter);
+	fd = prepare_file_and_backup(shell->hd_name, &stdin_backup);
+	if (fd == -1)
+		return ;
+	process_lines(fd, shell, limiter, shell->hd_name);
+	safe_dup2(stdin_backup, 0);
+	close(fd);
 }

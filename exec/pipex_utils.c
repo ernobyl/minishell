@@ -6,48 +6,11 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:14:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 03:09:41 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:57:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
-
-static char	*freereturn(char **tofree, char *toreturn)
-{
-	int	i;
-
-	i = -1;
-	while (tofree[++i])
-		free(tofree[i]);
-	free(tofree);
-	return (toreturn);
-}
-
-static char	*env_path(char *cmd, char **envp)
-{
-	char	**path_array;
-	char	*path;
-	int		i;
-	char	*subdir_path;
-
-	i = 0;
-	if (access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	path_array = ft_split(envp[i] + 5, ':');
-	i = -1;
-	while (path_array && path_array[++i])
-	{
-		subdir_path = ft_strjoin(path_array[i], "/");
-		path = ft_strjoin(subdir_path, cmd);
-		free(subdir_path);
-		if (access(path, F_OK) == 0)
-			return (freereturn(path_array, path));
-		free(path);
-	}
-	return (freereturn(path_array, 0));
-}
 
 static void	is_dir(t_env *shell, char *str)
 {

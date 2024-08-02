@@ -6,22 +6,13 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 04:30:45 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 08:31:29 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static int	error_msg_fd2(char *str, int code)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(" No such file or directory\n", 2);
-	return (code);
-}
-
-static char	*infile_open2(char *file)
+char	*infile_open2(char *file)
 {
 	int	file1;
 
@@ -52,7 +43,7 @@ static char	*outfile_open2(char *file, int type)
 	return (file);
 }
 
-static int	reopen_files(char *infile, char *outfile)
+static int	reopen_files(char *infile, char *outfile, int type)
 {
 	int	fd;
 
@@ -60,51 +51,56 @@ static int	reopen_files(char *infile, char *outfile)
 	{
 		fd = open(infile, O_RDONLY);
 		if (fd == -1)
-		{
-			error_msg_fd2(infile, 1);
-			return (1);
-		}
+			return (error_msg_fd2(infile, 1), 1);
 		safe_dup2(fd, STDIN_FILENO);
 	}
 	if (outfile != NULL && (ft_strcmp(outfile, "\0") != 0))
 	{
-		fd = open(outfile, O_RDONLY);
+		if (type == OUTFILE)
+			fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+		else
+			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0664);
 		if (fd == -1)
-		{
-			error_msg_fd2(outfile, 1);
-			return (1);
-		}
+			return (error_msg_fd2(outfile, 1), 1);
 		safe_dup2(fd, STDOUT_FILENO);
 	}
 	return (0);
 }
 
-int	open_files2(t_env *shell, t_struct *token)
+void	xcute_hd(t_env *shell)
 {
-	t_struct	*temp;
-	char		*infile;
-	char		*outfile;
-
-	temp = token;
-	infile = "\0";
-	outfile = "\0";
-	if (count_heredoc(token) != 0)
+	if (count_heredoc(shell->token) != 0)
 	{
 		infile_open2(shell->hd_name);
 		unlink(shell->hd_name);
 		free(shell->hd_name);
 	}
+}
+
+int	open_files2(t_env *shell, t_struct *token)
+{
+	t_struct	*temp;
+	int			file_type;
+
+	temp = token;
+	xcute_hd(shell);
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)
-			infile = infile_open2(temp->value);
+			shell->infile = infile_open2(temp->value);
 		else if (temp->type == OUTFILE)
-			outfile = outfile_open2(temp->value, OUTFILE);
+		{
+			shell->outfile = outfile_open2(temp->value, OUTFILE);
+			file_type = OUTFILE;
+		}
 		else if (temp->type == D_OUTFILE)
-			outfile = outfile_open2(temp->value, D_OUTFILE);
-		if (infile == NULL || outfile == NULL)
+		{
+			shell->outfile = outfile_open2(temp->value, D_OUTFILE);
+			file_type = D_OUTFILE;
+		}
+		if (shell->infile == NULL || shell->outfile == NULL)
 			return (1);
 		temp = temp->next;
 	}
-	return (reopen_files(infile, outfile));
+	return (reopen_files(shell->infile, shell->outfile, file_type));
 }
