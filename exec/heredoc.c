@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/02 08:43:28 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/03 22:58:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ static void	process_lines(int fd, t_env *shell, char **lim, char *file)
 		if (check_signal(shell, file, fd))
 			break ;
 		line = readline("> ");
-		if (!line || is_last_limiter(line, lim, i, shell->k))
+		if (!line)
+			break ;
+		if (is_last_limiter(line, lim, i, shell->k))
 			break ;
 		if (is_limiter(line, lim, &i))
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/02 09:51:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/03 23:01:39 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,25 @@ static int	reopen_files(char *infile, char *outfile, int type)
 	return (0);
 }
 
-void	xcute_hd(t_env *shell)
+int	xcute_hd(t_env *shell)
 {
+	int	file1;
+	int	error;
+
+	error = 0;
 	if (count_heredoc(shell->token) != 0)
 	{
-		infile_open(shell->hd_name);
+		file1 = open(shell->hd_name, O_RDONLY);
+		if (file1 == -1)
+			error = error_msg_fd(shell->hd_name, 1);
+		if (error == 0)
+			safe_dup2(file1, STDIN_FILENO);
 		unlink(shell->hd_name);
 		free(shell->hd_name);
 	}
+	if (error != 0)
+		return (1);
+	return (0);
 }
 
 int	open_files(t_env *shell, t_struct *token)
@@ -83,7 +94,8 @@ int	open_files(t_env *shell, t_struct *token)
 	int			file_type;
 
 	temp = token;
-	xcute_hd(shell);
+	if (xcute_hd(shell))
+		return (1);
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)

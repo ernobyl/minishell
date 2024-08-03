@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 12:44:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/08/03 21:53:01 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ int	cd_builtin(t_env *shell, const char *path)
 			return (error_msg("cd: OLDPWD not set", 1));
 		return (EXIT_SUCCESS);
 	}
-	shell->prev_dir = current_dir();
+ 	shell->prev_dir = current_dir();
 	if (shell->prev_dir != NULL)
 		change_oldpwd(shell, old_pwd);
 	else
 		path = NULL;
-	if (path == NULL || ft_strcmp(path, "~") == 0)
+	if (path == NULL || (ft_strcmp(path, "\0") == 0) || \
+	ft_strcmp(path, "~") == 0)
 	{
 		path = custom_getenv(shell, "HOME");
 		if (path == NULL)
