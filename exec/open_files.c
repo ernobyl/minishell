@@ -6,37 +6,27 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:47:21 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 04:29:15 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:51:15 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static void	error_msg_fd(t_env *shell, char *str, int code)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	perror("");
-	free_stack(shell->token);
-	ft_free(shell->env);
-	ft_free(shell->args);
-	free(shell->pids);
-	exit(code);
-}
-
-static void	infile_open(t_env *shell, char *file)
+char	*infile_open(char *file)
 {
 	int	file1;
 
 	file1 = open(file, O_RDONLY);
 	if (file1 == -1)
-		error_msg_fd(shell, file, 1);
-	dup2(file1, STDIN_FILENO);
+	{
+		error_msg_fd(file, 1);
+		return (NULL);
+	}
 	close(file1);
+	return (file);
 }
 
-static void	outfile_open(t_env *shell, char *file, int type)
+static char	*outfile_open(char *file, int type)
 {
 	int	file2;
 
@@ -45,54 +35,72 @@ static void	outfile_open(t_env *shell, char *file, int type)
 	else
 		file2 = open(file, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (file2 == -1)
-		error_msg_fd(shell, file, 1);
-	dup2(file2, STDOUT_FILENO);
-	close(file2);
-}
-
-void	heredoc_open(t_env *shell, t_struct *token)
-{
-	t_struct	*temp;
-	char		**limiter;
-	int			i;
-
-	i = 0;
-	shell->k = count_heredoc(token);
-	if (shell->k == 0)
-		return ;
-	limiter = malloc(sizeof(char *) * (shell->k + 1));
-	if (!limiter)
-		return (error_msg_fd(shell, "malloc failed", 1));
-	temp = token;
-	while (temp && temp->index == token->index)
 	{
-		if (temp->type == HEREDOC)
-			limiter[i++] = ft_strdup(temp->value);
-		temp = temp->next;
+		error_msg_fd(file, 1);
+		return (NULL);
 	}
-	limiter[i] = NULL;
-	heredoc(shell, limiter);
+	close(file2);
+	return (file);
 }
 
-void	open_files(t_env *shell, t_struct *token)
+static int	reopen_files(char *infile, char *outfile, int type)
 {
-	t_struct	*temp;
+	int	fd;
 
-	temp = token;
-	if (count_heredoc(token) != 0)
+	if (infile != NULL && (ft_strcmp(infile, "\0") != 0))
 	{
-		infile_open(shell, shell->hd_name);
+		fd = open(infile, O_RDONLY);
+		if (fd == -1)
+			return (error_msg_fd(infile, 1), 1);
+		safe_dup2(fd, STDIN_FILENO);
+	}
+	if (outfile != NULL && (ft_strcmp(outfile, "\0") != 0))
+	{
+		if (type == OUTFILE)
+			fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+		else
+			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0664);
+		if (fd == -1)
+			return (error_msg_fd(outfile, 1), 1);
+		safe_dup2(fd, STDOUT_FILENO);
+	}
+	return (0);
+}
+
+void	xcute_hd(t_env *shell)
+{
+	if (count_heredoc(shell->token) != 0)
+	{
+		infile_open(shell->hd_name);
 		unlink(shell->hd_name);
 		free(shell->hd_name);
 	}
+}
+
+int	open_files(t_env *shell, t_struct *token)
+{
+	t_struct	*temp;
+	int			file_type;
+
+	temp = token;
+	xcute_hd(shell);
 	while (temp && temp->index == token->index)
 	{
 		if (temp->type == INFILE)
-			infile_open(shell, temp->value);
+			shell->infile = infile_open(temp->value);
 		else if (temp->type == OUTFILE)
-			outfile_open(shell, temp->value, OUTFILE);
+		{
+			shell->outfile = outfile_open(temp->value, OUTFILE);
+			file_type = OUTFILE;
+		}
 		else if (temp->type == D_OUTFILE)
-			outfile_open(shell, temp->value, D_OUTFILE);
+		{
+			shell->outfile = outfile_open(temp->value, D_OUTFILE);
+			file_type = D_OUTFILE;
+		}
+		if (shell->infile == NULL || shell->outfile == NULL)
+			return (1);
 		temp = temp->next;
 	}
+	return (reopen_files(shell->infile, shell->outfile, file_type));
 }

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 14:10:38 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/03 21:03:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 			close(pipefd[0]);
 			safe_dup2(pipefd[1], STDOUT_FILENO);
 		}
-		open_files(shell, token);
+		if (open_files(shell, token) == 1)
+			free_error_fd(shell);
 		if (run_builtin(shell->args[0], shell->args, shell, token) == 101)
 		{
 			free_stack(token);
@@ -66,6 +67,30 @@ static void	run_cmds(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 		free(shell->pids);
 	}
 	exit(shell->exit_code);
+}
+
+void	heredoc_open(t_env *shell, t_struct *token)
+{
+	t_struct	*temp;
+	char		**limiter;
+	int			i;
+
+	i = 0;
+	shell->k = count_heredoc(token);
+	if (shell->k == 0)
+		return ;
+	limiter = malloc(sizeof(char *) * (shell->k + 1));
+	if (!limiter)
+		return (error_msg_hd(shell, "malloc failed", 1));
+	temp = token;
+	while (temp && temp->index == token->index)
+	{
+		if (temp->type == HEREDOC)
+			limiter[i++] = ft_strdup(temp->value);
+		temp = temp->next;
+	}
+	limiter[i] = NULL;
+	heredoc(shell, limiter);
 }
 
 int	count_heredoc(t_struct *token)

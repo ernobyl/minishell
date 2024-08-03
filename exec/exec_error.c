@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:47:48 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/02 08:30:55 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:57:40 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,33 @@ void	handle_error_exec(int exitcode, t_env *shell, char *cmd, char *msg)
 	exit(exitcode);
 }
 
-int	error_msg_fd2(char *str, int code)
+int	error_msg_fd(char *str, int code)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(" No such file or directory\n", 2);
+	perror("");
 	return (code);
+}
+
+void	free_error_fd(t_env *shell)
+{
+	free_stack(shell->token);
+	ft_free(shell->env);
+	ft_free(shell->args);
+	free(shell->pids);
+	exit(1);
+}
+
+void	error_msg_hd(t_env *shell, char *str, int code)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	perror("");
+	free_stack(shell->token);
+	ft_free(shell->env);
+	ft_free(shell->args);
+	free(shell->pids);
+	exit(code);
 }

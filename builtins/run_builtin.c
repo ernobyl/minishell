@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 11:57:36 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:21:21 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static int	builtin_file(t_env *shell, t_struct *token, int *fd, int num)
 	if (shell->cmds_num == 0 && num != EXIT)
 	{
 		save_fds(fd);
-		if (open_files2(shell, token) == 1)
+		heredoc_open(shell, token);
+		if (open_files(shell, token) == 1)
 		{
 			safe_dup2(fd[0], STDIN_FILENO);
 			safe_dup2(fd[1], STDOUT_FILENO);
