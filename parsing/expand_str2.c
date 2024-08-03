@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/04 00:44:42 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:08:16 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,6 @@ static char	*find_and_replace_env(char *str, char *replace, int len)
 	return (dest);
 }
 
-static char *new_str(char *str)
-{
-	int len;
-	int i;
-	char *new;
-	
-	i = 0;
-	len = ft_strlen(str);
-	new = malloc(sizeof(char) * len);
-	if (!new)
-		return (NULL);
-	len = 1;
-	while (str[len])
-		new[i++] = str[len++];
-	new[i] = '\0';
-	return (new);
-}
-
 static char	*is_single_dollar(char *str)
 {
 	int		i;
@@ -105,7 +87,8 @@ static char	*is_single_dollar(char *str)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	if (str[i + 1] == ' ' || str[i + 1] == '\0' || (str[i - 1] && (str[i + 1] == '"' && str[i - 1] == '"')))
+	if (str[i + 1] == ' ' || str[i + 1] == '\0' || \
+	(str[i - 1] && (str[i + 1] == '"' && str[i - 1] == '"')))
 		return (str);
 	if (str[i + 1] == '\'')
 	{

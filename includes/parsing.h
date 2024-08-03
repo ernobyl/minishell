@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/24 10:08:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:08:33 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		find_env_var(t_env *shell, char *var);
 char	*ft_strchr_next(const char *s, int c);
 bool	ft_isspecialchar(char c);
 bool	ft_iswhitespace(char c);
+char	*new_str(char *str);
 
 // QUOTE FUNC
 char	*trim_quote(char *str);

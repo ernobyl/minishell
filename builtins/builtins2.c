@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/03 21:53:01 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:07:50 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	cd_builtin(t_env *shell, const char *path)
 			return (error_msg("cd: OLDPWD not set", 1));
 		return (EXIT_SUCCESS);
 	}
- 	shell->prev_dir = current_dir();
+	shell->prev_dir = current_dir();
 	if (shell->prev_dir != NULL)
 		change_oldpwd(shell, old_pwd);
 	else
