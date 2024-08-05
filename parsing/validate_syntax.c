@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/23 22:02:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:12:46 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ static char	*validate_syntax2(char *str, int i)
 		if (str[i] && ft_isquote(str[i]))
 		{
 			if (str[i + 1] && !matching_quote(str, i + 1, str[i]))
-				return (NULL);
+				return (free(str), NULL);
 			i = skip_quotes(str, i + 1, str[i]);
 			if (i == -1)
-				return (NULL);
+				return (free(str), NULL);
 			if (str[i] && str[i] == '\0')
 				break ;
 		}
 		else if (ft_isspecialchar(str[i]))
 		{
 			if (i == 0)
-				return (NULL);
+				return (free(str), NULL);
 			i = validate_specialchar(str, i, str[i]);
 			if (i == -1 || str[i] == '\0')
-				return (NULL);
+				return (free(str), NULL);
 		}
 		else
 			i++;
@@ -75,17 +75,19 @@ static char	*validate_syntax2(char *str, int i)
 
 char	*validate_syntax(t_env *shell, char *str)
 {
-	int	i;
+	char	*new;
+	int		i;
 
 	i = 0;
-	str = ft_strtrim(str, " ");
+	new = ft_strtrim(str, " ");
 	if (!str)
 		return (NULL);
-	str = validate_syntax2(str, i);
-	if (!str)
+	new = validate_syntax2(new, i);
+	if (!new)
 	{
 		ft_putstr_fd("minishell: syntax error\n", 2);
 		shell->exit_code = 258;
+		return (NULL);
 	}
-	return (str);
+	return (new);
 }

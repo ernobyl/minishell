@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/04 01:07:50 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:17:17 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int	cd_builtin(t_env *shell, const char *path)
 		change_oldpwd(shell, old_pwd);
 	else
 		path = NULL;
-	if (path == NULL || (ft_strcmp(path, "\0") == 0) || \
-	ft_strcmp(path, "~") == 0)
+	if (path == NULL || ft_strcmp(path, "~") == 0)
 	{
 		path = custom_getenv(shell, "HOME");
 		if (path == NULL)
