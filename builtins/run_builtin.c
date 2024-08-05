@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/05 20:44:46 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:41:46 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	check_first(int num, char **param, t_env *shell, t_struct *token)
 			shell->exit_code = cd_builtin(shell, NULL);
 		else if (param[2])
 			shell->exit_code = error_msg(" too many arguments", 1);
+		else if (ft_strcmp(param[1], "\0") == 0)
+			shell->exit_code = 0;
 		else
 			shell->exit_code = cd_builtin(shell, param[1]);
 	}
