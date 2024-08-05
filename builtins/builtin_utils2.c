@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/05 21:45:26 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:14:10 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	check_export(char *new_var, int i)
 
 	while (new_var[++i])
 	{
-		if (!ft_isalpha(new_var[0]))
+		if (!ft_isalpha(new_var[0]) && new_var[0] != '_')
 			return (error_msg(" not a valid identifier", 1));
 		else if (new_var[i] == '=')
 			break ;
-		else if (!ft_isalnum(new_var[i]))
+		else if (!ft_isalnum(new_var[i]) && new_var[i] != '_')
 			return (error_msg(" not a valid identifier", 1));
 		k = 0;
 		if (ft_isdigit(new_var[i]))
