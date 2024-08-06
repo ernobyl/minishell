@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:13:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/11 07:51:36 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:56:54 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	handle_special_chars(char *str, char *dest, int *i, int *j)
 	char	sign;
 
 	sign = str[*i];
-	if (str[*i - 1] != ' ')
+	if (*i > 0 && str[*i - 1] != ' ')
 		dest[(*j)++] = ' ';
 	while (str[*i] == sign)
 		dest[(*j)++] = str[(*i)++];

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/05 20:12:46 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:58:54 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*validate_syntax2(char *str, int i)
 		}
 		else if (ft_isspecialchar(str[i]))
 		{
-			if (i == 0)
+			if (str[0] == '|')
 				return (free(str), NULL);
 			i = validate_specialchar(str, i, str[i]);
 			if (i == -1 || str[i] == '\0')
