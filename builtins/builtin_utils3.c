@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:31:47 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/05 21:50:11 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:44:44 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	update_pwd(t_env *shell)
 	free(cur_path);
 }
 
-void	change_oldpwd(t_env *shell, char *old_pwd)
+void	change_oldpwd(t_env *shell)
 {
+	char	*old_pwd;
+
 	old_pwd = ft_strjoin("OLDPWD=", shell->prev_dir);
 	env_replace_var(shell, old_pwd);
 	free(old_pwd);

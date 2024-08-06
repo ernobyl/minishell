@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/07/31 12:36:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:45:49 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	env_replace_var(t_env *shell, char *new_var);
 char	*current_dir(void);
 char	*custom_getenv(t_env *shell, char *var);
 int		handle_oldpwd(t_env *shell, char *prev_dir);
-void	change_oldpwd(t_env *shell, char *old_pwd);
+void	change_oldpwd(t_env *shell);
 void	update_pwd(t_env *shell);
 
 #endif
