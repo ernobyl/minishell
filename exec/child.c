@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:36:51 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/03 22:06:49 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:37:54 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,15 @@ int	child(t_env *shell, t_struct *token, int *pipe_in, int *pipefd)
 	int		pid;
 
 	heredoc_open(shell, token);
-	if (g_signal == 5)
-		return (0);
 	pid = safe_fork();
 	if (pid == 0)
+	{
+		if (g_signal == 5)
+		{
+			unlink(".tmp_heredoc_file");
+			exit (130);
+		}
 		run_cmds(shell, token, pipe_in, pipefd);
+	}
 	return (pid);
 }

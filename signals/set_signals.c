@@ -6,14 +6,14 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 03:44:47 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/31 03:49:13 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:26:00 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/global.h"
 
-static void	signal_heredoc(int sig)
+void	signal_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -27,7 +27,6 @@ void	set_signal_hd(void)
 {
 	signal(SIGINT, signal_heredoc);
 	signal(SIGQUIT, SIG_IGN);
-	g_signal = 0;
 }
 
 bool	set_fork_signal(void)

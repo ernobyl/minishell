@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/05 22:09:14 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:24:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	echo_builtin(char *file, char **param)
 	i = 1;
 	if (file)
 		fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	if (fd == -1)
+		return (EXIT_FAILURE);
 	if (param[i] && ft_strncmp(param[i], "-n", 2) == 0)
 		i++;
 	while (param && param[i])
@@ -57,7 +59,7 @@ int	echo_builtin(char *file, char **param)
 		if (param[i])
 			ft_putstr_fd(" ", fd);
 	}
-	if (param[1] && ft_strcmp(param[1], "-n") != 0)
+	if ((param[1] && ft_strcmp(param[1], "-n") != 0) || (!param[1]))
 		ft_putstr_fd("\n", fd);
 	return (EXIT_SUCCESS);
 }

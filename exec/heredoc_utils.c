@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:37:07 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/03 22:10:52 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:11:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_last_limiter(char *line, char **limiter, int i, int k)
 {
-	if (ft_strncmp(line, limiter[i], ft_strlen(limiter[i])) == 0 && i == k - 1)
+	if (ft_strcmp(line, limiter[i]) == 0 && i == k - 1)
 	{
 		free(line);
 		return (true);
@@ -24,7 +24,7 @@ bool	is_last_limiter(char *line, char **limiter, int i, int k)
 
 bool	is_limiter(char *line, char **limiter, int *i)
 {
-	if (ft_strncmp(line, limiter[*i], ft_strlen(limiter[*i])) == 0)
+	if (ft_strcmp(line, limiter[*i]) == 0)
 	{
 		(*i)++;
 		free(line);

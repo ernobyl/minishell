@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/05 21:41:46 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:36:03 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ static int	builtin_file(t_env *shell, t_struct *token, int *fd, int num)
 	{
 		save_fds(fd);
 		heredoc_open(shell, token);
+		if (g_signal == 5)
+		{
+			shell->exit_code = 130;
+			unlink(".tmp_heredoc_file");
+			return (130);
+		}
 		if (open_files(shell, token) == 1)
 		{
 			safe_dup2(fd[0], STDIN_FILENO);
@@ -103,7 +109,7 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 	if (num == NOT_BUILTIN)
 		return (101);
 	ret_value = builtin_file(shell, token, fd, num);
-	if (ret_value == 1)
+	if (ret_value == 1 || ret_value == 130)
 		return (ret_value);
 	init_builtin_arr(arr);
 	ret_value = match_function(num, param, shell, token);
