@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 14:44:20 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:06:56 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ int	cd_builtin(t_env *shell, const char *path)
 	shell->prev_dir = current_dir();
 	if (shell->prev_dir != NULL)
 		change_oldpwd(shell);
-	else
-		path = NULL;
-	if (path == NULL || ft_strcmp(path, "~") == 0)
+	if ((path && ft_strcmp(path, "~") == 0) || !path)
+		path = shell->home;
+	else if (path && ft_strcmp(path, "\0") == 0)
 	{
 		path = custom_getenv(shell, "HOME");
 		if (path == NULL)
 			return (error_msg("cd: HOME not set", 1));
+		else if (path && (ft_strcmp(path, "\0") == 0))
+			return (0);
 	}
 	if (chdir(path) == 0)
 		return (update_pwd(shell), EXIT_SUCCESS);

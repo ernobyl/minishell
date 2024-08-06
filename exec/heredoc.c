@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 10:16:30 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 13:39:04 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:31:03 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	prepare_file_and_backup(const char *file, int *stdin_backup)
 {
 	int	fd;
 
-	fd = open(file,  O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd == -1)
 		return (-1);
 	*stdin_backup = dup(0);

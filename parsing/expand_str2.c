@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/05 13:15:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:50:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*find_and_replace_exitcode(char *str, t_env *shell, int i)
 	return (dest);
 }
 
-static char	*find_and_replace_env(char *str, char *replace, int len)
+char	*find_and_replace_env(char *str, char *replace, int len)
 {
 	int		i;
 	int		k;

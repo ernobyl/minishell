@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 14:45:49 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:27:19 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		echo_builtin(char *file, char **param);
 int		export_builtin(t_env *shell, char *new_var);
 int		export_array(int r_val, t_env *shell, char **ar);
 int		unset_builtin(t_env *shell, char *to_unset);
-int		env_builtin(t_env *shell);
+int		env_builtin(t_env *shell, char **param);
 int		exit_builtin(char **param, t_env *shell, t_struct *token);
 void	export_shlvl(char **envp);
 int		check_export(char *new_var, int i);

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 11:24:30 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:26:23 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	unset_builtin(t_env *shell, char *to_unset)
 	return (EXIT_SUCCESS);
 }
 
-int	env_builtin(t_env *shell)
+int	env_builtin(t_env *shell, char **param)
 {
 	int	i;
 
@@ -132,6 +132,8 @@ int	env_builtin(t_env *shell)
 		ft_putendl_fd("Environment list not found.", 2);
 		return (EXIT_FAILURE);
 	}
+	if (param[1])
+		return (error_msg(" No such file or directory", 127));
 	while (shell->env[i])
 	{
 		if (ft_strchr(shell->env[i], '='))

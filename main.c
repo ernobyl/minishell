@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/02 07:57:12 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:30:34 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,28 @@ void	readline_loop(t_env *shell)
 	reset_signal_handlers();
 }
 
+static char	*save_home(t_env *shell)
+{
+	char	*var;
+	char	*dest;
+	int		len;
+	int		i;
+
+	dest = NULL;
+	i = 0;
+	var = find_variable("$HOME");
+	if (!var)
+		return (NULL);
+	len = ft_strlen(var) - 1;
+	i = find_env_var(shell, var);
+	if (i != -1)
+	{
+		dest = find_and_replace_env("$HOME", ft_strchr_next \
+		(shell->env[i], '='), len);
+	}
+	return (dest);
+}
+
 int	main(void)
 {
 	t_env	shell;
@@ -46,8 +68,10 @@ int	main(void)
 	shell.prev_dir = NULL;
 	shell.infile = "\0";
 	shell.outfile = "\0";
+	shell.home = save_home(&shell);
 	readline_loop(&shell);
 	ft_free(shell.env);
 	free(shell.prev_dir);
+	free(shell.home);
 	return (shell.exit_code);
 }

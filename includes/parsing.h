@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:53:53 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/04 01:08:33 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:51:08 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	parsing(char *input, t_env *shell);
 // EXPAND
 char	**expand_env(char **arr, t_env *shell);
 bool	expanded_all(char *str, t_env *shell);
+char	*find_and_replace_env(char *str, char *replace, int len);
 char	*find_variable(char *str);
 char	*expand_str(char *str, t_env *shell);
 int		find_env_var(t_env *shell, char *var);
