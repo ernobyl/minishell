@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 22:30:19 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 13:23:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:38:49 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static bool	run_one_cmd(t_env *shell, t_struct *token)
 	if (shell->cmds_num == 0)
 	{
 		if (ft_strcmp(token->value, "\0") == 0 && !token->next)
+		{
+			shell->exit_code = 0;
 			return (true);
+		}
 		args = args_list(token);
 		if (run_builtin(args[0], args, shell, token) != 101)
 		{

@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:16:17 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/06 20:42:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:10:33 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_env
 	int			found;
 	int			i;
 	int			k;
+	bool		is_empty;
 }				t_env;
 
 // SIGNALS

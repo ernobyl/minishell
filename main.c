@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 22:30:34 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:11:01 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(void)
 	shell.prev_dir = NULL;
 	shell.infile = "\0";
 	shell.outfile = "\0";
+	shell.is_empty = false;
 	shell.home = save_home(&shell);
 	readline_loop(&shell);
 	ft_free(shell.env);

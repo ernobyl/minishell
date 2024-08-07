@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:36:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/06 22:22:00 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:34:42 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	check_first(int num, char **param, t_env *shell, t_struct *token)
 			shell->exit_code = cd_builtin(shell, NULL);
 		else if (param[2])
 			shell->exit_code = error_msg(" too many arguments", 1);
-		else
+		else if (shell->is_empty == false)
 			shell->exit_code = cd_builtin(shell, param[1]);
 	}
 	if (num == ECHO)
@@ -116,6 +116,7 @@ int	run_builtin(char *cmd, char **param, t_env *shell, t_struct *token)
 		safe_dup2(fd[0], STDIN_FILENO);
 		safe_dup2(fd[1], STDOUT_FILENO);
 	}
+	shell->is_empty = false;
 	shell->exit_code = ret_value;
 	return (ret_value);
 }

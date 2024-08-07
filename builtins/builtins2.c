@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:25:04 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/06 22:06:56 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:42:17 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	cd_builtin(t_env *shell, const char *path)
 	if (shell->prev_dir != NULL)
 		free(shell->prev_dir);
 	shell->prev_dir = current_dir();
-	if (shell->prev_dir != NULL)
-		change_oldpwd(shell);
 	if ((path && ft_strcmp(path, "~") == 0) || !path)
 		path = shell->home;
 	else if (path && ft_strcmp(path, "\0") == 0)
@@ -64,7 +62,11 @@ int	cd_builtin(t_env *shell, const char *path)
 			return (0);
 	}
 	if (chdir(path) == 0)
+	{
+		if (shell->prev_dir != NULL)
+			change_oldpwd(shell);
 		return (update_pwd(shell), EXIT_SUCCESS);
+	}
 	else
 		return (error_msg(" No such file or directory", 1));
 }

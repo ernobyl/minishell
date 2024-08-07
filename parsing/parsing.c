@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:15:37 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/06 20:54:02 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:34:03 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	parsing(char *input, t_env *shell)
 	free(str);
 	if (!arr)
 		return (false);
+	if (arr[1] && ft_strcmp(arr[1], "\"\"") == 0)
+		shell->is_empty = true;
 	arr = expand_env(arr, shell);
 	if (!arr)
 		return (false);
