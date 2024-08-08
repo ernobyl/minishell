@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 08:36:24 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/07/09 19:39:55 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/08 22:13:02 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	skip_quotes(char *str, int i, char quote)
 {
+	int	len;
+
+	len = ft_strlen(str);
 	while (str[i] && (str[i] != quote))
 		i++;
-	if ((str[i + 1] || str[i + 1] == '\0'))
+	if ((i + 1) <= len || ((i + 1) < len && str[i + 1] == '\0'))
 		return (i + 1);
-	printf("is -1");
 	return (-1);
 }
 

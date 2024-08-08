@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:21:22 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/06 20:50:47 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:14:30 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,21 @@ char	*find_and_replace_env(char *str, char *replace, int len)
 	return (dest);
 }
 
+static char	*find_and_replace_literal(char *str)
+{
+	char	*var;
+	char	*dest;
+	int		len;
+
+	var = find_variable(str);
+	if (!var)
+		return (NULL);
+	len = ft_strlen(var) - 1;
+	dest = find_and_replace_env(str, "", len);
+	free(var);
+	return (dest);
+}
+
 static char	*is_single_dollar(char *str)
 {
 	int		i;
@@ -97,12 +112,7 @@ static char	*is_single_dollar(char *str)
 			return (NULL);
 	}
 	else
-	{
-		new = malloc(sizeof(char) * 1);
-		if (!new)
-			return (NULL);
-		new[0] = '\0';
-	}
+		new = find_and_replace_literal(str);
 	free(str);
 	return (new);
 }

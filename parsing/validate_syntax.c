@@ -6,7 +6,7 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:03:50 by kmatjuhi          #+#    #+#             */
-/*   Updated: 2024/08/06 15:07:35 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:49:47 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*validate_syntax(t_env *shell, char *str)
 
 	i = 0;
 	new = ft_strtrim(str, " ");
-	if (!str)
+	if (!new)
 		return (NULL);
 	new = validate_syntax2(new, i);
 	if (!new)

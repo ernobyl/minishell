@@ -1,0 +1,24 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    readline.supp                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/08/08 21:53:05 by kmatjuhi          #+#    #+#              #
+#    Updated: 2024/08/08 21:53:34 by kmatjuhi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+{
+	leak readline
+	Memcheck:Leak
+	...
+	fun:readline
+}
+{
+	leak add_history
+	Memcheck:Leak
+	...
+	fun:add_history
+}

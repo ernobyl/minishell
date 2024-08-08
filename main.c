@@ -6,13 +6,27 @@
 /*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/08/07 19:11:01 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:49:35 by kmatjuhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parsing.h"
 
 int	g_signal = 0;
+
+bool	check_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i]) != ' ')
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 void	readline_loop(t_env *shell)
 {
@@ -24,7 +38,7 @@ void	readline_loop(t_env *shell)
 		input = readline("minishell> ");
 		if (input == NULL)
 			break ;
-		if (*input == '\0')
+		if (*input == '\0' || check_empty(input))
 		{
 			free(input);
 			continue ;
